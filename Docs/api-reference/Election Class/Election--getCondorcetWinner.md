@@ -18,7 +18,7 @@ Get the natural Condorcet winner if there is one.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::getCondorcetLoser](/Docs/api-reference/Election%20Class/Election--getCondorcetLoser.md)    
 * [Election::getWinner](/Docs/api-reference/Election%20Class/Election--getWinner.md)    

@@ -12,6 +12,6 @@ Does the result come from a proportional method
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Result::seats](/Docs/api-reference/Result%20Class/Result--seats.md)    

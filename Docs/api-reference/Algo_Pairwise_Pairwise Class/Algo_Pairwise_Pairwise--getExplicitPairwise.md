@@ -18,7 +18,7 @@ Return the Pairwise.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::getPairwise](/Docs/api-reference/Election%20Class/Election--getPairwise.md)    
 * [Election::getResult](/Docs/api-reference/Election%20Class/Election--getResult.md)    

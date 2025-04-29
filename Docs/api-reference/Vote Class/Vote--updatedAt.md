@@ -12,6 +12,6 @@ Get the timestamp corresponding of the last vote change.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Vote::createdAt](/Docs/api-reference/Vote%20Class/Vote--createdAt.md)    

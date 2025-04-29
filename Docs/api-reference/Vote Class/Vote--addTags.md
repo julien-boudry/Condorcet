@@ -28,7 +28,7 @@ Tag(s) are non-numeric alphanumeric string. They can be added by string separate
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Vote::removeTags](/Docs/api-reference/Vote%20Class/Vote--removeTags.md)    
 

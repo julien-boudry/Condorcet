@@ -26,7 +26,7 @@ Count Votes with this tag or without this tag.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::countInvalidVoteWithConstraints](/Docs/api-reference/Election%20Class/Election--countInvalidVoteWithConstraints.md)    
 * [Election::countVotes](/Docs/api-reference/Election%20Class/Election--countVotes.md)    

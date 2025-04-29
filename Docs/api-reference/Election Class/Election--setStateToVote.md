@@ -1,6 +1,6 @@
 # public Election::setStateToVote
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L488)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L483)
 
 ## Description    
 
@@ -28,6 +28,6 @@ If you are on state 3. The method result cache will be clear, but not the pairwi
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::state](/Docs/api-reference/Election%20Class/Election--state.md)    

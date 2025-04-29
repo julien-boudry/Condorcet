@@ -1,24 +1,18 @@
 # public Election::clearConstraints
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L385)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L380)
 
 ## Description    
 
 ```php
-public Election->clearConstraints ( ): bool
+public Election->clearConstraints ( ): static
 ```
 
 Clear all constraints rules and clear previous results.
 
-
-## Return value   
-
-*(`bool`)* Return True.
-
-
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::getConstraints](/Docs/api-reference/Election%20Class/Election--getConstraints.md)    
 * [Election::addConstraint](/Docs/api-reference/Election%20Class/Election--addConstraint.md)    

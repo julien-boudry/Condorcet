@@ -29,7 +29,7 @@ Callback function to execute after each valid line, before vote registration.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::addVote](/Docs/api-reference/Election%20Class/Election--addVote.md)    
 * [Election::parseCandidates](/Docs/api-reference/Election%20Class/Election--parseCandidates.md)    

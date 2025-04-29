@@ -31,7 +31,7 @@ String separated by commas or an array. Will add tags to the vote object for you
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::parseVotes](/Docs/api-reference/Election%20Class/Election--parseVotes.md)    
 * [Election::addVotesFromJson](/Docs/api-reference/Election%20Class/Election--addVotesFromJson.md)    

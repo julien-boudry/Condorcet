@@ -23,6 +23,6 @@ true will return 2.0 and false will return 2.0.0.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Condorcet::getVersion](/Docs/api-reference/Condorcet%20Class/Condorcet--getVersion.md)    

@@ -18,7 +18,7 @@ Get election objects linked to this Vote or Candidate object.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Vote::countLinks](/Docs/api-reference/Vote%20Class/Vote--countLinks.md)    
 * [Candidate::countLinks](/Docs/api-reference/Candidate%20Class/Candidate--countLinks.md)    

@@ -23,6 +23,6 @@ Option Value.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Result::methodOptions](/Docs/api-reference/Result%20Class/Result--methodOptions.md)    

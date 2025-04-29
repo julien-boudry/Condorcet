@@ -32,7 +32,7 @@ If true, the input is evaluated as a path to a text file.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::addCandidate](/Docs/api-reference/Election%20Class/Election--addCandidate.md)    
 * [Election::addCandidatesFromJson](/Docs/api-reference/Election%20Class/Election--addCandidatesFromJson.md)    

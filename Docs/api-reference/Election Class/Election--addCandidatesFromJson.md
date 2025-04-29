@@ -28,7 +28,7 @@ JSON string.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::addCandidate](/Docs/api-reference/Election%20Class/Election--addCandidate.md)    
 * [Election::parseCandidates](/Docs/api-reference/Election%20Class/Election--parseCandidates.md)    

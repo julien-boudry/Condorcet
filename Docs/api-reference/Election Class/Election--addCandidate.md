@@ -29,7 +29,7 @@ Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The candidate na
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::parseCandidates](/Docs/api-reference/Election%20Class/Election--parseCandidates.md)    
 * [Election::addCandidatesFromJson](/Docs/api-reference/Election%20Class/Election--addCandidatesFromJson.md)    

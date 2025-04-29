@@ -27,7 +27,7 @@ Throw an exception on error.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::getCondorcetWinner](/Docs/api-reference/Election%20Class/Election--getCondorcetWinner.md)    
 * [Election::getLoser](/Docs/api-reference/Election%20Class/Election--getLoser.md)    

@@ -1,6 +1,6 @@
 # public Election::setExternalDataHandler
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L442)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L437)
 
 ## Description    
 
@@ -22,7 +22,7 @@ Driver object.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::removeExternalDataHandler](/Docs/api-reference/Election%20Class/Election--removeExternalDataHandler.md)    
 

@@ -18,7 +18,7 @@ Get the registered tags for this Vote.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Vote::tags](/Docs/api-reference/Vote%20Class/Vote--tags.md)    
 * [Vote::addTags](/Docs/api-reference/Vote%20Class/Vote--addTags.md)    

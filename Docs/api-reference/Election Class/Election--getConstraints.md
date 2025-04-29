@@ -1,6 +1,6 @@
 # public Election::getConstraints
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L373)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L369)
 
 ## Description    
 
@@ -18,7 +18,7 @@ Get active constraints list.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::clearConstraints](/Docs/api-reference/Election%20Class/Election--clearConstraints.md)    
 * [Election::addConstraint](/Docs/api-reference/Election%20Class/Election--addConstraint.md)    

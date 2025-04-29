@@ -12,7 +12,7 @@ Return an history of each naming change, with timestamp.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Candidate::createdAt](/Docs/api-reference/Candidate%20Class/Candidate--createdAt.md)    
 * [Candidate::updatedAt](/Docs/api-reference/Candidate%20Class/Candidate--updatedAt.md)    

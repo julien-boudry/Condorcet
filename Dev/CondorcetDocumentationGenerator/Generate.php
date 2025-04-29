@@ -402,12 +402,12 @@ class Generate
             }
         }
 
-        // Related methods
+        // Related
 
         if (!empty($see = $this->getDocBlockTagDescriptionOrValue('@see', $onePage))) {
             $md .=  "\n" .
                     "---------------------------------------\n\n" .
-                    "## Related method(s)      \n\n";
+                    "## Related\n\n";
 
             foreach (explode(', ', $see) as $toSee) {
                 if ($toSee === self::simpleClass($onePage->class) . '::' . $onePage->name) {

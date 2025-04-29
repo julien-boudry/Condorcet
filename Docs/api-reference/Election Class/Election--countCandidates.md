@@ -18,6 +18,6 @@ Count the number of registered candidates
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::getCandidatesList](/Docs/api-reference/Election%20Class/Election--getCandidatesList.md)    

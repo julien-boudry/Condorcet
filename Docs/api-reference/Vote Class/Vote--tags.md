@@ -12,7 +12,7 @@ Get the registered tags for this Vote.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Vote::getTagsAsString](/Docs/api-reference/Vote%20Class/Vote--getTagsAsString.md)    
 * [Vote::addTags](/Docs/api-reference/Vote%20Class/Vote--addTags.md)    

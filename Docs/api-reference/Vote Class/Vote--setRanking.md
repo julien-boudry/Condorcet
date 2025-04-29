@@ -27,7 +27,7 @@ Set your own timestamp metadata on Ranking. Your timestamp must be > than last r
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Vote::getRanking](/Docs/api-reference/Vote%20Class/Vote--getRanking.md)    
 * [Vote::rankingHistory](/Docs/api-reference/Vote%20Class/Vote--rankingHistory.md)    

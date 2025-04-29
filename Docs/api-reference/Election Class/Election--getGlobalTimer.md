@@ -1,6 +1,6 @@
 # public Election::getGlobalTimer
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L243)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L228)
 
 ## Description    
 
@@ -18,7 +18,7 @@ Returns the cumulated computation runtime of this object. Include only computati
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::getLastTimer](/Docs/api-reference/Election%20Class/Election--getLastTimer.md)    
 

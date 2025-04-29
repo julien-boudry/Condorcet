@@ -26,7 +26,7 @@ Include or not non deterministic methods.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Condorcet::isAuthMethod](/Docs/api-reference/Condorcet%20Class/Condorcet--isAuthMethod.md)    
 * [Condorcet::getMethodClass](/Docs/api-reference/Condorcet%20Class/Condorcet--getMethodClass.md)    

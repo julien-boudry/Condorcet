@@ -18,7 +18,7 @@ Remove all Votes from an election.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::addVote](/Docs/api-reference/Election%20Class/Election--addVote.md)    
 * [Election::removeVote](/Docs/api-reference/Election%20Class/Election--removeVote.md)    

@@ -12,6 +12,6 @@ Get the timestamp corresponding of the creation of this vote.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Candidate::updatedAt](/Docs/api-reference/Candidate%20Class/Candidate--updatedAt.md)    

@@ -26,6 +26,6 @@ Count Votes with this tag or without this tag.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::sumValidVoteWeightsWithConstraints](/Docs/api-reference/Election%20Class/Election--sumValidVoteWeightsWithConstraints.md)    

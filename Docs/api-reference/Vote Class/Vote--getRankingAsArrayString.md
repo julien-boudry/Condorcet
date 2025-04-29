@@ -23,7 +23,7 @@ An election already linked to the Vote.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Vote::getRanking](/Docs/api-reference/Vote%20Class/Vote--getRanking.md)    
 * [Vote::getRanking](/Docs/api-reference/Vote%20Class/Vote--getRanking.md)    

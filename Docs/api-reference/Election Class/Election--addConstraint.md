@@ -1,11 +1,11 @@
 # public Election::addConstraint
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L349)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L345)
 
 ## Description    
 
 ```php
-public Election->addConstraint ( string $constraintClass ): true
+public Election->addConstraint ( string $constraintClass ): static
 ```
 
 Add a constraint rules as a valid class path.
@@ -16,19 +16,13 @@ Add a constraint rules as a valid class path.
 A valid class path. Class must extend VoteConstraint class.    
 
 
-## Return value   
-
-*(`true`)* True on success.
-
-
-
 ## Throws:   
 
 * ```CondorcetPHP\Condorcet\Throwable\VoteConstraintException``` 
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::getConstraints](/Docs/api-reference/Election%20Class/Election--getConstraints.md)    
 * [Election::clearConstraints](/Docs/api-reference/Election%20Class/Election--clearConstraints.md)    

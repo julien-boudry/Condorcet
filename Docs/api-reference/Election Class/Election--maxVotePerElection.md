@@ -13,6 +13,6 @@ Null will deactivate this functionality. An integer will set the limit.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::maxParseIteration](/Docs/api-reference/Election%20Class/Election--maxParseIteration.md)    

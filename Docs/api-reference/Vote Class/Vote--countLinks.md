@@ -18,7 +18,7 @@ Count number of linked elections to this object.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Candidate::countLinks](/Docs/api-reference/Candidate%20Class/Candidate--countLinks.md)    
 * [Vote::getLinks](/Docs/api-reference/Vote%20Class/Vote--getLinks.md)    

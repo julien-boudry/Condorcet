@@ -27,7 +27,7 @@ Throw an exception on error.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::getWinner](/Docs/api-reference/Election%20Class/Election--getWinner.md)    
 * [Election::getResult](/Docs/api-reference/Election%20Class/Election--getResult.md)    

@@ -31,7 +31,7 @@ String corresponding to the candidate's name or CondorcetPHP\Condorcet\Candidate
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::addCandidate](/Docs/api-reference/Election%20Class/Election--addCandidate.md)    
 * [Election::getCandidatesList](/Docs/api-reference/Election%20Class/Election--getCandidatesList.md)    

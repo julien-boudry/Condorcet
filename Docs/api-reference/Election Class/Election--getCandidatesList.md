@@ -18,6 +18,6 @@ Return a list of registered candidates for this election.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::countCandidates](/Docs/api-reference/Election%20Class/Election--countCandidates.md)    

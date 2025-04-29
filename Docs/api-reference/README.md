@@ -46,11 +46,11 @@
 * `public static ?int` [$maxParseIteration](/Docs/api-reference/Election%20Class/Election--maxParseIteration.md)
 * `public static ?int` [$maxVotePerElection](/Docs/api-reference/Election%20Class/Election--maxVotePerElection.md)
 * `public CondorcetPHP\Condorcet\ElectionProcess\ElectionState` [$state](/Docs/api-reference/Election%20Class/Election--state.md)
-* `public bool` [$implicitRankingRule](/Docs/api-reference/Election%20Class/Election--implicitRankingRule.md)
 * `public bool` [$authorizeVoteWeight](/Docs/api-reference/Election%20Class/Election--authorizeVoteWeight.md)
 * `public int` [$seatsToElect](/Docs/api-reference/Election%20Class/Election--seatsToElect.md)
 * `public array` [$votesConstraints](/Docs/api-reference/Election%20Class/Election--votesConstraints.md)
 * `public string` [$hash](/Docs/api-reference/Election%20Class/Election--hash.md)
+* `public bool` [$implicitRankingRule](/Docs/api-reference/Election%20Class/Election--implicitRankingRule.md)
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Election%20Class/Election--buildByCondorcetVersion.md)
 * `public CondorcetPHP\Condorcet\Algo\StatsVerbosity` [$statsVerbosity](/Docs/api-reference/Election%20Class/Election--statsVerbosity.md)
 
@@ -59,13 +59,13 @@
 * `public` [Election->__construct ()](/Docs/api-reference/Election%20Class/Election--__construct.md)  
 * `public` [Election->addCandidate (...)](/Docs/api-reference/Election%20Class/Election--addCandidate.md): `CondorcetPHP\Condorcet\Candidate`  
 * `public` [Election->addCandidatesFromJson (...)](/Docs/api-reference/Election%20Class/Election--addCandidatesFromJson.md): `array`  
-* `public` [Election->addConstraint (...)](/Docs/api-reference/Election%20Class/Election--addConstraint.md): `true`  
+* `public` [Election->addConstraint (...)](/Docs/api-reference/Election%20Class/Election--addConstraint.md): `static`  
 * `public` [Election->addVote (...)](/Docs/api-reference/Election%20Class/Election--addVote.md): `CondorcetPHP\Condorcet\Vote`  
 * `public` [Election->addVotesFromJson (...)](/Docs/api-reference/Election%20Class/Election--addVotesFromJson.md): `int`  
 * `public` [Election->authorizeVoteWeight (...)](/Docs/api-reference/Election%20Class/Election--authorizeVoteWeight.md): `static`  
 * `final public` [Election->buildByCondorcetVersion](/Docs/api-reference/Election%20Class/Election--buildByCondorcetVersion.md)  
 * `public` [Election->canAddCandidate (...)](/Docs/api-reference/Election%20Class/Election--canAddCandidate.md): `bool`  
-* `public` [Election->clearConstraints ()](/Docs/api-reference/Election%20Class/Election--clearConstraints.md): `bool`  
+* `public` [Election->clearConstraints ()](/Docs/api-reference/Election%20Class/Election--clearConstraints.md): `static`  
 * `public` [Election->computeResult (...)](/Docs/api-reference/Election%20Class/Election--computeResult.md): `void`  
 * `public` [Election->countCandidates ()](/Docs/api-reference/Election%20Class/Election--countCandidates.md): `int`  
 * `public` [Election->countInvalidVoteWithConstraints ()](/Docs/api-reference/Election%20Class/Election--countInvalidVoteWithConstraints.md): `int`  
@@ -94,7 +94,7 @@
 * `public` [Election->getWinner (...)](/Docs/api-reference/Election%20Class/Election--getWinner.md): `CondorcetPHP\Condorcet\Candidate|array|null`  
 * `public` [Election->hasCandidate (...)](/Docs/api-reference/Election%20Class/Election--hasCandidate.md): `bool`  
 * `virtual public` [Election->hash](/Docs/api-reference/Election%20Class/Election--hash.md)  
-* `public` [Election->implicitRankingRule](/Docs/api-reference/Election%20Class/Election--implicitRankingRule.md)  
+* `public` [Election->implicitRankingRule (...)](/Docs/api-reference/Election%20Class/Election--implicitRankingRule.md): `static`  
 * `public` [Election->isVoteValidUnderConstraints (...)](/Docs/api-reference/Election%20Class/Election--isVoteValidUnderConstraints.md): `bool`  
 * `public` [Election->parseCandidates (...)](/Docs/api-reference/Election%20Class/Election--parseCandidates.md): `array`  
 * `public` [Election->parseVotes (...)](/Docs/api-reference/Election%20Class/Election--parseVotes.md): `int`  
@@ -106,7 +106,6 @@
 * `public` [Election->removeVotesByTags (...)](/Docs/api-reference/Election%20Class/Election--removeVotesByTags.md): `array`  
 * `public` [Election->seatsToElect](/Docs/api-reference/Election%20Class/Election--seatsToElect.md)  
 * `public` [Election->setExternalDataHandler (...)](/Docs/api-reference/Election%20Class/Election--setExternalDataHandler.md): `static`  
-* `public` [Election->setImplicitRankingRule (...)](/Docs/api-reference/Election%20Class/Election--setImplicitRankingRule.md): `static`  
 * `public` [Election->setMethodOption (...)](/Docs/api-reference/Election%20Class/Election--setMethodOption.md): `static`  
 * `public` [Election->setSeatsToElect (...)](/Docs/api-reference/Election%20Class/Election--setSeatsToElect.md): `static`  
 * `public` [Election->setStateToVote ()](/Docs/api-reference/Election%20Class/Election--setStateToVote.md): `true`  
@@ -2747,11 +2746,11 @@ _Including above methods from public API_
 * protected static bool $checksumMode
 * public CondorcetPHP\Condorcet\ElectionProcess\ElectionState $state
 * readonly protected CondorcetPHP\Condorcet\Timer\Manager $timer
-* public bool $implicitRankingRule
 * public bool $authorizeVoteWeight
 * public int $seatsToElect
 * public array $votesConstraints
 * public string $hash
+* public bool $implicitRankingRule
 * public string $buildByCondorcetVersion
 * public array $candidates
 * public string $nextAutomaticCandidateName
@@ -2771,7 +2770,7 @@ _Including above methods from public API_
 * public __unserialize (array $data): void  
 * public addCandidate (CondorcetPHP\Condorcet\Candidate|string|null $candidate = null): CondorcetPHP\Condorcet\Candidate  
 * public addCandidatesFromJson (string $input): array  
-* public addConstraint (string $constraintClass): true  
+* public addConstraint (string $constraintClass): static  
 * public addVote (CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags = null): CondorcetPHP\Condorcet\Vote  
 * public addVotesFromJson (string $input): int  
 * public authorizeVoteWeight (bool $authorized = true): static  
@@ -2780,7 +2779,7 @@ _Including above methods from public API_
 * public canAddCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate): bool  
 * public candidates ()  
 * public checkVoteCandidate (CondorcetPHP\Condorcet\Vote $vote): bool  
-* public clearConstraints (): bool  
+* public clearConstraints (): static  
 * public computeResult (?string $method = null): void  
 * public convertRankingCandidates (array $ranking): bool  
 * public countCandidates (): int  
@@ -2817,7 +2816,7 @@ _Including above methods from public API_
 * public getWinner (?string $method = null): CondorcetPHP\Condorcet\Candidate|array|null  
 * public hasCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate, bool $strictMode = true): bool  
 * public hash ()  
-* public implicitRankingRule ()  
+* public implicitRankingRule (bool $rule): static  
 * public isVoteValidUnderConstraints (CondorcetPHP\Condorcet\Vote $vote): bool  
 * public nextAutomaticCandidateName ()  
 * public parseCandidates (string $input, bool $isFile = false): array  
@@ -2831,7 +2830,6 @@ _Including above methods from public API_
 * public resetMethodsComputation (): void  
 * public seatsToElect ()  
 * public setExternalDataHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver): static  
-* public setImplicitRankingRule (bool $rule = true): static  
 * public setMethodOption (string $method, string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): static  
 * public setSeatsToElect (int $seats): static  
 * public setStateToVote (): true  

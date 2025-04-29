@@ -18,7 +18,7 @@ Count the number of actual invalid (if constraints functionality is enabled) but
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::countValidVoteWithConstraints](/Docs/api-reference/Election%20Class/Election--countValidVoteWithConstraints.md)    
 * [Election::countVotes](/Docs/api-reference/Election%20Class/Election--countVotes.md)    

@@ -17,7 +17,7 @@ Not requiered for use object default method. Set the string name of the algorith
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::getWinner](/Docs/api-reference/Election%20Class/Election--getWinner.md)    
 * [Election::getResult](/Docs/api-reference/Election%20Class/Election--getResult.md)    

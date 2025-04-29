@@ -13,7 +13,7 @@ Contain Candidate object. Null if there are no available loser. Or an array with
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Result::Winner](/Docs/api-reference/Result%20Class/Result--Winner.md)    
 * [Election::getWinner](/Docs/api-reference/Election%20Class/Election--getWinner.md)    

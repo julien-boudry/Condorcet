@@ -23,7 +23,7 @@ Json string input.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::addVote](/Docs/api-reference/Election%20Class/Election--addVote.md)    
 * [Election::parseVotes](/Docs/api-reference/Election%20Class/Election--parseVotes.md)    

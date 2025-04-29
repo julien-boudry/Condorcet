@@ -1,6 +1,6 @@
 # public Election::__construct
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L153)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L138)
 
 ## Description    
 

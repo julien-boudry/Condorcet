@@ -23,6 +23,6 @@ Get the library version.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::getCondorcetBuilderVersion](/Docs/api-reference/Election%20Class/Election--getCondorcetBuilderVersion.md)    

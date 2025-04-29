@@ -23,7 +23,7 @@ Vote object.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::removeAllVotes](/Docs/api-reference/Election%20Class/Election--removeAllVotes.md)    
 * [Election::addVote](/Docs/api-reference/Election%20Class/Election--addVote.md)    

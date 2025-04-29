@@ -25,6 +25,6 @@ A = B > C * 6
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::parseVotes](/Docs/api-reference/Election%20Class/Election--parseVotes.md)    

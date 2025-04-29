@@ -28,6 +28,6 @@ A valid method name.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Condorcet::getAuthMethods](/Docs/api-reference/Condorcet%20Class/Condorcet--getAuthMethods.md)    

@@ -1,6 +1,6 @@
 # public Election::getLastTimer
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L254)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L239)
 
 ## Description    
 
@@ -18,7 +18,7 @@ Return the last computation runtime (typically after a getResult() call.). Inclu
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::getGlobalTimer](/Docs/api-reference/Election%20Class/Election--getGlobalTimer.md)    
 

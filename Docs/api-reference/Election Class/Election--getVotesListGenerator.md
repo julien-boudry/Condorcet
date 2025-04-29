@@ -27,6 +27,6 @@ Get votes with these tags or without.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::getVotesList](/Docs/api-reference/Election%20Class/Election--getVotesList.md)    

@@ -18,7 +18,7 @@ Remove all registered tag(s) on this Vote.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Vote::addTags](/Docs/api-reference/Vote%20Class/Vote--addTags.md)    
 * [Vote::removeTags](/Docs/api-reference/Vote%20Class/Vote--removeTags.md)    

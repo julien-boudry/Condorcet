@@ -26,6 +26,6 @@ Include or not the weight symbol and value.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Vote::getRanking](/Docs/api-reference/Vote%20Class/Vote--getRanking.md)    

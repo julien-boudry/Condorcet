@@ -17,7 +17,7 @@ A verbosity level.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::statsVerbosity](/Docs/api-reference/Election%20Class/Election--statsVerbosity.md)    
 * [Result::statsVerbosity](/Docs/api-reference/Result%20Class/Result--statsVerbosity.md)    

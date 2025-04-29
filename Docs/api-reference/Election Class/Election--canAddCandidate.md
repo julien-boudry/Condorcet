@@ -23,7 +23,7 @@ String or Condorcet/Vote object.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::addCandidate](/Docs/api-reference/Election%20Class/Election--addCandidate.md)    
 * [Election::hasCandidate](/Docs/api-reference/Election%20Class/Election--hasCandidate.md)    

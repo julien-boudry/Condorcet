@@ -26,7 +26,7 @@ If true, the input is evaluated as path to text file.
 
 ---------------------------------------
 
-## Related method(s)      
+## Related
 
 * [Election::addVote](/Docs/api-reference/Election%20Class/Election--addVote.md)    
 * [Election::parseCandidates](/Docs/api-reference/Election%20Class/Election--parseCandidates.md)    
