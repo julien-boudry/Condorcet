@@ -2,7 +2,32 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v5.0.0] - 2024-XX-XX
+## [v5.0.0] - 2025-05-01
+### Description
+Major release with many breaking changes, a modernized API, removal of deprecated features, and significant optimizations.
+To upgrade, it is recommended to test carefully and read the documentation. However, the main concepts and methods remain mostly unchanged.
+
+### Breaking Changes
+- Removal of methods, notably many old setters/getters replaced by direct access to public properties.
+- Many methods and properties have been renamed or merged for better consistency.
+- Result stats API has been completely reworked.
+- Dropped support for PHP < 8.4.
+- Some methods no longer return true if no error occurs. Instead, they return static to allow method chaining.
+
+### Added
+- Documentation now uses standard PHPDoc tags, compatible with IDEs.
+- Brand new documentation book available at https://docs.condorcet.io, replacing the old one.
+
+### Changed
+- Result objects now expose all their properties as typed, read-only properties instead of getters methods.
+- Result stats no longer return as a mixed value (previously: array), but now return an object implementing `StatsInterface`.
+
+### Dev
+- Added Pest mutation testing and advanced static analysis.
+- Added some architecture tests.
+- PHPStan 2.0 configuration.
+- PHP Rector configuration.
+- Added some PHPDoc generics.
 
 ## [v4.7.1] - 2025-04-29
 ### Description
