@@ -108,11 +108,7 @@ abstract class SchulzeCore extends Method implements MethodInterface
         foreach ($candidates as $i) {
             foreach ($candidates as $j) {
                 if ($i !== $j) {
-                    if ($pairwise->candidateKeyWinVersus($i, $j)) {
-                        $this->StrongestPaths[$i][$j] = $this->schulzeVariant($i, $j, $pairwise);
-                    } else {
-                        $this->StrongestPaths[$i][$j] = 0;
-                    }
+                    $this->StrongestPaths[$i][$j] = $pairwise->candidateKeyWinVersus($i, $j) ? $this->schulzeVariant($i, $j, $pairwise) : 0;
                 }
             }
         }

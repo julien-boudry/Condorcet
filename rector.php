@@ -39,6 +39,5 @@ return RectorConfig::configure()
         ClassPropertyAssignToConstructorPromotionRector::class,
         NullToStrictStringFuncCallArgRector::class,
         RestoreDefaultNullToNullableTypePropertyRector::class,
-        UnusedForeachValueToArrayKeysRector::class,
     ])
 ;

@@ -124,7 +124,6 @@ class Generate
 
     public static function computeRepresentationAsPHP(ReflectionMethod|ReflectionProperty $reflection): string
     {
-        $str = '';
         $str = $reflection instanceof ReflectionMethod ? '(' : '';
         $i = 0;
 
@@ -183,9 +182,7 @@ class Generate
             throw new \Error('Unknown type');
         }
 
-        $r .= "\n```";
-
-        return $r;
+        return $r . "\n```";
     }
 
 
