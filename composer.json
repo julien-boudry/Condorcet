@@ -63,12 +63,16 @@
     "scripts": {
         "test": "pest",
         "document": "php Dev/update-documentation.php",
-        "pintify": "pint"
+        "pintify": "pint",
+        "phpstan": "phpstan analyse --no-interaction",
+        "rector": "rector process --dry-run"
     },
     "scripts-descriptions": {
         "test": "Run all tests!",
         "document": "Generate documentation",
-        "pintify": "Run laravel Pint"
+        "pintify": "Run laravel Pint",
+        "phpstan": "Run PHPStan",
+        "rector": "Run rector"
     },
     "bin": ["bin/condorcet"],
     "archive": {

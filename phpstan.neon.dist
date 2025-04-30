@@ -5,7 +5,6 @@ parameters:
 
     ignoreErrors:
         - identifier: assign.readOnlyProperty
-        - identifier: unset.possiblyHookedProperty
         - identifier: return.phpDocType
         - identifier: missingType.iterableValue
         - identifier: argument.type
