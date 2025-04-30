@@ -135,10 +135,10 @@ class ElectionCommand extends Command
                 description: 'Deactivate implicit ranking',
             )
             ->addOption(
-                name: 'allows-votes-weight',
+                name: 'authorize-vote-weight',
                 shortcut: 'g',
                 mode: InputOption::VALUE_NONE,
-                description: 'Allows vote weight',
+                description: 'Authorize vote weight',
             )
             ->addOption(
                 name: 'no-tie',
@@ -717,7 +717,7 @@ class ElectionCommand extends Command
         }
 
         // Allow Votes Weight
-        if ($input->getOption('allows-votes-weight')) {
+        if ($input->getOption('authorize-vote-weight')) {
             $this->election->authorizeVoteWeight = true;
         }
 
