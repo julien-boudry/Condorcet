@@ -8,10 +8,16 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest, windows-latest, macos-14]
         php-versions: ['8.4']
-        php-extensions: ['pdo,pdo_sqlite,mbstring,json', 'none,curl,mbstring,json,dom,openssl,tokenizer,xml,xmlwriter,zip']
+        php-extensions:
+          - 'pdo, pdo_sqlite, mbstring, json'
+          - ':pdo, mbstring, json' # without pdo (external handler)
+        php-jit:
+          - "opcache.enable_cli=1, opcache.jit=tracing, opcache.jit_buffer_size=128M"
+          - "opcache.enable_cli=1, opcache.jit=function, opcache.jit_buffer_size=128M"
+          - "opcache.enable_cli=1, opcache.jit=off, opcache.jit_buffer_size=128M"
       fail-fast: false
 
-    name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }} with ${{ matrix.php-extensions }} - Execute All Tests Without coverage
+    name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }} with ${{ matrix.php-extensions }} and JIT ${{ matrix.php-jit }} - Execute All Tests Without coverage
 
     steps:
     - name: Checkout
@@ -22,6 +28,7 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         extensions: ${{ matrix.php-extensions }}
+        ini-values: ${{ matrix.php-jit }}
 
     - name: Check PHP Version
       run: php -v
