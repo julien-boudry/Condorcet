@@ -872,6 +872,7 @@ $election->getResult('Largest Remainder') ;
 
 ## Smith Set
 
+> **_EXPERIMENTAL_**
 > **Family:** Condorcet  
 > **Variant used:** *None*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/Smith_set  
@@ -902,4 +903,39 @@ $election->getLoser('Smith set') ; // The candidates not in the smith set, as ar
 
 // Get Stats (includes the Smith set)
 $election->getResult('Smith set')->getStats()['smith_set'] ;
+```
+
+## Schwartz Set
+
+> **_EXPERIMENTAL_**
+> **Family:** Condorcet  
+> **Variant used:** *None*  
+> **Wikipedia:** https://en.wikipedia.org/wiki/Schwartz_set  
+> ***  
+> **Methods alias available (for function call)**: "Schwartz set",  "Schwartz"
+
+### Implementation Comments
+The Schwartz Set is the smallest non-empty set of candidates such that every candidate in the set defeats every candidate outside the set in a pairwise comparison.
+
+Key properties:
+- If there is a Condorcet winner, the Schwartz set contains only that candidate
+- In cases with voting cycles, the Schwartz set will contain all candidates in that cycle
+- The Schwartz set is always non-empty
+
+In this implementation:
+- All candidates in the Schwartz set are ranked equally at rank 1
+- All candidates outside the Schwartz set are ranked equally at rank 2
+- This provides a clear distinction between candidates that are part of the "unbeatable set" and those that are not
+
+### Code example
+```php
+// Get Full Ranking
+$election->getResult('Schwartz set')[1] ; // The smith set as array of Candidates
+
+// Just get Winner(s) or Loser(s) (inside or outside the smith set)
+$election->getWinner('Schwartz set') ; // The smith set as array of Candidates
+$election->getLoser('Schwartz set') ; // The candidates not in the smith set, as array of Candidates
+
+// Get Stats (includes the Schwartz set)
+$election->getResult('Schwartz set')->getStats()['schwartz_set'] ;
 ```
