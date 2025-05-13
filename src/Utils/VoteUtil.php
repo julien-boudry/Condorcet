@@ -33,7 +33,7 @@ abstract class VoteUtil
             }
         }
 
-        $tags = array_map(static fn(string $x): string => mb_trim($x), $tags);
+        $tags = array_map(mb_trim(...), $tags);
 
         foreach ($tags as $tag) {
             if (empty($tag)) {

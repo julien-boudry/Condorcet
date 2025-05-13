@@ -791,7 +791,7 @@ test('remove candidate result', function (string $method): void {
     $electionTest->parseVotes($votes);
 
     expect($electionTest->getResult($method)->rankingAsArrayString)->toBe($electionRef->getResult($method)->rankingAsArrayString);
-})->with(static fn(): array => getMethodList());
+})->with(getMethodList(...));
 
 test('ambiguous candidates on election side', function (): void {
     $this->expectException(VoteInvalidFormatException::class);

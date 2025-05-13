@@ -391,7 +391,7 @@ class Generate
 
         if ($onePage instanceof ReflectionMethod && $this->hasDocBlockTag('@return', $onePage)) {
             $returnDescription = $this->getDocBlockTagDescriptionOrValue('@return', $onePage);
-            $returnDescription = implode("\n", array_map(fn($in): string => ltrim($in), explode("\n", $returnDescription)));
+            $returnDescription = implode("\n", array_map(ltrim(...), explode("\n", $returnDescription)));
 
             $md .= "\n\n" .
                     "## Return value   \n\n" .

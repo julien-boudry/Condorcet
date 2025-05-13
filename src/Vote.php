@@ -513,7 +513,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
             $ranking = new VoteEntryParser($ranking)->ranking ?? [];
         }
 
-        $ranking = array_filter($ranking, static fn($key): bool => is_numeric($key), \ARRAY_FILTER_USE_KEY);
+        $ranking = array_filter($ranking, is_numeric(...), \ARRAY_FILTER_USE_KEY);
 
         ksort($ranking);
 
