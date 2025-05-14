@@ -156,6 +156,7 @@ class ElectionCommand extends Command
                 name: 'quota',
                 mode: InputOption::VALUE_REQUIRED,
                 description: 'Quota to be used for STV compatible methods',
+                suggestedValues: array_map(fn (StvQuotas $q): string => $q->name, StvQuotas::cases()),
             )
 
             ->addOption(
@@ -173,24 +174,9 @@ class ElectionCommand extends Command
                 name: 'methods',
                 mode: InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
                 description: 'Methods to output',
+                suggestedValues: array_merge(['ALL'], Condorcet::getAuthMethods()),
             )
         ;
-    }
-
-    #[\Override]
-    public function complete(CompletionInput $input, CompletionSuggestions $suggestions): void
-    {
-        if ($input->mustSuggestOptionValuesFor('quota')) {
-            $r = [];
-
-            foreach (StvQuotas::cases() as $case) {
-                $r[] = $case->name;
-            }
-
-            $suggestions->suggestValues($r);
-        } elseif ($input->mustSuggestArgumentValuesFor('methods')) {
-            $suggestions->suggestValues(Condorcet::getAuthMethods());
-        }
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output): void

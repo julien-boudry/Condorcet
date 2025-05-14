@@ -29,3 +29,4 @@ test.php
 
 # Sys
 .DS_Store
+completion.sh
