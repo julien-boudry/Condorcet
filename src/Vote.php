@@ -421,7 +421,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @see Vote::getRanking()
      * @param $context An election already linked to the Vote.
      * @param $displayWeight Include or not the weight symbol and value.
-     * @return string String like 'A>D=C>B
+     * @return string String like 'A>D=C>B'
      */
     public function getRankingAsString(
         ?Election $context = null,
