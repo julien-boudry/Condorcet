@@ -132,13 +132,13 @@ class AlternativeNoTieConstraintClass implements VoteConstraintInterface
 }
 
 
-test('add constraint after vote', function(): void {
+test('add constraint after vote', function (): void {
     $election = new Election;
 
     $election->addConstraint(NoTie::class);
 
     expect($election->getConstraints())->toBe([
-        NoTie::class
+        NoTie::class,
     ]);
 
     $election->parseCandidates('A;B;C;D');
@@ -146,14 +146,14 @@ test('add constraint after vote', function(): void {
         B > A > C > D
         A > B = C = D
         A > B > C = D
-    ' );
+    ');
 
     expect($election->countValidVoteWithConstraints())->toBe(1);
     expect($election->countInvalidVoteWithConstraints())->toBe(2);
     expect($election->getWinner()->name)->toBe('B');
 });
 
-test('add/remove vote that is invalid under constraint', function(): void {
+test('add/remove vote that is invalid under constraint', function (): void {
     $this->election->authorizeVoteWeight = true;
 
     $this->election->addVote('A > B > C');

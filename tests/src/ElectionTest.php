@@ -857,7 +857,7 @@ test('seats', function (): void {
     expect($this->election1->seatsToElect)->toBe(5);
 });
 
-test('checksum without pairwise', function(): void {
+test('checksum without pairwise', function (): void {
     $election = new Election;
     $originalChecksum = $election->getChecksum();
 
@@ -870,7 +870,7 @@ test('checksum without pairwise', function(): void {
     expect($newElection->getChecksum())->toBe($originalChecksum);
 });
 
-test('checksum without result and pairwise', function(): void {
+test('checksum without result and pairwise', function (): void {
     $election = clone $this->election1;
     $election->getResult(); // Should be Schulze
     $election->getResult('Copeland');

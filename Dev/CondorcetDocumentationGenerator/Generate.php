@@ -115,10 +115,10 @@ class Generate
         }
 
         return [self::getModifiersName($reflection),
-                self::simpleClass($reflection->class) .
-                (($reflection->isStatic()) ? '::' : '->') .
-                $reflection->name .
-                $parameters
+            self::simpleClass($reflection->class) .
+            (($reflection->isStatic()) ? '::' : '->') .
+            $reflection->name .
+            $parameters,
         ];
     }
 
@@ -375,7 +375,7 @@ class Generate
         if ($onePage instanceof ReflectionMethod && $onePage->getNumberOfParameters() > 0) {
             $docBlocParams = $this->getDocBlockParameters($onePage);
 
-            $md .= "\n" . "## Parameter" . ($onePage->getNumberOfParameters() > 1 ? 's' : '') . "\n";
+            $md .= "\n" . '## Parameter' . ($onePage->getNumberOfParameters() > 1 ? 's' : '') . "\n";
 
             foreach ($onePage->getParameters() as $value) {
                 $pt = !empty($docBlocParams[$value->getName()]) ? $docBlocParams[$value->getName()] : '';
@@ -476,8 +476,7 @@ class Generate
 
             if ($this->hasDocBlockTag('@internal', $classMeta['ReflectionClass'])) {
                 $classWillBePublic = false;
-            }
-            elseif ($this->hasDocBlockTag('@api', $classMeta['ReflectionClass'])) {
+            } elseif ($this->hasDocBlockTag('@api', $classMeta['ReflectionClass'])) {
                 $classWillBePublic = true;
             } else {
                 foreach ($classMeta['page'] as $onePage) {
@@ -526,7 +525,7 @@ class Generate
                     $url = $this->getUrl($onePage['Reflection']);
 
                     $representation = self::computeRepresentationAsForIndex($onePage['Reflection']);
-                    $file_content .= "* `$representation[0]` [" . $representation[1] . '](' . $url . ')';
+                    $file_content .= "* `{$representation[0]}` [" . $representation[1] . '](' . $url . ')';
 
                     if (isset($onePage['Reflection']) && $onePage['Reflection'] instanceof ReflectionMethod && $onePage['Reflection']->hasReturnType()) {
                         $file_content .= ': ' . self::getTypeAsString($onePage['Reflection']->getReturnType(), true);
@@ -549,7 +548,7 @@ class Generate
             $url .= '()';
         }
 
-        return $this->pathBase . '/' . $url  . '.md';
+        return $this->pathBase . '/' . $url . '.md';
     }
 
     protected function makeEnumeCases(\ReflectionEnum $enumReflection, bool $shortName = false): string

@@ -12,8 +12,8 @@ class NamespaceResolver extends NodeVisitorAbstract
         $code = file_get_contents($filePath);
 
         $parser = new ParserFactory()->createForHostVersion();
-        $traverser = new NodeTraverser();
-        $namespaceResolver = new self();
+        $traverser = new NodeTraverser;
+        $namespaceResolver = new self;
         $traverser->addVisitor($namespaceResolver);
 
         try {

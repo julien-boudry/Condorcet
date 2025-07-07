@@ -26,7 +26,6 @@ use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 use Random\Randomizer;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Completion\{CompletionInput, CompletionSuggestions};
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Terminal;
 use Symfony\Component\Yaml\Yaml;
@@ -156,7 +155,7 @@ class ElectionCommand extends Command
                 name: 'quota',
                 mode: InputOption::VALUE_REQUIRED,
                 description: 'Quota to be used for STV compatible methods',
-                suggestedValues: array_map(fn (StvQuotas $q): string => $q->name, StvQuotas::cases()),
+                suggestedValues: array_map(fn(StvQuotas $q): string => $q->name, StvQuotas::cases()),
             )
 
             ->addOption(

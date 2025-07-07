@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\{Condorcet, Election};
 use CondorcetPHP\Condorcet\Throwable\TimerException;
 use CondorcetPHP\Condorcet\Timer\{Chrono, Manager};
 
