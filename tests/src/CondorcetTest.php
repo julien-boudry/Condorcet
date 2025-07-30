@@ -84,7 +84,6 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 {
     public const array METHOD_NAME = ['FirstMethodName', 'Alias1', 'Alias_2', 'Alias 3'];
 
-
     // Get the Result object
     #[Override]
     public function getResult($options = null): Result
@@ -102,7 +101,6 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
         // Return
         return $this->Result;
     }
-
 
     // Compute the Stats
     protected function getStats(): StatsInterface
@@ -136,7 +134,6 @@ class CondorcetTest_UnvalidAlgorithmName
     public Result $Result;
     public const array METHOD_NAME = ['FirstMethodName', 'Alias1', 'Alias_2', 'Alias 3'];
 
-
     // Get the Result object
     public function getResult($options = null): Result
     {
@@ -146,7 +143,6 @@ class CondorcetTest_UnvalidAlgorithmName
         // Return
         return $this->Result;
     }
-
 
     // Compute the Stats
     protected function getStats(): array

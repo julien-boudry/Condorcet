@@ -25,9 +25,12 @@ enum StvQuotas: string
     case IMPERIALI = 'Imperiali Quota';
 
     /**
-     * Build the Enum Quotas option for STV methods
+     * Build the Enum Quotas option for STV methods.
+     *
      * @api
+     *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotingMethods
+     *
      * @param $quota Quota name.
      */
     public static function fromString(

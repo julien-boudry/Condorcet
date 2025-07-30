@@ -29,7 +29,7 @@ test('schwartz set with clear condorcet winner', function (): void {
 
 /**
  * Classic rock-paper-scissors pattern example, common in voting theory literature
- * Creates a cycle where A beats B, B beats C, and C beats A
+ * Creates a cycle where A beats B, B beats C, and C beats A.
  */
 test('schwartz set with condorcet cycle', function (): void {
     $this->election->parseCandidates('A;B;C');
@@ -70,7 +70,7 @@ test('schwartz set example from wikipedia', function (): void {
 /**
  * Source: Schulze, Markus (2011).
  * "A new monotonic, clone-independent, reversal symmetric,
- * and Condorcet-consistent single-winner election method"
+ * and Condorcet-consistent single-winner election method".
  */
 test('schwartz set from schulze paper example', function (): void {
     $this->election->parseCandidates('A;B;C;D;E');
@@ -95,7 +95,7 @@ test('schwartz set from schulze paper example', function (): void {
  * - One cycle: A beats B, B beats C, C beats A
  * - Second cycle: D beats E, E beats F, F beats D
  * - First cycle beats all members of second cycle
- * The Schwartz set should contain only members of the undominated first cycle
+ * The Schwartz set should contain only members of the undominated first cycle.
  */
 test('schwartz set with multiple disjoint cycles', function (): void {
     $this->election->parseCandidates('A;B;C;D;E;F');
@@ -152,7 +152,7 @@ test('schwartz set from electowiki', function (): void {
 });
 
 /**
- * Edge case: single candidate election
+ * Edge case: single candidate election.
  */
 test('schwartz set with single candidate', function (): void {
     $this->election->addCandidate('A');
@@ -162,7 +162,7 @@ test('schwartz set with single candidate', function (): void {
 });
 
 /**
- * Edge case: complete tie between all candidates
+ * Edge case: complete tie between all candidates.
  */
 test('schwartz set with complete tie', function (): void {
     $this->election->parseCandidates('A;B;C');
@@ -174,7 +174,7 @@ test('schwartz set with complete tie', function (): void {
 
 /**
  * Check relationship between Smith and Schwartz sets
- * In some cases they are equal - when there are no defeats between candidates
+ * In some cases they are equal - when there are no defeats between candidates.
  */
 test('schwartz set equals smith set when no defeats between candidates', function (): void {
     $this->election->parseCandidates('A;B;C;D');

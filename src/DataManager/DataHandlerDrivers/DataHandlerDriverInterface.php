@@ -13,9 +13,9 @@ interface DataHandlerDriverInterface
 {
     // The Data Manager will set an object into this property. You should call for each Entity $dataContextObject->dataCallBack($EntityData) before returning stored data by the two select method.
 
-
     /**
      * Entities to register.
+     *
      * @param array<int,mixed> $input public $dataContextObject;
      */
     public function insertEntities(array $input): void;

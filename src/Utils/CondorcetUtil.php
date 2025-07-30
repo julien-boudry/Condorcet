@@ -69,9 +69,12 @@ abstract class CondorcetUtil
     /**
      * Provides pretty re-formatting, human readable, of all Condorcet PHP objects or result sets.
      * Can be used before a var_dump, or just to get simpler data output.
+     *
      * @api
+     *
      * @param $input Input to convert.
      * @param $convertObject If true. Will convert Candidate objects into string representation of their name.
+     *
      * @return mixed New formatted data.
      */
     public static function format(

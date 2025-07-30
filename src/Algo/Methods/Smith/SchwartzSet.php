@@ -135,7 +135,7 @@ class SchwartzSet extends Method implements MethodInterface
     }
 
     /**
-     * Find strongly connected components using Kosaraju's algorithm
+     * Find strongly connected components using Kosaraju's algorithm.
      */
     private function findStronglyConnectedComponents(array $graph, array $reversedGraph, array $nodes): array
     {
@@ -168,7 +168,7 @@ class SchwartzSet extends Method implements MethodInterface
     }
 
     /**
-     * Consolidate strongly connected components by checking for cycles between them
+     * Consolidate strongly connected components by checking for cycles between them.
      */
     private function consolidateStrongComponents(array $graph, array $sccs): array
     {
@@ -230,7 +230,7 @@ class SchwartzSet extends Method implements MethodInterface
     }
 
     /**
-     * DFS for the first pass of Kosaraju's algorithm
+     * DFS for the first pass of Kosaraju's algorithm.
      */
     private function dfs(array $graph, int $node, array &$visited, array &$stack): void
     {
@@ -246,7 +246,7 @@ class SchwartzSet extends Method implements MethodInterface
     }
 
     /**
-     * DFS for the second pass of Kosaraju's algorithm
+     * DFS for the second pass of Kosaraju's algorithm.
      */
     private function dfsReverse(array $graph, int $node, array &$visited, array &$scc): void
     {

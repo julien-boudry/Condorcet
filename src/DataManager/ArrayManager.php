@@ -16,12 +16,13 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInter
 use CondorcetPHP\Condorcet\Relations\HasElection;
 
 /**
- * ArrayManager
+ * ArrayManager.
  *
  * It's a simple array storage manager with a cache system and a DataHandlerDriverInterface.
  * It's used by VoteManager.
  *
  * @internal
+ *
  * @phpstan-ignore missingType.generics,missingType.generics
  */
 abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
@@ -386,6 +387,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             return $this->maxKey = max($maxContainerKey, $maxHandlerKey);
         }
     }
+
     /**
      * @throws DataHandlerException
      */

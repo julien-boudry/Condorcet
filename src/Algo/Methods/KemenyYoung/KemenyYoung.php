@@ -17,7 +17,7 @@ use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 use CondorcetPHP\Condorcet\Algo\Tools\Permutations;
 
-/** Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
+/** Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method.
  * @internal
  */
 class KemenyYoung extends Method implements MethodInterface
@@ -46,7 +46,6 @@ class KemenyYoung extends Method implements MethodInterface
 
     /////////// PUBLIC ///////////
 
-
     // Get the Kemeny ranking
     #[\Override]
     public function getResult(): Result
@@ -65,7 +64,6 @@ class KemenyYoung extends Method implements MethodInterface
         // Return
         return $this->Result;
     }
-
 
     protected function getStats(): BaseMethodStats
     {
@@ -120,7 +118,6 @@ class KemenyYoung extends Method implements MethodInterface
         }
     }
 
-
     protected function computeMaxAndConflicts(): void
     {
         $pairwise = $this->getElection()->getPairwise();
@@ -157,7 +154,6 @@ class KemenyYoung extends Method implements MethodInterface
 
         return $rankingScore;
     }
-
 
     /*
     I do not know how in the very unlikely event that several possible classifications have the same highest score.

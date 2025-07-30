@@ -55,6 +55,7 @@ class VotesManager extends ArrayManager
     {
         return parent::offsetGet($offset);
     }
+
     /**
      * @throws VoteManagerException
      */

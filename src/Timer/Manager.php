@@ -22,6 +22,7 @@ class Manager
     protected ?float $lastChronoTimestamp = null;
     protected ?float $startDeclare = null;
     protected array $history = [];
+
     /**
      * @throws TimerException
      */
@@ -63,10 +64,14 @@ class Manager
     {
         return $this->lastTimer;
     }
+
     /**
      * Returns benchmarked actions history.
+     *
      * @api
+     *
      * @return array An array containing detailed benchmark history.
+     *
      * @see Election::getTimerManager()
      */
     public function getHistory(): array

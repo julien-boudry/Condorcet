@@ -24,7 +24,6 @@ class KemenyYoungBench
         }
     }
 
-
     #[Bench\ParamProviders(['provideCandidatesCount'])]
     #[Bench\OutputTimeUnit('milliseconds')]
     #[Bench\Warmup(1)]

@@ -10,7 +10,7 @@
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 /**
- * Manage Candidates for an Election class
+ * Manage Candidates for an Election class.
  */
 enum ElectionState: int
 {

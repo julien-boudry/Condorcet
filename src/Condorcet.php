@@ -77,9 +77,13 @@ abstract class Condorcet
     // Return library version number
     /**
      * Get the library version.
+     *
      * @api
+     *
      * @see Election::getCondorcetBuilderVersion()
+     *
      * @param $major * true will return : 2.0, false will return : 2.0.0.
+     *
      * @return string Condorcet PHP version.
      */
     public static function getVersion(
@@ -97,10 +101,14 @@ abstract class Condorcet
     // Return an array with auth methods
     /**
      * Get a list of supported algorithm.
+     *
      * @api
+     *
      * @see Condorcet::isAuthMethod(), Condorcet::getMethodClass()
+     *
      * @param $basic Include or not the natural Condorcet base algorithm.
      * @param $withNonDeterministicMethods Include or not non deterministic methods.
+     *
      * @return array Populated by method string name. You can use it on getResult ... and others methods.
      */
     public static function getAuthMethods(
@@ -122,12 +130,14 @@ abstract class Condorcet
         return array_column($auth, 0);
     }
 
-
     // Return the Class default method
     /**
      * Return the Condorcet static default method.
+     *
      * @api
+     *
      * @return null|string Method name.
+     *
      * @see Condorcet::getAuthMethods(), Condorcet::setDefaultMethod()
      */
     public static function getDefaultMethod(): ?string
@@ -135,14 +145,18 @@ abstract class Condorcet
         return self::$defaultMethod;
     }
 
-
     // Check if the method is supported
     /**
      * Return the full class path for a method.
+     *
      * @api
+     *
      * @see Condorcet::getAuthMethods()
+     *
      * @param $method A valid method name.
+     *
      * @throws VotingMethodIsNotImplemented
+     *
      * @return null|string Return null is method not exist.
      */
     public static function getMethodClass(
@@ -168,11 +182,16 @@ abstract class Condorcet
 
         return null;
     }
+
     /**
      * Test if a method is in the result set of Condorcet::getAuthMethods.
+     *
      * @api
+     *
      * @see Condorcet::getMethodClass(), Condorcet::getAuthMethods()
+     *
      * @param $method A valid method name or class.
+     *
      * @return bool True / False
      */
     public static function isAuthMethod(
@@ -181,13 +200,16 @@ abstract class Condorcet
         return self::getMethodClass($method) !== null;
     }
 
-
     // Add algos
     /**
      * If you create your own Condorcet Algo. You will need it !
+     *
      * @api
+     *
      * @see Condorcet::isAuthMethod(), Condorcet::getMethodClass()
+     *
      * @param $methodClass The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).
+     *
      * @return bool True on Success. False on failure.
      */
     public static function addMethod(
@@ -207,7 +229,6 @@ abstract class Condorcet
 
         return true;
     }
-
 
     // Check if the class Algo. exist and ready to be used
     protected static function testMethod(string $method): bool
@@ -229,13 +250,16 @@ abstract class Condorcet
         return true;
     }
 
-
     // Change default method for this class.
     /**
      * Put a new static method by default for the news Condorcet objects.
+     *
      * @api
+     *
      * @see Condorcet::getDefaultMethod()
+     *
      * @param $method A valid method name or class.
+     *
      * @return bool In case of success, return TRUE
      */
     public static function setDefaultMethod(

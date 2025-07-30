@@ -107,6 +107,7 @@ class VoteEntryParser
             return null;
         }
     }
+
     /**
      * @throws VoteInvalidFormatException
      */

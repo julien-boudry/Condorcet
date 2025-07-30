@@ -63,6 +63,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     {
         return isset($this->ranking[$offset]);
     }
+
     /**
      * @throws ResultException
      */
@@ -88,6 +89,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * @var array<int,array<int,int>>
+     *
      * @internal
      */
     public private(set) readonly array $rawRanking;
@@ -101,18 +103,19 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      */
     public private(set) readonly StatsVerbosity $statsVerbosity;
 
-
     /**
      * @internal
      */
     public function __construct(
         /**
          * Get the The algorithmic method used for this result.
+         *
          * @api
          * */
         public private(set) readonly string $fromMethod,
         /**
          * Get the The algorithmic method used for this result.
+         *
          * @api
          */
         public private(set) readonly string $byClass,
@@ -120,17 +123,21 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         array $rawRanking,
         /**
          * Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
+         *
          * @api
+         *
          * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results
          */
         public readonly StatsInterface $stats,
         /**
          * Get count of seats to elects for STV methods result.
+         *
          * @api
          * */
         public private(set) readonly ?int $seats = null,
         /**
          * Return the method options. Can be empty for most of the methods.
+         *
          * @api
          */
         public private(set) array $methodOptions = [] {
@@ -191,13 +198,16 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * @var array<int,array<int,Candidate>>
+     *
      * @api
      */
     public private(set) readonly array $ranking;
 
     /**
-     * Get result as an array populated by Candidate objects
+     * Get result as an array populated by Candidate objects.
+     *
      * @api
+     *
      * @var array<int,Candidate|array<Candidate>>
      */
     public array $rankingAsArray {
@@ -213,8 +223,10 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     /**
-     * Get result as an array populated by string
+     * Get result as an array populated by string.
+     *
      * @api
+     *
      * @var array<int,string|array<string>>
      */
     public array $rankingAsArrayString {
@@ -237,6 +249,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * Result ranking as string.
+     *
      *  @api
      */
     public string $rankingAsString {
@@ -245,12 +258,14 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * Get the Condorcet winner, if exist, at the result time.
+     *
      * @api
      */
     public private(set) readonly ?Candidate $CondorcetWinner;
 
     /**
      * Get the Condorcet loser, if exist, at the result time.
+     *
      * @api
      */
     public private(set) readonly ?Candidate $CondorcetLoser;
@@ -260,7 +275,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      * Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.
      * Candidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.
      * This control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.
+     *
      * @api
+     *
      * @var array<int,string|array<string>>
      */
     public readonly array $originalRankingAsArrayString;
@@ -270,6 +287,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      * Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.
      * Candidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.
      * This control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.
+     *
      * @api
      */
     public string $originalRankingAsString {
@@ -284,7 +302,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     /**
      * ('Get the election winner if any')
      * Contain Candidate object. Null if there are no available winner. Or an array with multiples winners.
+     *
      * @api
+     *
      * @see Result::Loser, Election::getWinner()
      */
     public array|Candidate|null $Winner {
@@ -294,7 +314,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     /**
      * ('Get the election loser if any')
      * Contain Candidate object. Null if there are no available loser. Or an array with multiples losers.
+     *
      * @api
+     *
      * @see Result::Winner, Election::getWinner()
      */
     public array|Candidate|null $Loser {
@@ -306,12 +328,14 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * The timestamp of this result at build time.
+     *
      * @api
      */
     public private(set) readonly float $buildTimestamp;
 
     /**
      * Get the Condorcet PHP version that build this Result.
+     *
      * @api
      */
     public private(set) readonly string $electionCondorcetVersion;
@@ -328,10 +352,14 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
         return true;
     }
+
     /**
      * From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
+     *
      * @api
+     *
      * @param $type Filter on a specific warning type code.
+     *
      * @return array Warnings provided by the by the method that generated the warning. Empty array if there is not.
      */
     public function getWarning(
@@ -353,8 +381,10 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     /**
-     * Does the result come from a proportional method
+     * Does the result come from a proportional method.
+     *
      * @api
+     *
      * @see Result::seats
      */
     public bool $isProportional {

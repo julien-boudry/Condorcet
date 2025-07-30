@@ -39,6 +39,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     protected array $struct;
     // Prepare Query
     protected array $prepare = [];
+
     /**
      * @throws DataHandlerException
      */
@@ -152,7 +153,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         }
     }
 
-
     // DATA MANAGER
     public function insertEntities(array $input): void
     {
@@ -212,7 +212,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             }
         }
     }
-
 
     public function deleteOneEntity(int $key, bool $justTry): ?int
     {

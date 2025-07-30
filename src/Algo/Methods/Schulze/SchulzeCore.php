@@ -17,7 +17,8 @@ use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 
 /**
- * Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
+ * Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method.
+ *
  * @internal
  */
 abstract class SchulzeCore extends Method implements MethodInterface
@@ -54,7 +55,6 @@ abstract class SchulzeCore extends Method implements MethodInterface
         return $this->Result;
     }
 
-
     // Get the Schulze ranking
     protected function getStats(): BaseMethodStats
     {
@@ -79,7 +79,6 @@ abstract class SchulzeCore extends Method implements MethodInterface
 
     //:: SCHULZE ALGORITHM. :://
 
-
     // Calculate the strongest Paths for Schulze Method
     protected function prepareStrongestPath(): void
     {
@@ -97,7 +96,6 @@ abstract class SchulzeCore extends Method implements MethodInterface
             }
         }
     }
-
 
     // Calculate the Strongest Paths
     protected function makeStrongestPaths(): void
@@ -129,7 +127,6 @@ abstract class SchulzeCore extends Method implements MethodInterface
             }
         }
     }
-
 
     // Calculate && Format human readable ranking
     protected function makeRanking(): void

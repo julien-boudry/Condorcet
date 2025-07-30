@@ -26,7 +26,6 @@ class MethodsNonProportionalBench
         KemenyYoung::$MaxCandidates = 11;
     }
 
-
     protected function buildElection(int $numberOfCandidates, int $numberOfVotes): void
     {
         $this->election = $election = new Election;

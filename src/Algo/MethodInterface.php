@@ -22,5 +22,6 @@ interface MethodInterface
     public function __construct(Election $election);
 
     public function setElection(Election $election): void;
+
     public function getResult(): Result;
 }

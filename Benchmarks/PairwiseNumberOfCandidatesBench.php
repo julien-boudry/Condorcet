@@ -22,7 +22,6 @@ class PairwiseNumberOfCandidatesBench
         RankedPairsCore::$MaxCandidates = null;
     }
 
-
     protected function buildElection(int $numberOfCandidates, int $numberOfVotes): void
     {
         $this->election = $election = new Election;

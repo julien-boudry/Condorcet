@@ -23,7 +23,6 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 
     /////////// PUBLIC ///////////
 
-
     // Get the ranking
     #[\Override]
     public function getResult(): Result
@@ -44,7 +43,6 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         // Return
         return $this->Result;
     }
-
 
     // Get the stats
     protected function getStats(): BaseMethodStats

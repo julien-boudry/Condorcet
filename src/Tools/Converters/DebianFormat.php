@@ -28,8 +28,10 @@ class DebianFormat implements ConverterImport
     public private(set) readonly array $votes;
 
     /**
-     * Read a Tideman format file
+     * Read a Tideman format file.
+     *
      * @api
+     *
      * @param $filePath File absolute path.
      */
     public function __construct(
@@ -46,11 +48,16 @@ class DebianFormat implements ConverterImport
         $this->readCandidatesNames();
         $this->readVotes();
     }
+
     /**
-     * Add the Debian data to an election object
+     * Add the Debian data to an election object.
+     *
      * @api
+     *
      * @see Tools\Converters\CEF\CondorcetElectionFormat::setDataToAnElection(), Tools\Converters\DavidHillFormat::setDataToAnElection()
+     *
      * @param $election Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.
+     *
      * @return Election The election object
      */
     #[\Override]

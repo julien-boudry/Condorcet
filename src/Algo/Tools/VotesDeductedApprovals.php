@@ -46,6 +46,7 @@ class VotesDeductedApprovals implements \Countable
 
     /**
      * Build the object.
+     *
      * @internal
      */
     public function __construct(public readonly int $subsetSize, Election $election)
@@ -78,6 +79,7 @@ class VotesDeductedApprovals implements \Countable
     {
         return \count($this->combinationsScore);
     }
+
     /**
      * @internal
      */

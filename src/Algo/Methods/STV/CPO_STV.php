@@ -27,7 +27,8 @@ use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
 use SplFixedArray;
 
 /**
- * Single transferable vote | https://en.wikipedia.org/wiki/CPO-STV
+ * Single transferable vote | https://en.wikipedia.org/wiki/CPO-STV.
+ *
  * @internal
  */
 class CPO_STV extends SingleTransferableVote

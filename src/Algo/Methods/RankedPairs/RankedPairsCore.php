@@ -16,7 +16,8 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 
 /**
- * Ranked Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
+ * Ranked Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs.
+ *
  * @internal
  */
 abstract class RankedPairsCore extends Method implements MethodInterface
@@ -34,7 +35,6 @@ abstract class RankedPairsCore extends Method implements MethodInterface
 
 
     /////////// PUBLIC ///////////
-
 
     // Get the Ranked Pairs ranking
     #[\Override]
@@ -144,7 +144,6 @@ abstract class RankedPairsCore extends Method implements MethodInterface
 
         return $winners;
     }
-
 
     protected function makeArcs(): void
     {

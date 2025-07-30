@@ -15,7 +15,8 @@ use CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException;
 use Override;
 
 /**
- * Condorcet Basic Class, provide natural Condorcet winner or looser
+ * Condorcet Basic Class, provide natural Condorcet winner or looser.
+ *
  * @internal
  */
 class CondorcetBasic extends Method implements MethodInterface
@@ -30,19 +31,16 @@ class CondorcetBasic extends Method implements MethodInterface
 
     /////////// PUBLIC ///////////
 
-
     #[Override]
     public function getResult(): never
     {
         throw new AlgorithmWithoutRankingFeatureException(self::METHOD_NAME[0]);
     }
 
-
     protected function getStats(): StatsInterface
     {
         return new EmptyStats;
     }
-
 
     // Get a Condorcet certified winner. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
     public function getWinner(): ?int

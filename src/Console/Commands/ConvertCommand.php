@@ -44,7 +44,6 @@ class ConvertCommand extends Command
     protected string $input;
     protected ?SplFileObject $output;
 
-
     protected function configure(): void
     {
         foreach (self::$converters as $optionKey => $converter) {
@@ -108,7 +107,6 @@ class ConvertCommand extends Command
 
         $this->output = new SplFileObject($input->getArgument('output'), 'w+');
     }
-
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {

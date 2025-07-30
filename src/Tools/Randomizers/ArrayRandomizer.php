@@ -34,13 +34,16 @@ class ArrayRandomizer
 
     /**
      * Per vote. Max decimal precision is 3.
+     *
      * @api
      */
     public float|int $tiesProbability = 0;
 
     /**
-     * Create a new VotesRandomGenerator instance
+     * Create a new VotesRandomGenerator instance.
+     *
      * @api
+     *
      * @param $candidates List of candidates as string, candidates objects or sub-array.
      * @param $seed If null, will use a cryptographically secure randomizer.
      */
@@ -62,7 +65,9 @@ class ArrayRandomizer
 
     /**
      * Change the candidates running for this randomizer.
+     *
      * @api
+     *
      * @param $candidates The array of candidates to shuffle.
      */
     public function setCandidates(
@@ -73,7 +78,9 @@ class ArrayRandomizer
 
     /**
      * Count candidates currently running for this instance of the randomizer.
+     *
      * @api
+     *
      * @return int Count of candidates
      */
     public function countCandidates(): int
@@ -83,7 +90,9 @@ class ArrayRandomizer
 
     /**
      * Generate a new random vote.
+     *
      * @api
+     *
      * @return array Return the new vote.
      */
     public function shuffle(): array

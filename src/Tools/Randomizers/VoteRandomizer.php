@@ -15,7 +15,9 @@ class VoteRandomizer extends ArrayRandomizer
 {
     /**
      * Generate a new random vote.
+     *
      * @api
+     *
      * @return Vote Return the new vote.
      */
     public function getNewVote(): Vote

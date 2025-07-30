@@ -20,6 +20,7 @@ class Candidate implements \Stringable
 
     /**
      * Get the candidate name or change the candidate name.
+     *
      * @api
      */
     public string $name {
@@ -45,8 +46,11 @@ class Candidate implements \Stringable
 
     /**
      * Return an history of each naming change, with timestamp.
+     *
      * @var array<int,array>
+     *
      * @api
+     *
      * @see Candidate::createdAt, Candidate::updatedAt
      */
     public protected(set) array $nameHistory = [];
@@ -57,6 +61,7 @@ class Candidate implements \Stringable
      * When the vote will be added for the first time to an election, provisional candidate object with a name that matches an election candidate, will be converted into the election candidate. And first ranking will be save into Vote history (Vote::nameHistory).
      *
      * See VoteTest::testVoteHistory() test for a demonstration. In principle this is transparent from a usage point of view. If you want to avoid any non-strict comparisons, however, you should prefer to create your votes with the Election object, or with Candidate Objects in input. But, you must never getback a candidate marked as provisional in an another election in the same time, it's will not working.
+     *
      * @internal
      */
     public private(set) bool $provisionalState = false;
@@ -64,8 +69,11 @@ class Candidate implements \Stringable
     // -------
     /**
      * Build a candidate.
+     *
      * @api
+     *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
+     *
      * @param $name Candidate Name.
      */
     public function __construct(
@@ -97,11 +105,12 @@ class Candidate implements \Stringable
     // SETTERS
     /**
      * Change the candidate name.
-     * *If this will not cause conflicts if the candidate is already participating in elections and would namesake. This situation will throw an exception.*
+     * *If this will not cause conflicts if the candidate is already participating in elections and would namesake. This situation will throw an exception.*.
      *
      * @api
      *
      * @param $name Candidate Name.
+     *
      * @throws CandidateInvalidNameException If the name exceeds the maximum allowed length, contains invalid characters, or is already taken by another candidate in the election context.
      * - Exceeds maximum length: The name length exceeds `Election::MAX_CANDIDATE_NAME_LENGTH`.
      * - Contains invalid characters: The name contains prohibited characters such as `<`, `>`, `\n`, `\t`, `\0`, `^`, `*`, `$`, `:`, `;`, `||`, `"`, or `#`.
@@ -125,7 +134,9 @@ class Candidate implements \Stringable
 
     /**
      * The timestamp corresponding of the creation of this candidate.
+     *
      * @api
+     *
      * @see Candidate::updatedAt, Candidate::nameHistory
      */
     public float $createdAt {
@@ -134,7 +145,9 @@ class Candidate implements \Stringable
 
     /**
      * The timestamp corresponding of the last naming change.
+     *
      * @api
+     *
      * @see Candidate::createdAt, Candidate::nameHistory
      */
     public float $updatedAt {

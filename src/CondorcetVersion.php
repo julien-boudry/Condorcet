@@ -14,15 +14,20 @@ trait CondorcetVersion
 {
     /**
      * The Condorcet PHP version who built this object. Usefull pour serializing Election.
+     *
      * @api
      */
     public private(set) string $buildByCondorcetVersion = Condorcet::VERSION;
 
     /**
      * Get the Condorcet PHP version who built this object. Usefull pour serializing Election.
+     *
      * @api
+     *
      * @see Condorcet::getVersion()
+     *
      * @param $major true will return 2.0 and false will return 2.0.0.
+     *
      * @return string Condorcet PHP version.
      */
     public function getCondorcetBuilderVersion(
