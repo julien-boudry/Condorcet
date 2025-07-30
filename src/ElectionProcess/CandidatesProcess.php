@@ -143,7 +143,7 @@ trait CandidatesProcess
         // Process
         if (empty($candidate) && $candidate !== '0') {
             while (!$this->canAddCandidate($this->nextAutomaticCandidateName)) {
-                $this->nextAutomaticCandidateName++;
+                $this->nextAutomaticCandidateName = str_increment($this->nextAutomaticCandidateName);
             }
 
             $newCandidate = new Candidate($this->nextAutomaticCandidateName);
