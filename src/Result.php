@@ -141,16 +141,15 @@ class Result implements \ArrayAccess, \Countable, \Iterator
          * @api
          */
         public private(set) array $methodOptions = [] {
-            get
-    {
-        $r = $this->methodOptions;
+            get {
+                $r = $this->methodOptions;
 
-        if ($this->isProportional) {
-            $r['Seats'] = $this->seats;
-        }
+                if ($this->isProportional) {
+                    $r['Seats'] = $this->seats;
+                }
 
-        return $r;
-    }
+                return $r;
+            }
         },
     ) {
         ksort($rawRanking, \SORT_NUMERIC);

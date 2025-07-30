@@ -1,5 +1,7 @@
 {
-    "preset": "per",
+    "presets": {
+        "@PER-CS": true
+    },
     "rules": {
         "array_indentation": true,
         "array_push": true,
@@ -40,6 +42,7 @@
         "native_function_casing": true,
         "native_function_invocation": true,
         "native_type_declaration_casing": true,
+        "new_expression_parentheses": true,
         "new_with_parentheses": {
             "anonymous_class": false,
             "named_class": false
@@ -123,8 +126,5 @@
             "identical": false,
             "less_and_greater": false
         }
-    },
-    "exclude": [
-        "Examples"
-    ]
+    }
 }
