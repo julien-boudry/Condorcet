@@ -17,6 +17,8 @@ use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteEntryParser, VoteUtil};
 
 /**
  * Manage Votes for an Election class
+ *
+ * @mixin \CondorcetPHP\Condorcet\Election
  */
 trait VotesProcess
 {

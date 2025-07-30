@@ -19,6 +19,8 @@ use Random\Randomizer;
 
 /**
  * Manage Results for an Election class
+ *
+ * @mixin \CondorcetPHP\Condorcet\Election
  */
 trait ResultsProcess
 {
