@@ -142,6 +142,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     public static function initCache(): \stdClass
     {
         self::$cacheKey = new \stdClass;
+
         return self::$cacheKey;
     }
 
@@ -651,6 +652,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
         }
 
         $this->computeHashCode();
+
         return $rm;
     }
 
@@ -663,6 +665,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     public function removeAllTags(): true
     {
         $this->removeTags($this->tags);
+
         return true;
     }
 

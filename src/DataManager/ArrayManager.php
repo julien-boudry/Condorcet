@@ -316,6 +316,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         } else {
             $this->DataHandler->insertEntities($this->encodeManyEntities($this->Container));
             $this->Container = [];
+
             return true;
         }
     }
@@ -324,6 +325,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     {
         if ($this->DataHandler !== null && self::$MaxContainerLength <= $this->getContainerSize()) {
             $this->regularize();
+
             return true;
         } else {
             return false;
@@ -375,6 +377,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
         if ($this->count() < 1) {
             $this->maxKey = -1;
+
             return null;
         } else {
             $maxContainerKey = empty($this->Container) ? null : max(array_keys($this->Container));
@@ -397,6 +400,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
                 $this->DataHandler = null;
                 $this->resetCounter();
                 $this->resetMaxKey();
+
                 throw $e;
             }
 

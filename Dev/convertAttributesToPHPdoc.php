@@ -73,11 +73,13 @@ function convertAttributesToPhpdoc(string $content): string
                 switch ($attrName) {
                     case 'PublicAPI':
                         $annotations[] = ' @api ' . str_replace(['"', "'"], '', $attrValue);
+
                         break;
                     case 'Description':
                         foreach (explode('\\n', $attrValue) as $descriptionLine) {
                             $annotations[] = ' ' . $descriptionLine;
                         }
+
                         break;
                     case 'FunctionReturn':
                         $i = 1;
@@ -86,18 +88,22 @@ function convertAttributesToPhpdoc(string $content): string
                             $return .= ($i++ === 1 ? ' @return mixed ' : "\n *" . str_repeat(' ', 15)) . $returnLine;
                         }
                         $annotations[] = $return;
+
                         break;
                     case 'Throws':
                         foreach (explode(',', $attrValue) as $oneThrow) {
                             $oneThrow = trim($oneThrow);
                             $annotations[] = ' @throws ' . str_replace('::class', '', $oneThrow);
                         }
+
                         break;
                     case 'Related':
                         $annotations[] = ' @see ' . str_replace(['"', "'"], '', $attrValue);
+
                         break;
                     case 'InternalModulesAPI':
                         $annotations[] = ' @internal ' . $attrValue;
+
                         break;
                     default:
                         $annotations[] = ' @' . mb_strtolower($attrName) . ' ' . str_replace(['"', "'"], '', $attrValue);

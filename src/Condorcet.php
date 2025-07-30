@@ -87,6 +87,7 @@ abstract class Condorcet
     ): string {
         if ($major) {
             $version = explode('.', self::VERSION);
+
             return $version[0] . '.' . $version[1];
         } else {
             return self::VERSION;
@@ -242,6 +243,7 @@ abstract class Condorcet
     ): bool {
         if (($method = self::getMethodClass($method)) && $method !== self::CONDORCET_BASIC_CLASS) {
             self::$defaultMethod = $method;
+
             return true;
         } else {
             return false;

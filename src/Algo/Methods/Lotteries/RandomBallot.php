@@ -48,6 +48,7 @@ class RandomBallot extends Method implements MethodInterface
 
             if ($currentWeightLevel >= $this->electedWeightLevel) {
                 $this->electedBallotKey = $voteKey;
+
                 break;
             }
         }

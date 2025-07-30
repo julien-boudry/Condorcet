@@ -66,6 +66,7 @@ abstract class Method
 
         return $r;
     }
+
     /**
      * @internal
      */

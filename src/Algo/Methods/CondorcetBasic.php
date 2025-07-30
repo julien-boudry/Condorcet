@@ -68,12 +68,14 @@ class CondorcetBasic extends Method implements MethodInterface
 
                 if (!$pairwise->candidateKeyWinVersus($candidateKey, $challengerKey)) {
                     $winner = false;
+
                     break;
                 }
             }
 
             if ($winner) {
                 $this->CondorcetWinner = $candidateKey;
+
                 return $this->CondorcetWinner;
             }
         }
@@ -106,12 +108,14 @@ class CondorcetBasic extends Method implements MethodInterface
 
                 if ($pairwise->compareCandidatesKeys($candidateKey, $challengerKey) >= 0) {
                     $loser = false;
+
                     break;
                 }
             }
 
             if ($loser) {
                 $this->CondorcetLoser = $candidateKey;
+
                 return $this->CondorcetLoser;
             }
         }

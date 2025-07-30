@@ -30,6 +30,7 @@ trait CondorcetVersion
     ): string {
         if ($major) {
             $version = explode('.', $this->buildByCondorcetVersion);
+
             return $version[0] . '.' . $version[1];
         } else {
             return $this->buildByCondorcetVersion;

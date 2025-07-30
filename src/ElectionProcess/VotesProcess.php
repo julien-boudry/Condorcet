@@ -313,6 +313,7 @@ trait VotesProcess
         $key = $this->getVoteKey($vote);
         if ($key !== null) {
             $this->Votes->offsetUnset($key);
+
             return true;
         } else {
             throw new VoteException('Cannot remove vote not registered in this election');
@@ -503,6 +504,7 @@ trait VotesProcess
 
                     if ($parsedVote->ranking === null) {
                         $record = '';
+
                         continue;
                     }
 

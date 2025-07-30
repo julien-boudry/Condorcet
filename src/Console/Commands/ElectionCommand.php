@@ -306,6 +306,7 @@ class ElectionCommand extends Command
                 foreach ($methods as $oneMethod) {
                     if ($oneMethod['class']::IS_PROPORTIONAL) {
                         $hasProportionalMethods = true;
+
                         break;
                     }
                 }

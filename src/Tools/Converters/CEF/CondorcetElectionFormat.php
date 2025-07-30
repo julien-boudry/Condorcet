@@ -233,6 +233,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
 
             if (preg_match('/^#\/(?<parameter_name>.+):(?<parameter_value>.+)$/mi', $line, $parameterMatch)) {
                 $parameters[mb_trim($parameterMatch['parameter_name'])] = mb_trim($parameterMatch['parameter_value']);
+
                 continue;
             }
 

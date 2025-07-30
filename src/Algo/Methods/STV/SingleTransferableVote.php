@@ -129,10 +129,12 @@ class SingleTransferableVote extends Method implements MethodInterface
                             $winnerBonusWeight = $weight;
                             $winnerBonusKey = $candidateKey;
                             $firstRank = false;
+
                             break;
                         } elseif (\in_array($candidateKey, $candidateEliminated, true)) {
                             $LoserBonusWeight = $weight;
                             $firstRank = false;
+
                             break;
                         }
                     }

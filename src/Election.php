@@ -459,6 +459,7 @@ class Election
     {
         if ($this->Votes->hasExternalHandler()) {
             $this->Votes->closeHandler();
+
             return true;
         } else {
             throw new DataHandlerException('external data handler cannot be removed, is already in use');

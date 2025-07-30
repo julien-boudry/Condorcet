@@ -96,6 +96,7 @@ class Generate
 
         if (!isset($this->fullPagesListMeta[$class]['page'][$pointer])) {
             warning('Cannot create link to page:' . $pointer . ' on class:' . $class . ' as input: ' . $name);
+
             return '[' . $name . ']()';
         }
 
@@ -482,6 +483,7 @@ class Generate
                 foreach ($classMeta['page'] as $onePage) {
                     if ($testPublicAttribute($onePage['Reflection'])) {
                         $classWillBePublic = true;
+
                         break;
                     }
                 }
@@ -489,6 +491,7 @@ class Generate
                 foreach ($classMeta['ReflectionClass']->getReflectionConstants() as $oneConstant) {
                     if ($this->hasDocBlockTag('@api', $oneConstant)) {
                         $classWillBePublic = true;
+
                         break;
                     }
                 }
@@ -496,6 +499,7 @@ class Generate
                 foreach ($classMeta['ReflectionClass']->getProperties() as $oneProperty) {
                     if ($this->hasDocBlockTag('@api', $oneProperty)) {
                         $classWillBePublic = true;
+
                         break;
                     }
                 }
@@ -748,6 +752,7 @@ class Generate
         }
 
         $tokens = new TokenIterator($this->lexer->tokenize($docBlock));
+
         return $this->phpDocParser->parse($tokens);
     }
 

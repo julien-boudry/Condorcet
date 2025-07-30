@@ -101,6 +101,7 @@ trait ResultsProcess
 
         return $result;
     }
+
     /**
      * Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.
      * @api
@@ -132,6 +133,7 @@ trait ResultsProcess
             return $this->getResult($algo)->Winner;
         }
     }
+
     /**
      * Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.
      * @api
@@ -163,6 +165,7 @@ trait ResultsProcess
             return $this->getResult($algo)->Loser;
         }
     }
+
     /**
      * Get the natural Condorcet winner if there is one.
      * @api
@@ -174,6 +177,7 @@ trait ResultsProcess
     {
         return $this->getWinner(null); // @phpstan-ignore return.type
     }
+
     /**
      * Get the natural Condorcet loser if there is one.
      * @api
@@ -185,6 +189,7 @@ trait ResultsProcess
     {
         return $this->getLoser(null); // @phpstan-ignore return.type
     }
+
     /**
      * Return the Pairwise.
      * @api
@@ -200,6 +205,7 @@ trait ResultsProcess
 
         return $this->Pairwise;
     }
+
     /**
      * Get a pairwise object filtered by tags. Not any votes updates are provided to the object.
      * @internal
@@ -214,6 +220,7 @@ trait ResultsProcess
     ): FilteredPairwise {
         return new FilteredPairwise($this, $tags, $with);
     }
+
     /**
      * Return the Pairwise.
      * @api
@@ -224,6 +231,7 @@ trait ResultsProcess
     {
         return $this->getPairwise()->getExplicitPairwise();
     }
+
     /**
      * Get a pairwise filtered by tags.
      * @api
@@ -263,6 +271,7 @@ trait ResultsProcess
             );
         }
     }
+
     /**
      * Set a verbosity level for Result->statsVerbosity on returning Result objects. High level can slow down processing and use more memory (many more) than LOW and STD (default) level on somes methods.
      * @api

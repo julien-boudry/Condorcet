@@ -272,6 +272,7 @@ class CPO_STV extends SingleTransferableVote
             if (!\is_array($condorcetWinnerOutcome)) {
                 $selectionSucces = true;
                 $this->completionMethodResult = $completionMethodResult;
+
                 break;
             }
         }
@@ -299,6 +300,7 @@ class CPO_STV extends SingleTransferableVote
 
                 if (\count($tiebreaker = TieBreakersCollection::tieBreakerWithAnotherMethods($election, self::$optionTieBreakerMethods, [$a, $b])) === 1) {
                     $w = reset($tiebreaker);
+
                     return ($w === $a) ? -1 : 1;
                 } else {
                     return mb_strtolower($election->getCandidateObjectFromKey($b)->name, 'UTF-8') <=> mb_strtolower($election->getCandidateObjectFromKey($b)->name, 'UTF-8');
@@ -323,6 +325,7 @@ class CPO_STV extends SingleTransferableVote
             }
 
             ksort($r, \SORT_NATURAL);
+
             return $r;
         };
 
@@ -333,6 +336,7 @@ class CPO_STV extends SingleTransferableVote
             }
 
             sort($r, \SORT_NATURAL);
+
             return $r;
         };
 

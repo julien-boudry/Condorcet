@@ -25,6 +25,7 @@ class DavidHillFormat implements ConverterImport
      * @api
      */
     public private(set) readonly int $seatsToElect;
+
     /**
      * Read a Tideman format file
      * @api

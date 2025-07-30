@@ -137,6 +137,7 @@ class VoteEntryParser
             }
 
             $value = \intval($value);
+
             return ($value > 0) ? $value : 1;
         } else {
             return 1;

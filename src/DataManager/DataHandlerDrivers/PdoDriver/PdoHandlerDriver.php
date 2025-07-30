@@ -188,6 +188,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->closeTransaction();
         } catch (\Throwable $e) {
             $this->queryError = true;
+
             throw $e;
         }
     }
@@ -206,6 +207,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
                     unset($input[key($input)]);
                     $input = array_merge($input, $end);
                 }
+
                 break;
             }
         }
@@ -232,6 +234,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             return $deleteCount;
         } catch (\Throwable $e) {
             $this->queryError = true;
+
             throw $e;
         }
     }

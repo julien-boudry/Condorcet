@@ -100,6 +100,7 @@ class SchwartzSet extends Method implements MethodInterface
                         foreach ($sccs[$j] as $candidateJ) {
                             if (\in_array($candidateJ, $graph[$candidateI], true)) {
                                 $sccGraph[$i][] = $j;
+
                                 break 2;
                             }
                         }
@@ -115,6 +116,7 @@ class SchwartzSet extends Method implements MethodInterface
             for ($j = 0; $j < \count($sccs); $j++) {
                 if ($i !== $j && \in_array($i, $sccGraph[$j], true)) {
                     $isDominated = true;
+
                     break;
                 }
             }
@@ -184,6 +186,7 @@ class SchwartzSet extends Method implements MethodInterface
                         foreach ($sccs[$j] as $to) {
                             if (\in_array($to, $graph[$from], true)) {
                                 $sccGraph[$i][] = $j;
+
                                 break 2;
                             }
                         }

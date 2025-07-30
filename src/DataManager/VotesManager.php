@@ -139,6 +139,7 @@ class VotesManager extends ArrayManager
                 if (\in_array(needle: $oneTag, haystack: $vote->tags, strict: true)) {
                     if (++$tagsfound === $with) {
                         yield $voteKey => $vote;
+
                         break;
                     }
                 }

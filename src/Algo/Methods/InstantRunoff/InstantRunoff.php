@@ -126,6 +126,7 @@ class InstantRunoff extends Method implements MethodInterface
                         break;
                     } elseif (!\in_array(needle: ($candidateKey = $oneCandidate), haystack: $candidateDone, strict: true)) {
                         $score[$candidateKey] += $weight;
+
                         break 2;
                     }
                 }

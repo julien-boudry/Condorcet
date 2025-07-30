@@ -89,6 +89,7 @@ trait Linkable
     {
         if ($this->haveLink($election)) { // haveLink will initWeakmap if necessary
             $this->link->offsetUnset($election);
+
             return true;
         } else {
             return false;

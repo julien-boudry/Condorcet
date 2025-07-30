@@ -26,6 +26,7 @@ class DebianFormat implements ConverterImport
      * @api
      */
     public private(set) readonly array $votes;
+
     /**
      * Read a Tideman format file
      * @api

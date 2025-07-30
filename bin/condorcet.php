@@ -18,6 +18,7 @@ foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php
     if (file_exists($file)) {
         require $file;
         $loaded = true;
+
         break;
     }
 }

@@ -46,6 +46,7 @@ abstract class FormaterHelper
                 if (mb_strtolower($oneMethod) === 'all') {
                     $methods = Condorcet::getAuthMethods(false);
                     $methods = array_map(static fn($m): array => ['name' => $m, 'class' => Condorcet::getMethodClass($m)], $methods);
+
                     break;
                 }
 

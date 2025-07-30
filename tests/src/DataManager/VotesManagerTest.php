@@ -33,6 +33,7 @@ test('offset set argument type1', function (): void {
         $this->votes_manager[] = new stdClass;
     } catch (VoteManagerException $e) {
         expect($this->votes_manager)->toHaveCount(0);
+
         throw $e;
     }
 });
@@ -45,6 +46,7 @@ test('offset set argument type2', function (): void {
         $this->votes_manager[] = null;
     } catch (VoteManagerException $e) {
         expect($this->votes_manager)->toHaveCount(0);
+
         throw $e;
     }
 });

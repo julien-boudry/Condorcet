@@ -36,12 +36,14 @@ class VotesDeductedApprovals implements \Countable
     protected static function getCombinationsScoreKey(array $oneCombination): string
     {
         sort($oneCombination, \SORT_NUMERIC);
+
         return implode('_', $oneCombination);
     }
 
     ///
 
     protected array $combinationsScore = [];
+
     /**
      * Build the object.
      * @internal
