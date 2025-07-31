@@ -187,7 +187,8 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
      *
      * @api
      *
-     * @see Tools\Converters\DavidHillFormat::setDataToAnElection(), Tools\Converters\DebianFormat::setDataToAnElection()
+     * @see Tools\Converters\DavidHillFormat::setDataToAnElection()
+     * @see Tools\Converters\DebianFormat::setDataToAnElection()
      *
      * @param $election Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.
      * @param $callBack Callback function to execute after each registered vote.

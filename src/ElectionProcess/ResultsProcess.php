@@ -50,7 +50,9 @@ trait ResultsProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsRanking
      *
-     * @see Election::getWinner(), Election::getLoser(), Condorcet::getDefaultMethod()
+     * @see Election::getWinner()
+     * @see Election::getLoser()
+     * @see Condorcet::getDefaultMethod()
      *
      * @param $method Not required for use election default method. Set the string name of the algorithm for use of a specific one.
      * @param $methodOptions Array of option for some methods. Look at each method documentation.
@@ -117,7 +119,9 @@ trait ResultsProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
      *
-     * @see Election::getCondorcetWinner(), Election::getLoser(), Election::getResult()
+     * @see Election::getCondorcetWinner()
+     * @see Election::getLoser()
+     * @see Election::getResult()
      *
      * @param $method Only if not null the winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple. If null, Natural Condorcet algorithm will be use.
      *
@@ -154,7 +158,8 @@ trait ResultsProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
      *
-     * @see Election::getWinner(), Election::getResult()
+     * @see Election::getWinner()
+     * @see Election::getResult()
      *
      * @param $method Only if not null the loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple. If null, Natural Condorcet algorithm will be use.
      *
@@ -193,7 +198,9 @@ trait ResultsProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
      *
-     * @see Election::getCondorcetLoser(), Election::getWinner(), Election::getResult()
+     * @see Election::getCondorcetLoser()
+     * @see Election::getWinner()
+     * @see Election::getResult()
      */
     public function getCondorcetWinner(): ?Candidate
     {
@@ -209,7 +216,9 @@ trait ResultsProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
      *
-     * @see Election::getCondorcetWinner(), Election::getLoser(), Election::getResult()
+     * @see Election::getCondorcetWinner()
+     * @see Election::getLoser()
+     * @see Election::getResult()
      */
     public function getCondorcetLoser(): ?Candidate
     {
@@ -225,7 +234,8 @@ trait ResultsProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results
      *
-     * @see Election::getExplicitPairwise(), Election::getResult()
+     * @see Election::getExplicitPairwise()
+     * @see Election::getResult()
      */
     public function getPairwise(): Pairwise
     {
@@ -262,7 +272,8 @@ trait ResultsProcess
      *
      * @return array Pairwise as an explicit array .
      *
-     * @see Election::getPairwise(), Election::getResult()
+     * @see Election::getPairwise()
+     * @see Election::getResult()
      */
     public function getExplicitPairwise(): array
     {
@@ -321,7 +332,8 @@ trait ResultsProcess
      *
      * @api
      *
-     * @see Election::statsVerbosity, Result::statsVerbosity
+     * @see Election::statsVerbosity
+     * @see Result::statsVerbosity
      *
      * @param $StatsVerbosity A verbosity level.
      */
@@ -343,7 +355,9 @@ trait ResultsProcess
      *
      * @api
      *
-     * @see Election::getWinner(), Election::getResult(), Condorcet::getDefaultMethod()
+     * @see Election::getWinner()
+     * @see Election::getResult()
+     * @see Condorcet::getDefaultMethod()
      *
      * @param $method Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
      */

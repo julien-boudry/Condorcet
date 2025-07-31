@@ -304,7 +304,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      *
      * @api
      *
-     * @see Result::Loser, Election::getWinner()
+     * @see Result::Loser
+     * @see Election::getWinner()
      */
     public array|Candidate|null $Winner {
         get => CondorcetUtil::format($this[1], false);
@@ -316,7 +317,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      *
      * @api
      *
-     * @see Result::Winner, Election::getWinner()
+     * @see Result::Winner
+     * @see Election::getWinner()
      */
     public array|Candidate|null $Loser {
         get => CondorcetUtil::format($this[\count($this)], false);

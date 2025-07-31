@@ -122,7 +122,8 @@ class Election
      *
      * @throws NoSeatsException
      *
-     * @see Election::setSeatsToElect(), Result::seats
+     * @see Election::setSeatsToElect()
+     * @see Result::seats
      */
     public int $seatsToElect = 100 {
         set(int $seats) {
@@ -273,7 +274,8 @@ class Election
      *
      * @return Timer_Manager An CondorcetPHP\Condorcet\Timer\Manager object using by this election.
      *
-     * @see Election::getGlobalTimer(), Election::getLastTimer()
+     * @see Election::getGlobalTimer()
+     * @see Election::getLastTimer()
      */
     public function getTimerManager(): Timer_Manager
     {
@@ -381,7 +383,9 @@ class Election
      *
      * @api
      *
-     * @see Election::getConstraints(), Election::clearConstraints(), Election::isVoteValidUnderConstraints()
+     * @see Election::getConstraints()
+     * @see Election::clearConstraints()
+     * @see Election::isVoteValidUnderConstraints()
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
      */
@@ -412,7 +416,9 @@ class Election
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
      *
-     * @see Election::clearConstraints(), Election::addConstraint(), Election::isVoteValidUnderConstraints()
+     * @see Election::clearConstraints()
+     * @see Election::addConstraint()
+     * @see Election::isVoteValidUnderConstraints()
      */
     public function getConstraints(): array
     {
@@ -426,7 +432,9 @@ class Election
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
      *
-     * @see Election::getConstraints(), Election::addConstraint(), Election::isVoteValidUnderConstraints()
+     * @see Election::getConstraints()
+     * @see Election::addConstraint()
+     * @see Election::isVoteValidUnderConstraints()
      */
     public function clearConstraints(): static
     {
@@ -444,7 +452,9 @@ class Election
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
      *
-     * @see Election::getConstraints(), Election::addConstraint(), Election::clearConstraints()
+     * @see Election::getConstraints()
+     * @see Election::addConstraint()
+     * @see Election::clearConstraints()
      *
      * @param $vote A vote. Not necessarily registered in this election.
      *

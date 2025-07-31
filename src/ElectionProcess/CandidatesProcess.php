@@ -158,7 +158,11 @@ trait CandidatesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
      *
-     * @see Election::parseCandidates(), Election::addCandidatesFromJson(), Election::removeCandidates(), Election::getCandidatesList(), Election::canAddCandidate()
+     * @see Election::parseCandidates()
+     * @see Election::addCandidatesFromJson()
+     * @see Election::removeCandidates()
+     * @see Election::getCandidatesList()
+     * @see Election::canAddCandidate()
      */
     public function addCandidate(
         Candidate|string|null $candidate = null
@@ -200,7 +204,8 @@ trait CandidatesProcess
      *
      * @api
      *
-     * @see Election::addCandidate(), Election::hasCandidate()
+     * @see Election::addCandidate()
+     * @see Election::hasCandidate()
      *
      * @param $candidate String or Condorcet/Vote object.
      *
@@ -222,7 +227,8 @@ trait CandidatesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
      *
-     * @see Election::addCandidate(), Election::getCandidatesList()
+     * @see Election::addCandidate()
+     * @see Election::getCandidatesList()
      *
      * @param $candidates_input String corresponding to the candidate's name or CondorcetPHP\Condorcet\Candidate object. Array filled with CondorcetPHP\Condorcet\Candidate objects. Array filled with strings corresponding to the candidate's name.
      *
@@ -273,7 +279,9 @@ trait CandidatesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
      *
-     * @see Election::addCandidate(), Election::parseCandidates(), Election::addVotesFromJson()
+     * @see Election::addCandidate()
+     * @see Election::parseCandidates()
+     * @see Election::addVotesFromJson()
      *
      * @param $input JSON string.
      *
@@ -314,7 +322,9 @@ trait CandidatesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
      *
-     * @see Election::addCandidate(), Election::addCandidatesFromJson(), Election::parseVotes()
+     * @see Election::addCandidate()
+     * @see Election::addCandidatesFromJson()
+     * @see Election::parseVotes()
      *
      * @param $input String or valid path to a text file.
      * @param $isFile If true, the input is evaluated as a path to a text file.

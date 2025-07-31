@@ -129,7 +129,9 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      *
      * @return array List of registered tag.
      *
-     * @see Vote::getTagsAsString(), Vote::addTags(), Vote::removeTags()
+     * @see Vote::getTagsAsString()
+     * @see Vote::addTags()
+     * @see Vote::removeTags()
      */
     public private(set) array $tags = [];
 
@@ -171,7 +173,8 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
      *
-     * @see Vote::setRanking(), Vote::addTags()
+     * @see Vote::setRanking()
+     * @see Vote::addTags()
      *
      * @param $ranking Equivalent to Vote::setRanking method.
      * @param $tags Equivalent to Vote::addTags method.
@@ -288,7 +291,9 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      *
      * @return string List of registered tag as string separated by commas.
      *
-     * @see Vote::tags, Vote::addTags(), Vote::removeTags()
+     * @see Vote::tags
+     * @see Vote::addTags()
+     * @see Vote::removeTags()
      */
     public function getTagsAsString(): string
     {
@@ -312,7 +317,8 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      *
      * @api
      *
-     * @see Vote::getRanking(), Vote::countCandidates
+     * @see Vote::getRanking()
+     * @see Vote::countCandidates
      *
      * @param $context An election already linked to the Vote.
      *
@@ -441,7 +447,8 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      *
      * @api
      *
-     * @see Vote::getRanking(), Vote::getRanking(), Vote::getRankingAsString()
+     * @see Vote::getRanking()
+     * @see Vote::getRankingAsString()
      *
      * @param $context An election already linked to the Vote.
      *
@@ -490,7 +497,9 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
      *
-     * @see Vote::getRanking(), Vote::rankingHistory, Vote::__construct()
+     * @see Vote::getRanking()
+     * @see Vote::rankingHistory
+     * @see Vote::__construct()
      *
      * @param $ranking A Ranking. Have a look at the Wiki https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote to learn the available ranking formats.
      * @param $ownTimestamp Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.
@@ -724,7 +733,8 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      *
      * @return true Return True.
      *
-     * @see Vote::addTags(), Vote::removeTags()
+     * @see Vote::addTags()
+     * @see Vote::removeTags()
      */
     public function removeAllTags(): true
     {

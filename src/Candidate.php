@@ -51,7 +51,8 @@ class Candidate implements \Stringable
      *
      * @api
      *
-     * @see Candidate::createdAt, Candidate::updatedAt
+     * @see Candidate::createdAt
+     * @see Candidate::updatedAt
      */
     public protected(set) array $nameHistory = [];
 
@@ -137,7 +138,8 @@ class Candidate implements \Stringable
      *
      * @api
      *
-     * @see Candidate::updatedAt, Candidate::nameHistory
+     * @see Candidate::updatedAt
+     * @see Candidate::nameHistory
      */
     public float $createdAt {
         get => $this->nameHistory[0]['timestamp'];
@@ -148,7 +150,8 @@ class Candidate implements \Stringable
      *
      * @api
      *
-     * @see Candidate::createdAt, Candidate::nameHistory
+     * @see Candidate::createdAt
+     * @see Candidate::nameHistory
      */
     public float $updatedAt {
         get => end($this->nameHistory)['timestamp']; // @phpstan-ignore offsetAccess.nonOffsetAccessible

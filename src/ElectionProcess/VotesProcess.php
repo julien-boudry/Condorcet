@@ -37,7 +37,8 @@ trait VotesProcess
      *
      * @api
      *
-     * @see Election::getVotesList(), Election::countValidVoteWithConstraints()
+     * @see Election::getVotesList()
+     * @see Election::countValidVoteWithConstraints()
      *
      * @param $tags Tag in string separated by commas, or an Array.
      * @param $with Count Votes with this tag or without this tag.
@@ -58,7 +59,9 @@ trait VotesProcess
      *
      * @return int Number of valid and registered votes in this election.
      *
-     * @see Election::countValidVoteWithConstraints(), Election::countVotes(), Election::sumValidVoteWeightsWithConstraints()
+     * @see Election::countValidVoteWithConstraints()
+     * @see Election::countVotes()
+     * @see Election::sumValidVoteWeightsWithConstraints()
      */
     public function countInvalidVoteWithConstraints(): int
     {
@@ -70,7 +73,9 @@ trait VotesProcess
      *
      * @api
      *
-     * @see Election::countInvalidVoteWithConstraints(), Election::countVotes(), Election::sumValidVoteWeightsWithConstraints()
+     * @see Election::countInvalidVoteWithConstraints()
+     * @see Election::countVotes()
+     * @see Election::sumValidVoteWeightsWithConstraints()
      *
      * @param $tags Tag in string separated by commas, or an Array.
      * @param $with Count Votes with this tag or without this tag.
@@ -114,7 +119,8 @@ trait VotesProcess
      *
      * @api
      *
-     * @see Election::countValidVoteWithConstraints(), Election::countInvalidVoteWithConstraints()
+     * @see Election::countValidVoteWithConstraints()
+     * @see Election::countInvalidVoteWithConstraints()
      */
     public function sumValidVoteWeightsWithConstraints(
         array|null|string $tags = null,
@@ -129,7 +135,8 @@ trait VotesProcess
      *
      * @api
      *
-     * @see Election::countVotes(), Election::getVotesListAsString()
+     * @see Election::countVotes()
+     * @see Election::getVotesListAsString()
      *
      * @param $tags Tags list as a string separated by commas or array.
      * @param $with Get votes with these tags or without.
@@ -193,7 +200,8 @@ trait VotesProcess
      *
      * @api
      *
-     * @see Election::getVotesListGenerator(), Election::getVotesList()
+     * @see Election::getVotesListGenerator()
+     * @see Election::getVotesList()
      *
      * @param $tags Tags list as a string separated by commas or array.
      * @param $with Get votes with these tags or without.
@@ -226,7 +234,10 @@ trait VotesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
      *
-     * @see Election::parseVotes(), Election::addVotesFromJson(), Election::removeVote(), Election::getVotesList()
+     * @see Election::parseVotes()
+     * @see Election::addVotesFromJson()
+     * @see Election::removeVote()
+     * @see Election::getVotesList()
      *
      * @param $vote String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you do not provide a Vote object yourself, a new one will be generated for you.
      * @param $tags String separated by commas or an array. Will add tags to the vote object for you. But you can also add them yourself to the Vote object.
@@ -346,7 +357,9 @@ trait VotesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
      *
-     * @see Election::addVote(), Election::removeVote(), Election::removeVotesByTags()
+     * @see Election::addVote()
+     * @see Election::removeVote()
+     * @see Election::removeVotesByTags()
      */
     public function removeAllVotes(): true
     {
@@ -364,7 +377,10 @@ trait VotesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
      *
-     * @see Election::removeAllVotes(), Election::addVote(), Election::getVotesList(), Election::removeVotesByTags()
+     * @see Election::removeAllVotes()
+     * @see Election::addVote()
+     * @see Election::getVotesList()
+     * @see Election::removeVotesByTags()
      *
      * @param $vote Vote object.
      *
@@ -397,7 +413,9 @@ trait VotesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesTags
      *
-     * @see Election::addVote(), Election::getVotesList(), Election::removeVote()
+     * @see Election::addVote()
+     * @see Election::getVotesList()
+     * @see Election::removeVote()
      *
      * @param $tags Tags as string separated by commas or array.
      * @param $with Votes with these tags or without.
@@ -451,7 +469,9 @@ trait VotesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
      *
-     * @see Election::addVote(), Election::parseVotes(), Election::addCandidatesFromJson()
+     * @see Election::addVote()
+     * @see Election::parseVotes()
+     * @see Election::addCandidatesFromJson()
      *
      * @param $input Json string input.
      *
@@ -490,7 +510,10 @@ trait VotesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
      *
-     * @see Election::addVote(), Election::parseCandidates(), Election::parseVotesSafe(), Election::addVotesFromJson()
+     * @see Election::addVote()
+     * @see Election::parseCandidates()
+     * @see Election::parseVotesSafe()
+     * @see Election::addVotesFromJson()
      *
      * @param $input String or valid path to a text file.
      * @param $isFile If true, the input is evaluated as path to text file.
@@ -531,7 +554,10 @@ trait VotesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
      *
-     * @see Election::addVote(), Election::parseCandidates(), Election::parseVotes(), Election::addVotesFromJson()
+     * @see Election::addVote()
+     * @see Election::parseCandidates()
+     * @see Election::parseVotes()
+     * @see Election::addVotesFromJson()
      *
      * @param $input String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject.
      * @param $isFile If true, the string input is evaluated as path to text file.
