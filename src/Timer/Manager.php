@@ -72,7 +72,7 @@ class Manager
      *
      * @return array An array containing detailed benchmark history.
      *
-     * @see Election::getTimerManager()
+     * @see \CondorcetPHP\Condorcet\Election::getHistory()
      */
     public function getHistory(): array
     {

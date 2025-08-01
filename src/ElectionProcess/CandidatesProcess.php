@@ -38,7 +38,7 @@ trait CandidatesProcess
      *
      * @return int Number of registered candidates for this election.
      *
-     * @see Election::getCandidatesList()
+     * @see \CondorcetPHP\Condorcet\Election::getCandidatesList()
      */
     public function countCandidates(): int
     {
@@ -52,7 +52,7 @@ trait CandidatesProcess
      *
      * @return array List of candidates in an array.
      *
-     * @see Election::countCandidates()
+     * @see \CondorcetPHP\Condorcet\Election::countCandidates()
      */
     public function getCandidatesList(): array
     {
@@ -67,7 +67,7 @@ trait CandidatesProcess
      *
      * @return array List of candidates in an array populated with strings instead of Candidate objects.
      *
-     * @see Election::countCandidates()
+     * @see \CondorcetPHP\Condorcet\Election::countCandidates()
      */
     public function getCandidatesListAsString(): array
     {
@@ -107,7 +107,7 @@ trait CandidatesProcess
      *
      * @api
      *
-     * @see Election::addCandidate()
+     * @see \CondorcetPHP\Condorcet\Election::addCandidate()
      *
      * @param $candidate Candidate object or candidate name as a string. The candidate name as a string only works if the strict mode is disabled.
      * @param $strictMode Strict comparison mode. In strict mode, candidate objects are compared strictly and a string entry can match nothing. If strict mode is disabled, the comparison will be based on the name.
@@ -158,11 +158,11 @@ trait CandidatesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
      *
-     * @see Election::parseCandidates()
-     * @see Election::addCandidatesFromJson()
-     * @see Election::removeCandidates()
-     * @see Election::getCandidatesList()
-     * @see Election::canAddCandidate()
+     * @see \CondorcetPHP\Condorcet\Election::parseCandidates()
+     * @see \CondorcetPHP\Condorcet\Election::addCandidatesFromJson()
+     * @see \CondorcetPHP\Condorcet\Election::removeCandidates()
+     * @see \CondorcetPHP\Condorcet\Election::getCandidatesList()
+     * @see \CondorcetPHP\Condorcet\Election::canAddCandidate()
      */
     public function addCandidate(
         Candidate|string|null $candidate = null
@@ -204,8 +204,8 @@ trait CandidatesProcess
      *
      * @api
      *
-     * @see Election::addCandidate()
-     * @see Election::hasCandidate()
+     * @see \CondorcetPHP\Condorcet\Election::addCandidate()
+     * @see \CondorcetPHP\Condorcet\Election::hasCandidate()
      *
      * @param $candidate String or Condorcet/Vote object.
      *
@@ -227,8 +227,8 @@ trait CandidatesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
      *
-     * @see Election::addCandidate()
-     * @see Election::getCandidatesList()
+     * @see \CondorcetPHP\Condorcet\Election::addCandidate()
+     * @see \CondorcetPHP\Condorcet\Election::getCandidatesList()
      *
      * @param $candidates_input String corresponding to the candidate's name or CondorcetPHP\Condorcet\Candidate object. Array filled with CondorcetPHP\Condorcet\Candidate objects. Array filled with strings corresponding to the candidate's name.
      *
@@ -279,9 +279,9 @@ trait CandidatesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
      *
-     * @see Election::addCandidate()
-     * @see Election::parseCandidates()
-     * @see Election::addVotesFromJson()
+     * @see \CondorcetPHP\Condorcet\Election::addCandidate()
+     * @see \CondorcetPHP\Condorcet\Election::parseCandidates()
+     * @see \CondorcetPHP\Condorcet\Election::addVotesFromJson()
      *
      * @param $input JSON string.
      *
@@ -322,9 +322,9 @@ trait CandidatesProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
      *
-     * @see Election::addCandidate()
-     * @see Election::addCandidatesFromJson()
-     * @see Election::parseVotes()
+     * @see \CondorcetPHP\Condorcet\Election::addCandidate()
+     * @see \CondorcetPHP\Condorcet\Election::addCandidatesFromJson()
+     * @see \CondorcetPHP\Condorcet\Election::parseVotes()
      *
      * @param $input String or valid path to a text file.
      * @param $isFile If true, the input is evaluated as a path to a text file.

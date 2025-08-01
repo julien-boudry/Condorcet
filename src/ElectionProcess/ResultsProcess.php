@@ -50,8 +50,8 @@ trait ResultsProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsRanking
      *
-     * @see Election::getWinner()
-     * @see Election::getLoser()
+     * @see \CondorcetPHP\Condorcet\Election::getWinner()
+     * @see \CondorcetPHP\Condorcet\Election::getLoser()
      * @see Condorcet::getDefaultMethod()
      *
      * @param $method Not required for use election default method. Set the string name of the algorithm for use of a specific one.
@@ -119,9 +119,9 @@ trait ResultsProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
      *
-     * @see Election::getCondorcetWinner()
-     * @see Election::getLoser()
-     * @see Election::getResult()
+     * @see \CondorcetPHP\Condorcet\Election::getCondorcetWinner()
+     * @see \CondorcetPHP\Condorcet\Election::getLoser()
+     * @see \CondorcetPHP\Condorcet\Election::getResult()
      *
      * @param $method Only if not null the winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple. If null, Natural Condorcet algorithm will be use.
      *
@@ -158,8 +158,8 @@ trait ResultsProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
      *
-     * @see Election::getWinner()
-     * @see Election::getResult()
+     * @see \CondorcetPHP\Condorcet\Election::getWinner()
+     * @see \CondorcetPHP\Condorcet\Election::getResult()
      *
      * @param $method Only if not null the loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple. If null, Natural Condorcet algorithm will be use.
      *
@@ -198,9 +198,9 @@ trait ResultsProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
      *
-     * @see Election::getCondorcetLoser()
-     * @see Election::getWinner()
-     * @see Election::getResult()
+     * @see \CondorcetPHP\Condorcet\Election::getCondorcetLoser()
+     * @see \CondorcetPHP\Condorcet\Election::getWinner()
+     * @see \CondorcetPHP\Condorcet\Election::getResult()
      */
     public function getCondorcetWinner(): ?Candidate
     {
@@ -216,9 +216,9 @@ trait ResultsProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
      *
-     * @see Election::getCondorcetWinner()
-     * @see Election::getLoser()
-     * @see Election::getResult()
+     * @see \CondorcetPHP\Condorcet\Election::getCondorcetWinner()
+     * @see \CondorcetPHP\Condorcet\Election::getLoser()
+     * @see \CondorcetPHP\Condorcet\Election::getResult()
      */
     public function getCondorcetLoser(): ?Candidate
     {
@@ -234,8 +234,8 @@ trait ResultsProcess
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results
      *
-     * @see Election::getExplicitPairwise()
-     * @see Election::getResult()
+     * @see \CondorcetPHP\Condorcet\Election::getExplicitPairwise()
+     * @see \CondorcetPHP\Condorcet\Election::getResult()
      */
     public function getPairwise(): Pairwise
     {
@@ -251,7 +251,7 @@ trait ResultsProcess
      *
      * @internal
      *
-     * @see Election::getPairwise()
+     * @see \CondorcetPHP\Condorcet\Election::getPairwise()
      *
      * @param $tags Tags as string separated by commas or array.
      * @param $with Votes with these tags or without.
@@ -272,8 +272,8 @@ trait ResultsProcess
      *
      * @return array Pairwise as an explicit array .
      *
-     * @see Election::getPairwise()
-     * @see Election::getResult()
+     * @see \CondorcetPHP\Condorcet\Election::getPairwise()
+     * @see \CondorcetPHP\Condorcet\Election::getResult()
      */
     public function getExplicitPairwise(): array
     {
@@ -285,7 +285,7 @@ trait ResultsProcess
      *
      * @api
      *
-     * @see Election::getPairwise()
+     * @see \CondorcetPHP\Condorcet\Election::getPairwise()
      *
      * @param $tags Tags as string separated by commas or array.
      * @param $with Minimum number of specified tags that votes must include, or 0 for only votes without any specified tags.
@@ -332,7 +332,7 @@ trait ResultsProcess
      *
      * @api
      *
-     * @see Election::statsVerbosity
+     * @see \CondorcetPHP\Condorcet\Election::statsVerbosity
      * @see Result::statsVerbosity
      *
      * @param $StatsVerbosity A verbosity level.
@@ -355,8 +355,8 @@ trait ResultsProcess
      *
      * @api
      *
-     * @see Election::getWinner()
-     * @see Election::getResult()
+     * @see \CondorcetPHP\Condorcet\Election::getWinner()
+     * @see \CondorcetPHP\Condorcet\Election::getResult()
      * @see Condorcet::getDefaultMethod()
      *
      * @param $method Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
