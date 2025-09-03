@@ -49,7 +49,7 @@ class ArrayRandomizer
      */
     public function __construct(
         array $candidates,
-        Randomizer|null|string $seed = null
+        Randomizer|string|null $seed = null
     ) {
         $this->setCandidates($candidates);
 

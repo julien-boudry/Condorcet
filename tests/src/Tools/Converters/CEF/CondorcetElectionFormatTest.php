@@ -236,8 +236,8 @@ test('create from election', function (): void {
     $election = new CondorcetElectionFormat($input)->setDataToAnElection();
 
     expect(CondorcetElectionFormat::createFromElection(election: $election))->toBe(
-        $assertion1 =
-        <<<'CVOTES'
+        $assertion1
+        = <<<'CVOTES'
             #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
             #/Number of Seats: 42
             #/Implicit Ranking: true
@@ -282,8 +282,8 @@ test('create from election', function (): void {
 
     expect(CondorcetElectionFormat::createFromElection(election: $election, aggregateVotes: false, includeTags: false))
         ->toBe(
-            $assertion5 =
-            <<<'CVOTES'
+            $assertion5
+            = <<<'CVOTES'
                 #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
                 #/Number of Seats: 42
                 #/Implicit Ranking: false

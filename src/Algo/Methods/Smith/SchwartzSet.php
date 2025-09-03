@@ -210,8 +210,8 @@ class SchwartzSet extends Method implements MethodInterface
 
             // Trouver tous les autres composants qui forment un cycle avec celui-ci
             for ($j = 0; $j < \count($sccs); $j++) {
-                if ($i !== $j && !$visited[$j] &&
-                    \in_array($j, $sccGraph[$i], true) && \in_array($i, $sccGraph[$j], true)) {
+                if ($i !== $j && !$visited[$j]
+                    && \in_array($j, $sccGraph[$i], true) && \in_array($i, $sccGraph[$j], true)) {
                     $component = array_merge($component, $sccs[$j]);
                     $visited[$j] = true;
                     $merged = true;

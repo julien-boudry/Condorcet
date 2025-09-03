@@ -102,8 +102,8 @@ class ConvertCommand extends Command
         $this->input = $input->getArgument('input') ?? throw new CondorcetInternalException('Argument "input" is required');
         $this->input = CommandInputHelper::getFilePath($this->input) ?? throw new CondorcetInternalException('The input file does not exist');
 
-        CommandInputHelper::isAbsoluteAndExist($input->getArgument('output') ?? throw new ConsoleInputException('Argument "output" is required')) ?
-                        $input->getArgument('output') : CommandInputHelper::getFilePath($input->getArgument('output'));
+        CommandInputHelper::isAbsoluteAndExist($input->getArgument('output') ?? throw new ConsoleInputException('Argument "output" is required'))
+                        ? $input->getArgument('output') : CommandInputHelper::getFilePath($input->getArgument('output'));
 
         $this->output = new SplFileObject($input->getArgument('output'), 'w+');
     }

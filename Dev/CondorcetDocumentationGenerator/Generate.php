@@ -77,9 +77,9 @@ class Generate
 
     public static function getGithubLink(\ReflectionFunctionAbstract|ReflectionClass $refl): string
     {
-        return self::GITHUB_BASE . self::GITHUB_BRANCH_PATH .
-                substr($refl->getFileName(), mb_strpos($refl->getFileName(), '/src/') + 1) .
-                '#L' . $refl->getStartLine()
+        return self::GITHUB_BASE . self::GITHUB_BRANCH_PATH
+                . substr($refl->getFileName(), mb_strpos($refl->getFileName(), '/src/') + 1)
+                . '#L' . $refl->getStartLine()
         ;
     }
 
@@ -116,10 +116,10 @@ class Generate
         }
 
         return [self::getModifiersName($reflection),
-            self::simpleClass($reflection->class) .
-            (($reflection->isStatic()) ? '::' : '->') .
-            $reflection->name .
-            $parameters,
+            self::simpleClass($reflection->class)
+            . (($reflection->isStatic()) ? '::' : '->')
+            . $reflection->name
+            . $parameters,
         ];
     }
 
@@ -158,26 +158,26 @@ class Generate
 
             $returnType = $reflection->getReturnType();
 
-            $r .=   self::getModifiersName($reflection) .
-                    ' ' .
-                    self::simpleClass($reflection->class) .
-                    ($reflection->isStatic() ? '::' : '->') .
-                    $reflection->name .
-                    ' ' .
-                    $str .
-                    (self::getTypeAsString($returnType) !== null ? ': ' . $returnType : '')
+            $r .=   self::getModifiersName($reflection)
+                    . ' '
+                    . self::simpleClass($reflection->class)
+                    . ($reflection->isStatic() ? '::' : '->')
+                    . $reflection->name
+                    . ' '
+                    . $str
+                    . (self::getTypeAsString($returnType) !== null ? ': ' . $returnType : '')
             ;
         } elseif ($reflection instanceof ReflectionProperty) {
             $type = $reflection->getType();
 
-            $r .=   self::getModifiersName($reflection) .
-                    ' ' .
-                    (self::getTypeAsString($type) !== null ? $type . ' ' : '') .
-                    self::simpleClass($reflection->class) .
-                    ($reflection->isStatic() ? '::' : '->') .
-                    $reflection->name .
-                    ' ' .
-                    $str
+            $r .=   self::getModifiersName($reflection)
+                    . ' '
+                    . (self::getTypeAsString($type) !== null ? $type . ' ' : '')
+                    . self::simpleClass($reflection->class)
+                    . ($reflection->isStatic() ? '::' : '->')
+                    . $reflection->name
+                    . ' '
+                    . $str
             ;
         } else {
             throw new \Error('Unknown type');
@@ -267,10 +267,10 @@ class Generate
                 // Write Markdown
                 if ($isPublicApi) {
                     if (
-                        !$classIsInternal &&
-                        (
-                            empty($this->getDocBlockTagDescriptionOrValue('@api', $onePage)) ||
-                            str_contains($this->getDocBlockTagDescriptionOrValue('@api', $onePage), self::simpleClass($onePage->class))
+                        !$classIsInternal
+                        && (
+                            empty($this->getDocBlockTagDescriptionOrValue('@api', $onePage))
+                            || str_contains($this->getDocBlockTagDescriptionOrValue('@api', $onePage), self::simpleClass($onePage->class))
                         )
                     ) {
                         $path = $pathDirectory . str_replace('\\', '_', self::simpleClass($onePage->class)) . ' Class/';
@@ -289,10 +289,10 @@ class Generate
         print 'Public Methods/Properties in doc: ' . $inDoc . ' / ' . ($inDoc + $non_inDoc) . ' | Total non-internal Methods/Properties count: ' . $total_nonInternal . ' | Number of Class: ' . \count($FullClassList) . ' | Number of Methods/Properties including internals: ' . $total_pages . "\n";
 
         // Add Index
-        $file_content =  '> **[Presentation](../README.md) | [Documentation Book](' . self::DOCS_URL . ") | API References | [Voting Methods](/Docs/VotingMethods.md) | [Tests](../../tests)**\n\n" .
+        $file_content =  '> **[Presentation](../README.md) | [Documentation Book](' . self::DOCS_URL . ") | API References | [Voting Methods](/Docs/VotingMethods.md) | [Tests](../../tests)**\n\n"
 
-                        "# API References\n" .
-                        "## Public API Index *\n";
+                        . "# API References\n"
+                        . "## Public API Index *\n";
 
 
         $file_content .= $this->makeIndex($this->fullPagesListMeta);
@@ -300,8 +300,8 @@ class Generate
         $file_content .= "\n\n\n";
 
         uksort($this->fullPagesListMeta, 'strnatcmp');
-        $file_content .=    "## Full Class & API Reference\n" .
-                            "_Including above methods from public API_\n\n";
+        $file_content .=    "## Full Class & API Reference\n"
+                            . "_Including above methods from public API_\n\n";
 
         $file_content .= $this->makeProfundis($this->fullPagesListMeta);
 
@@ -364,13 +364,13 @@ class Generate
         $gitHubLinkClass = $onePage instanceof ReflectionProperty ? $onePage->getDeclaringClass() : $onePage;
 
         // Header
-        $md =   '# ' . self::getModifiersName($onePage) . ' ' . self::simpleClass($onePage->class) . '::' . $onePage->name . "\n\n" .
+        $md =   '# ' . self::getModifiersName($onePage) . ' ' . self::simpleClass($onePage->class) . '::' . $onePage->name . "\n\n"
 
-                '> [Read it at the source](' . self::getGithubLink($gitHubLinkClass) . ")\n\n" .
+                . '> [Read it at the source](' . self::getGithubLink($gitHubLinkClass) . ")\n\n"
 
-                "## Description    \n\n" .
-                self::computeRepresentationAsPHP($onePage) . "\n\n" .
-                $this->getDocBlockDescription($onePage) . "\n";
+                . "## Description    \n\n"
+                . self::computeRepresentationAsPHP($onePage) . "\n\n"
+                . $this->getDocBlockDescription($onePage) . "\n";
 
         // Parameters
         if ($onePage instanceof ReflectionMethod && $onePage->getNumberOfParameters() > 0) {
@@ -381,9 +381,9 @@ class Generate
             foreach ($onePage->getParameters() as $value) {
                 $pt = !empty($docBlocParams[$value->getName()]) ? $docBlocParams[$value->getName()] : '';
 
-                $md .=  "\n" .
-                        '### **' . $value->getName() . ':** *' . self::getTypeAsString($value->getType(), true) . "*   \n" .
-                        $pt . "    \n";
+                $md .=  "\n"
+                        . '### **' . $value->getName() . ':** *' . self::getTypeAsString($value->getType(), true) . "*   \n"
+                        . $pt . "    \n";
             }
         }
 
@@ -394,15 +394,15 @@ class Generate
             $returnDescription = $this->getDocBlockTagDescriptionOrValue('@return', $onePage);
             $returnDescription = implode("\n", array_map(ltrim(...), explode("\n", $returnDescription)));
 
-            $md .= "\n\n" .
-                    "## Return value   \n\n" .
-                    '*(' . self::getTypeAsString($onePage->getReturnType(), true) . ')* ' . $returnDescription . "\n\n";
+            $md .= "\n\n"
+                    . "## Return value   \n\n"
+                    . '*(' . self::getTypeAsString($onePage->getReturnType(), true) . ')* ' . $returnDescription . "\n\n";
         }
 
         // Throw
         if ($this->hasDocBlockTag('@throws', $onePage)) {
-            $md .=  "\n\n" .
-                    "## Throws:   \n\n";
+            $md .=  "\n\n"
+                    . "## Throws:   \n\n";
 
             foreach ($this->getPhpDocNode($onePage)->getTagsByName('@throws') as $oneTag) {
                 $classPath = NamespaceResolver::resolveClassName((string) $oneTag->value->type, $onePage->getDeclaringClass()->getFileName());
@@ -414,9 +414,9 @@ class Generate
         // Related
 
         if (!empty($see = $this->getDocBlockTagDescriptionOrValue('@see', $onePage))) {
-            $md .=  "\n" .
-                    "---------------------------------------\n\n" .
-                    "## Related\n\n";
+            $md .=  "\n"
+                    . "---------------------------------------\n\n"
+                    . "## Related\n\n";
 
             foreach (explode(', ', $see) as $toSee) {
                 if ($toSee === self::simpleClass($onePage->class) . '::' . $onePage->name . ($onePage instanceof ReflectionMethod ? '()' : '')) {
@@ -428,9 +428,9 @@ class Generate
         }
 
         if (!empty($this->getDocBlockTagDescriptionOrValue('@book', $onePage))) {
-            $md .=  "\n" .
-                    "---------------------------------------\n\n" .
-                    "## Tutorial\n\n";
+            $md .=  "\n"
+                    . "---------------------------------------\n\n"
+                    . "## Tutorial\n\n";
 
             foreach (explode(', ', $this->getDocBlockTagDescriptionOrValue('@book', $onePage)) as $BookAttribute) {
                 $BookLibrary = \constant($BookAttribute);
@@ -779,7 +779,7 @@ class Generate
         return \in_array($tag, $this->getDocBlockTags($source), true);
     }
 
-    protected function getDocBlockTagDescriptionOrValue(string $tag, ReflectionClass|ReflectionMethod|ReflectionProperty $source): null|false|string
+    protected function getDocBlockTagDescriptionOrValue(string $tag, ReflectionClass|ReflectionMethod|ReflectionProperty $source): false|string|null
     {
         if (!$this->hasDocBlockTag($tag, $source)) {
             return false;

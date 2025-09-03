@@ -66,8 +66,8 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
     protected function checkStructureTemplate(array &$struct): bool
     {
-        if (!empty($struct['tableName']) && !empty($struct['primaryColumnName']) && !empty($struct['dataColumnName']) &&
-                \is_string($struct['tableName']) && \is_string($struct['primaryColumnName']) && \is_string($struct['dataColumnName'])
+        if (!empty($struct['tableName']) && !empty($struct['primaryColumnName']) && !empty($struct['dataColumnName'])
+                && \is_string($struct['tableName']) && \is_string($struct['primaryColumnName']) && \is_string($struct['dataColumnName'])
         ) {
             return true;
         } else {

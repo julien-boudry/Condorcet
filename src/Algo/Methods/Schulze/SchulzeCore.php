@@ -116,8 +116,8 @@ abstract class SchulzeCore extends Method implements MethodInterface
                 if ($i !== $j) {
                     foreach ($candidates as $k) {
                         if ($i !== $k && $j !== $k) {
-                            $this->StrongestPaths[$j][$k] =
-                                max(
+                            $this->StrongestPaths[$j][$k]
+                                = max(
                                     $this->StrongestPaths[$j][$k],
                                     min($this->StrongestPaths[$j][$i], $this->StrongestPaths[$i][$k])
                                 );

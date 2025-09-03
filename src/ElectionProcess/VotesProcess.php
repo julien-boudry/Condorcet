@@ -46,7 +46,7 @@ trait VotesProcess
      * @return int Number of valid and registered votes in this election.
      */
     public function countVotes(
-        array|null|string $tags = null,
+        array|string|null $tags = null,
         bool|int $with = true
     ): int {
         return $this->Votes->countVotes(VoteUtil::tagsConvert($tags), $with);
@@ -83,7 +83,7 @@ trait VotesProcess
      * @return int Number of valid and registered votes in this election.
      */
     public function countValidVoteWithConstraints(
-        array|null|string $tags = null,
+        array|string|null $tags = null,
         bool|int $with = true
     ): int {
         return $this->Votes->countValidVotesWithConstraints(VoteUtil::tagsConvert($tags), $with);
@@ -103,7 +103,7 @@ trait VotesProcess
      * @see Election::sumValidVoteWeightsWithConstraints()
      */
     public function sumVoteWeights(
-        array|null|string $tags = null,
+        array|string|null $tags = null,
         bool|int $with = true
     ): int {
         return $this->Votes->sumVoteWeights(VoteUtil::tagsConvert($tags), $with);
@@ -123,7 +123,7 @@ trait VotesProcess
      * @see Election::countInvalidVoteWithConstraints()
      */
     public function sumValidVoteWeightsWithConstraints(
-        array|null|string $tags = null,
+        array|string|null $tags = null,
         bool|int $with = true
     ): int {
         return $this->Votes->sumVoteWeightsWithConstraints(VoteUtil::tagsConvert($tags), $with);
@@ -144,7 +144,7 @@ trait VotesProcess
      * @return array Populated by each Vote object.
      */
     public function getVotesList(
-        array|null|string $tags = null,
+        array|string|null $tags = null,
         bool $with = true
     ): array {
         return $this->Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
@@ -188,7 +188,7 @@ trait VotesProcess
      * @return \Generator Populated by each Vote object.
      */
     public function getVotesListGenerator(
-        array|null|string $tags = null,
+        array|string|null $tags = null,
         bool $with = true
     ): \Generator {
         return $this->Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
@@ -209,7 +209,7 @@ trait VotesProcess
      * @return \Generator Populated by each Vote object.
      */
     public function getVotesValidUnderConstraintGenerator(
-        array|null|string $tags = null,
+        array|string|null $tags = null,
         bool $with = true
     ): \Generator {
         return $this->Votes->getVotesValidUnderConstraintGenerator($tags, $with);
@@ -653,7 +653,7 @@ trait VotesProcess
         return $fail_count;
     }
 
-    protected function aggregateVotesFromParse(int &$count, int $multiple, array &$adding, array|string|Vote $vote, null|array|string $tags, int $weight): void
+    protected function aggregateVotesFromParse(int &$count, int $multiple, array &$adding, array|string|Vote $vote, array|string|null $tags, int $weight): void
     {
         $adding_predicted_count = $count + $multiple;
 

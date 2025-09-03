@@ -214,19 +214,19 @@ test('get votes list as string', function (): void {
             Y > Z
         ');
 
-    expect($this->election1->getVotesListAsString())->toBe("A > B = C = D = E * 6\n" .
-"D > A = B = C = E * 6\n" .
-"A > B = C > E > D * 5\n" .
-"A = B = E > C = D * 3\n" .
-'A = B = C = D = E * 1');
+    expect($this->election1->getVotesListAsString())->toBe("A > B = C = D = E * 6\n"
+. "D > A = B = C = E * 6\n"
+. "A > B = C > E > D * 5\n"
+. "A = B = E > C = D * 3\n"
+. 'A = B = C = D = E * 1');
 
     $this->election1->implicitRankingRule(false);
 
-    expect($this->election1->getVotesListAsString())->toBe("A * 6\n" .
-"D * 6\n" .
-"A > B = C > E * 5\n" .
-"A = B = E * 3\n" .
-'/EMPTY_RANKING/ * 1');
+    expect($this->election1->getVotesListAsString())->toBe("A * 6\n"
+. "D * 6\n"
+. "A > B = C > E * 5\n"
+. "A = B = E * 3\n"
+. '/EMPTY_RANKING/ * 1');
 
     expect($this->election1->getVotesListAsString(false))->toBe(<<<'VOTES'
         A * 6
@@ -247,8 +247,8 @@ test('empty ranking export', function (): void {
     expect($this->election2->getVotesListAsString(true))->toBe('/EMPTY_RANKING/ * 2');
     expect($this->election2->getVotesListAsString(false))->toBe('/EMPTY_RANKING/ * 1' . "\n" . 'D > E * 1');
 
-    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: true, inContext: false))->toBe($cvotes_explicit_without_context =
-                    <<<'CVOTES'
+    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: true, inContext: false))->toBe($cvotes_explicit_without_context
+                    = <<<'CVOTES'
                         #/Candidates: A ; B ; C
                         #/Implicit Ranking: false
                         #/Weight Allowed: false
@@ -312,8 +312,8 @@ test('empty ranking export', function (): void {
         A > B > C = D * 1
         CVOTES);
 
-    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: true, inContext: false))->toBe($cvotes_implicit_without_context =
-                    <<<'CVOTES'
+    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: true, inContext: false))->toBe($cvotes_implicit_without_context
+                    = <<<'CVOTES'
                         #/Candidates: A ; B ; C ; D
                         #/Implicit Ranking: true
                         #/Weight Allowed: false
@@ -630,8 +630,8 @@ test('election serializing', function (): void {
 test('election unserializing', function (): void {
     $this->expectException(ElectionObjectVersionMismatchException::class);
     $this->expectExceptionMessage(
-        "Version mismatch: The election object has version '3.2' " .
-        "which is different from the current class version '" . Condorcet::getVersion(true) . "'"
+        "Version mismatch: The election object has version '3.2' "
+        . "which is different from the current class version '" . Condorcet::getVersion(true) . "'"
     );
 
     unserialize(

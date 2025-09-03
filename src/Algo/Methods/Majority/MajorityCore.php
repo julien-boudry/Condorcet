@@ -76,9 +76,9 @@ abstract class MajorityCore extends Method implements MethodInterface
                 $this->admittedCandidates = [];
 
                 foreach ($roundScore as $oneCandidateKey => $oneScore) {
-                    if ($lastScore === null ||
-                        $nextRoundAddedCandidates < ($this->targetNumberOfCandidatesForTheNextRound + ($this->numberOfTargetedCandidatesAfterEachRound * ($round - 1))) ||
-                        $oneScore === $lastScore
+                    if ($lastScore === null
+                        || $nextRoundAddedCandidates < ($this->targetNumberOfCandidatesForTheNextRound + ($this->numberOfTargetedCandidatesAfterEachRound * ($round - 1)))
+                        || $oneScore === $lastScore
                     ) {
                         $this->admittedCandidates[] = $oneCandidateKey;
                         $lastScore = $oneScore;
