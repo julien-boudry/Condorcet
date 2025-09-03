@@ -1,6 +1,6 @@
 # public Election::setStatsVerbosity
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L270)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L340)
 
 ## Description    
 
@@ -19,5 +19,4 @@ A verbosity level.
 
 ## Related
 
-* [Election::statsVerbosity](/Docs/api-reference/Election%20Class/Election--statsVerbosity.md)    
 * [Result::statsVerbosity](/Docs/api-reference/Result%20Class/Result--statsVerbosity.md)    

@@ -1,6 +1,6 @@
 # public Election::getCondorcetWinner
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L171)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L205)
 
 ## Description    
 
@@ -20,9 +20,7 @@ Get the natural Condorcet winner if there is one.
 
 ## Related
 
-* [Election::getCondorcetLoser()](/Docs/api-reference/Election%20Class/Election--getCondorcetLoser().md)    
-* [Election::getWinner()](/Docs/api-reference/Election%20Class/Election--getWinner().md)    
-* [Election::getResult()](/Docs/api-reference/Election%20Class/Election--getResult().md)    
+* [\CondorcetPHP\Condorcet\Election::getResult()]()    
 
 ---------------------------------------
 

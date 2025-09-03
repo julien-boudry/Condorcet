@@ -1,6 +1,6 @@
 # public Election::parseVotes
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L416)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L523)
 
 ## Description    
 
@@ -28,9 +28,6 @@ If true, the input is evaluated as path to text file.
 
 ## Related
 
-* [Election::addVote()](/Docs/api-reference/Election%20Class/Election--addVote().md)    
-* [Election::parseCandidates()](/Docs/api-reference/Election%20Class/Election--parseCandidates().md)    
-* [Election::parseVotesSafe()](/Docs/api-reference/Election%20Class/Election--parseVotesSafe().md)    
 * [Election::addVotesFromJson()](/Docs/api-reference/Election%20Class/Election--addVotesFromJson().md)    
 
 ---------------------------------------

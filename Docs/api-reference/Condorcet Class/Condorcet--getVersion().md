@@ -1,6 +1,6 @@
 # public static Condorcet::getVersion
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L85)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L89)
 
 ## Description    
 

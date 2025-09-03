@@ -1,6 +1,6 @@
 # public Vote::getTagsAsString
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L268)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L298)
 
 ## Description    
 
@@ -20,6 +20,4 @@ Get the registered tags for this Vote.
 
 ## Related
 
-* [Vote::tags](/Docs/api-reference/Vote%20Class/Vote--tags.md)    
-* [Vote::addTags()](/Docs/api-reference/Vote%20Class/Vote--addTags().md)    
 * [Vote::removeTags()](/Docs/api-reference/Vote%20Class/Vote--removeTags().md)    

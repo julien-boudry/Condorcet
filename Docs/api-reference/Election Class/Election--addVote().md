@@ -1,6 +1,6 @@
 # public Election::addVote
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L188)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L249)
 
 ## Description    
 
@@ -33,9 +33,6 @@ String separated by commas or an array. Will add tags to the vote object for you
 
 ## Related
 
-* [Election::parseVotes()](/Docs/api-reference/Election%20Class/Election--parseVotes().md)    
-* [Election::addVotesFromJson()](/Docs/api-reference/Election%20Class/Election--addVotesFromJson().md)    
-* [Election::removeVote()](/Docs/api-reference/Election%20Class/Election--removeVote().md)    
 * [Election::getVotesList()](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
 
 ---------------------------------------

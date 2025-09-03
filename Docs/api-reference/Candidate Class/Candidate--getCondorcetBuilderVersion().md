@@ -1,6 +1,6 @@
 # public Candidate::getCondorcetBuilderVersion
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/CondorcetVersion.php#L28)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/CondorcetVersion.php#L33)
 
 ## Description    
 
@@ -25,4 +25,4 @@ true will return 2.0 and false will return 2.0.0.
 
 ## Related
 
-* [Condorcet::getVersion()](/Docs/api-reference/Condorcet%20Class/Condorcet--getVersion().md)    
+* [\CondorcetPHP\Condorcet\Condorcet::getVersion()]()    

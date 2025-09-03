@@ -1,6 +1,6 @@
 # public Vote::__construct
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L165)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L186)
 
 ## Description    
 
@@ -33,7 +33,6 @@ Try to convert directly your candidates from string input to Candidate object of
 
 ## Related
 
-* [Vote::setRanking()](/Docs/api-reference/Vote%20Class/Vote--setRanking().md)    
 * [Vote::addTags()](/Docs/api-reference/Vote%20Class/Vote--addTags().md)    
 
 ---------------------------------------

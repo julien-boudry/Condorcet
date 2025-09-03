@@ -1,6 +1,6 @@
 # public Election::parseCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L276)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L337)
 
 ## Description    
 
@@ -34,9 +34,7 @@ If true, the input is evaluated as a path to a text file.
 
 ## Related
 
-* [Election::addCandidate()](/Docs/api-reference/Election%20Class/Election--addCandidate().md)    
-* [Election::addCandidatesFromJson()](/Docs/api-reference/Election%20Class/Election--addCandidatesFromJson().md)    
-* [Election::parseVotes()](/Docs/api-reference/Election%20Class/Election--parseVotes().md)    
+* [\CondorcetPHP\Condorcet\Election::parseVotes()]()    
 
 ---------------------------------------
 

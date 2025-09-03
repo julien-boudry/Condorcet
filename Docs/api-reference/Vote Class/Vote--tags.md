@@ -14,6 +14,4 @@ Get the registered tags for this Vote.
 
 ## Related
 
-* [Vote::getTagsAsString()](/Docs/api-reference/Vote%20Class/Vote--getTagsAsString().md)    
-* [Vote::addTags()](/Docs/api-reference/Vote%20Class/Vote--addTags().md)    
 * [Vote::removeTags()](/Docs/api-reference/Vote%20Class/Vote--removeTags().md)    

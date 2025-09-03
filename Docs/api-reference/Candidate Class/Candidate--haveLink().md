@@ -1,6 +1,6 @@
 # public Candidate::haveLink
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L31)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L41)
 
 ## Description    
 
@@ -25,8 +25,3 @@ Condorcet election to check.
 
 ## Related
 
-* [Vote::countLinks()](/Docs/api-reference/Vote%20Class/Vote--countLinks().md)    
-* [Candidate::countLinks()](/Docs/api-reference/Candidate%20Class/Candidate--countLinks().md)    
-* [Vote::getLinks()](/Docs/api-reference/Vote%20Class/Vote--getLinks().md)    
-* [Candidate::getLinks()](/Docs/api-reference/Candidate%20Class/Candidate--getLinks().md)    
-* [Vote::haveLink()](/Docs/api-reference/Vote%20Class/Vote--haveLink().md)    

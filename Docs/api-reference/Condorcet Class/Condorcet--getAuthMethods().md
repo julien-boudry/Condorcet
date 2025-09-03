@@ -1,6 +1,6 @@
 # public static Condorcet::getAuthMethods
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L105)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L115)
 
 ## Description    
 
@@ -28,5 +28,4 @@ Include or not non deterministic methods.
 
 ## Related
 
-* [Condorcet::isAuthMethod()](/Docs/api-reference/Condorcet%20Class/Condorcet--isAuthMethod().md)    
 * [Condorcet::getMethodClass()](/Docs/api-reference/Condorcet%20Class/Condorcet--getMethodClass().md)    

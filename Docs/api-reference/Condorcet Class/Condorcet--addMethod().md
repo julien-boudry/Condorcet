@@ -1,6 +1,6 @@
 # public static Condorcet::addMethod
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L192)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L219)
 
 ## Description    
 
@@ -25,5 +25,4 @@ The class name implementing your method. The class name includes the namespace i
 
 ## Related
 
-* [Condorcet::isAuthMethod()](/Docs/api-reference/Condorcet%20Class/Condorcet--isAuthMethod().md)    
 * [Condorcet::getMethodClass()](/Docs/api-reference/Condorcet%20Class/Condorcet--getMethodClass().md)    

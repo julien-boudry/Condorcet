@@ -1,6 +1,6 @@
 # public Election::getVotesList
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L111)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L146)
 
 ## Description    
 
@@ -28,5 +28,4 @@ Get votes with these tags or without.
 
 ## Related
 
-* [Election::countVotes()](/Docs/api-reference/Election%20Class/Election--countVotes().md)    
 * [Election::getVotesListAsString()](/Docs/api-reference/Election%20Class/Election--getVotesListAsString().md)    

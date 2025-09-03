@@ -1,6 +1,6 @@
 # public Election::addCandidate
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L135)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L167)
 
 ## Description    
 
@@ -31,11 +31,7 @@ Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The candidate na
 
 ## Related
 
-* [Election::parseCandidates()](/Docs/api-reference/Election%20Class/Election--parseCandidates().md)    
-* [Election::addCandidatesFromJson()](/Docs/api-reference/Election%20Class/Election--addCandidatesFromJson().md)    
-* [Election::removeCandidates()](/Docs/api-reference/Election%20Class/Election--removeCandidates().md)    
-* [Election::getCandidatesList()](/Docs/api-reference/Election%20Class/Election--getCandidatesList().md)    
-* [Election::canAddCandidate()](/Docs/api-reference/Election%20Class/Election--canAddCandidate().md)    
+* [\CondorcetPHP\Condorcet\Election::canAddCandidate()]()    
 
 ---------------------------------------
 

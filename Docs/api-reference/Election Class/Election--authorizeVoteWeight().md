@@ -1,6 +1,6 @@
 # public Election::authorizeVoteWeight
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L99)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L110)
 
 ## Description    
 
@@ -8,7 +8,7 @@
 public Election->authorizeVoteWeight ( [bool $authorized = true] ): static
 ```
 
-Alias as a method for Election->authorizeVoteWeight
+Alias as a method for Election->authorizeVoteWeight.
 
 ## Parameter
 

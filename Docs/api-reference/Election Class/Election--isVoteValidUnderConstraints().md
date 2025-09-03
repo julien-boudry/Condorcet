@@ -1,6 +1,6 @@
 # public Election::isVoteValidUnderConstraints
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L399)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L463)
 
 ## Description    
 
@@ -25,8 +25,6 @@ A vote. Not necessarily registered in this election.
 
 ## Related
 
-* [Election::getConstraints()](/Docs/api-reference/Election%20Class/Election--getConstraints().md)    
-* [Election::addConstraint()](/Docs/api-reference/Election%20Class/Election--addConstraint().md)    
 * [Election::clearConstraints()](/Docs/api-reference/Election%20Class/Election--clearConstraints().md)    
 
 ---------------------------------------

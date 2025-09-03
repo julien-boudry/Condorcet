@@ -1,6 +1,6 @@
 # public Election::canAddCandidate
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L176)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L214)
 
 ## Description    
 
@@ -25,5 +25,4 @@ String or Condorcet/Vote object.
 
 ## Related
 
-* [Election::addCandidate()](/Docs/api-reference/Election%20Class/Election--addCandidate().md)    
-* [Election::hasCandidate()](/Docs/api-reference/Election%20Class/Election--hasCandidate().md)    
+* [\CondorcetPHP\Condorcet\Election::hasCandidate()]()    

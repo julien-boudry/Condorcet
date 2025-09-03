@@ -1,6 +1,6 @@
 # public Election::countVotes
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L41)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L48)
 
 ## Description    
 
@@ -28,5 +28,4 @@ Count Votes with this tag or without this tag.
 
 ## Related
 
-* [Election::getVotesList()](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
 * [Election::countValidVoteWithConstraints()](/Docs/api-reference/Election%20Class/Election--countValidVoteWithConstraints().md)    

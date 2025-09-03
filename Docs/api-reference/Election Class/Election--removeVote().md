@@ -1,6 +1,6 @@
 # public Election::removeVote
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L308)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L389)
 
 ## Description    
 
@@ -25,9 +25,6 @@ Vote object.
 
 ## Related
 
-* [Election::removeAllVotes()](/Docs/api-reference/Election%20Class/Election--removeAllVotes().md)    
-* [Election::addVote()](/Docs/api-reference/Election%20Class/Election--addVote().md)    
-* [Election::getVotesList()](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
 * [Election::removeVotesByTags()](/Docs/api-reference/Election%20Class/Election--removeVotesByTags().md)    
 
 ---------------------------------------

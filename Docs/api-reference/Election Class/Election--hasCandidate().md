@@ -1,6 +1,6 @@
 # public Election::hasCandidate
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L97)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L115)
 
 ## Description    
 
@@ -22,4 +22,4 @@ Strict comparison mode. In strict mode, candidate objects are compared strictly 
 
 ## Related
 
-* [Election::addCandidate()](/Docs/api-reference/Election%20Class/Election--addCandidate().md)    
+* [\CondorcetPHP\Condorcet\Election::addCandidate()]()    

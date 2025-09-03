@@ -1,6 +1,6 @@
 # public Election::implicitRankingRule
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L330)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L368)
 
 ## Description    
 

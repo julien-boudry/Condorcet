@@ -1,6 +1,6 @@
 # public Election::getTimerManager
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L251)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L280)
 
 ## Description    
 
@@ -20,5 +20,4 @@ Get the Timer manager object.
 
 ## Related
 
-* [Election::getGlobalTimer()](/Docs/api-reference/Election%20Class/Election--getGlobalTimer().md)    
 * [Election::getLastTimer()](/Docs/api-reference/Election%20Class/Election--getLastTimer().md)    

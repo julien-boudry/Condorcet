@@ -1,6 +1,6 @@
 # public static Condorcet::isAuthMethod
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L177)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L200)
 
 ## Description    
 
@@ -25,5 +25,4 @@ A valid method name or class.
 
 ## Related
 
-* [Condorcet::getMethodClass()](/Docs/api-reference/Condorcet%20Class/Condorcet--getMethodClass().md)    
 * [Condorcet::getAuthMethods()](/Docs/api-reference/Condorcet%20Class/Condorcet--getAuthMethods().md)    

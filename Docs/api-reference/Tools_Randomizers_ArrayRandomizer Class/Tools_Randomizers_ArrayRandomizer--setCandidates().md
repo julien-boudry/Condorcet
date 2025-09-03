@@ -1,6 +1,6 @@
 # public Tools\Randomizers\ArrayRandomizer::setCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L68)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L73)
 
 ## Description    
 

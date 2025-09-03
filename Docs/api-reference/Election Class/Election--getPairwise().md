@@ -1,6 +1,6 @@
 # public Election::getPairwise
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L193)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L240)
 
 ## Description    
 
@@ -20,8 +20,7 @@ Return the Pairwise.
 
 ## Related
 
-* [Election::getExplicitPairwise()](/Docs/api-reference/Election%20Class/Election--getExplicitPairwise().md)    
-* [Election::getResult()](/Docs/api-reference/Election%20Class/Election--getResult().md)    
+* [\CondorcetPHP\Condorcet\Election::getResult()]()    
 
 ---------------------------------------
 

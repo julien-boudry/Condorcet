@@ -1,6 +1,6 @@
 # public Election::addVotesFromJson
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L382)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L480)
 
 ## Description    
 
@@ -25,8 +25,6 @@ Json string input.
 
 ## Related
 
-* [Election::addVote()](/Docs/api-reference/Election%20Class/Election--addVote().md)    
-* [Election::parseVotes()](/Docs/api-reference/Election%20Class/Election--parseVotes().md)    
 * [Election::addCandidatesFromJson()](/Docs/api-reference/Election%20Class/Election--addCandidatesFromJson().md)    
 
 ---------------------------------------

@@ -1,6 +1,6 @@
 # public Algo\Pairwise\Pairwise::getExplicitPairwise
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L165)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L170)
 
 ## Description    
 
@@ -20,5 +20,4 @@ Return the Pairwise.
 
 ## Related
 
-* [Election::getPairwise()](/Docs/api-reference/Election%20Class/Election--getPairwise().md)    
 * [Election::getResult()](/Docs/api-reference/Election%20Class/Election--getResult().md)    

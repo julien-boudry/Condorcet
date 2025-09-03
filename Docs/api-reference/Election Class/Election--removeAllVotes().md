@@ -1,6 +1,6 @@
 # public Election::removeAllVotes
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L292)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L364)
 
 ## Description    
 
@@ -20,8 +20,6 @@ Remove all Votes from an election.
 
 ## Related
 
-* [Election::addVote()](/Docs/api-reference/Election%20Class/Election--addVote().md)    
-* [Election::removeVote()](/Docs/api-reference/Election%20Class/Election--removeVote().md)    
 * [Election::removeVotesByTags()](/Docs/api-reference/Election%20Class/Election--removeVotesByTags().md)    
 
 ---------------------------------------

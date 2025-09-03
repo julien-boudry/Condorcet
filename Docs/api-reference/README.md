@@ -634,7 +634,7 @@ _Including above methods from public API_
 
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Method `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Method.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Method.php#L24)
 
 ```php
 * public const bool IS_PROPORTIONAL
@@ -733,7 +733,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/CondorcetBasic.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/CondorcetBasic.php#L22)
 
 ```php
 * public const array METHOD_NAME
@@ -1075,7 +1075,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\LargestRemainder\LargestRemainder extends CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/LargestRemainder/LargestRemainder.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/LargestRemainder/LargestRemainder.php#L23)
 
 ```php
 * public const array METHOD_NAME
@@ -1471,7 +1471,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsCore extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsCore.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsCore.php#L23)
 
 ```php
 * protected const CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RP_VARIANT VARIANT
@@ -1606,7 +1606,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\STV\CPO_STV extends CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/CPO_STV.php#L33)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/CPO_STV.php#L34)
 
 ```php
 * public const array METHOD_NAME
@@ -1670,7 +1670,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/SingleTransferableVote.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/SingleTransferableVote.php#L24)
 
 ```php
 * final public const bool IS_PROPORTIONAL
@@ -1707,7 +1707,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeCore extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeCore.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeCore.php#L24)
 
 ```php
 * public const bool IS_PROPORTIONAL
@@ -1888,7 +1888,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Smith\SmithSet extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Smith/SmithSet.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Smith/SmithSet.php#L24)
 
 ```php
 * public const array METHOD_NAME
@@ -2228,7 +2228,7 @@ _Including above methods from public API_
 * protected static testMethod (string $method): bool  
 ```
 
-#### `CondorcetPHP\Condorcet\Console\Commands\ConvertCommand extends Symfony\Component\Console\Command\Command `  
+#### `CondorcetPHP\Condorcet\Console\Commands\ConvertCommand extends Symfony\Component\Console\Command\Command implements Symfony\Component\Console\Command\SignalableCommandInterface`  
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ConvertCommand.php#L30)
 
 ```php
@@ -2262,8 +2262,10 @@ _Including above methods from public API_
 * public getName (): ?string  
 * public getNativeDefinition (): Symfony\Component\Console\Input\InputDefinition  
 * public getProcessedHelp (): string  
+* public getSubscribedSignals (): array  
 * public getSynopsis (bool $short = false): string  
 * public getUsages (): array  
+* public handleSignal (int $signal, int|false $previousExitCode = 0): int|false  
 * public ignoreValidationErrors (): void  
 * public initialize (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
 * public isEnabled (): bool  
@@ -2289,8 +2291,8 @@ _Including above methods from public API_
 * protected toConverter ()  
 ```
 
-#### `CondorcetPHP\Condorcet\Console\Commands\ElectionCommand extends Symfony\Component\Console\Command\Command `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ElectionCommand.php#L40)
+#### `CondorcetPHP\Condorcet\Console\Commands\ElectionCommand extends Symfony\Component\Console\Command\Command implements Symfony\Component\Console\Command\SignalableCommandInterface`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ElectionCommand.php#L39)
 
 ```php
 * public const SUCCESS
@@ -2336,8 +2338,10 @@ _Including above methods from public API_
 * public getName (): ?string  
 * public getNativeDefinition (): Symfony\Component\Console\Input\InputDefinition  
 * public getProcessedHelp (): string  
+* public getSubscribedSignals (): array  
 * public getSynopsis (bool $short = false): string  
 * public getUsages (): array  
+* public handleSignal (int $signal, int|false $previousExitCode = 0): int|false  
 * public ignoreValidationErrors (): void  
 * public isEnabled (): bool  
 * public isHidden (): bool  
@@ -2462,6 +2466,7 @@ _Including above methods from public API_
 * public confirm (string $question, bool $default = true): bool  
 * public createProgressBar (int $max = 0): Symfony\Component\Console\Helper\ProgressBar  
 * public createTable (): Symfony\Component\Console\Helper\Table  
+* public createTree (iterable $nodes, string $root = ): Symfony\Component\Console\Helper\TreeHelper  
 * public definitionList (Symfony\Component\Console\Helper\TableSeparator|array|string $list): void  
 * public error (array|string $message): void  
 * public getErrorStyle (): self  
@@ -2495,6 +2500,7 @@ _Including above methods from public API_
 * public table (array $headers, array $rows): void  
 * public text (array|string $message): void  
 * public title (string $message): void  
+* public tree (iterable $nodes, string $root = ): void  
 * public version (): void  
 * public warning (array|string $message): void  
 * public write (Traversable|array|string $messages, bool $newline = false, int $type = 1): void  
@@ -2510,7 +2516,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\DataManager\ArrayManager implements ArrayAccess, Countable, Iterator, Traversable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/ArrayManager.php#L27)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/ArrayManager.php#L28)
 
 ```php
 * public static int $CacheSize

@@ -1,6 +1,6 @@
 # public Election::countCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L38)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L43)
 
 ## Description    
 
@@ -8,7 +8,7 @@
 public Election->countCandidates ( ): int
 ```
 
-Count the number of registered candidates
+Count the number of registered candidates.
 
 
 ## Return value   
@@ -20,4 +20,4 @@ Count the number of registered candidates
 
 ## Related
 
-* [Election::getCandidatesList()](/Docs/api-reference/Election%20Class/Election--getCandidatesList().md)    
+* [\CondorcetPHP\Condorcet\Election::getCandidatesList()]()    

@@ -1,6 +1,6 @@
 # public Election::removeVotesByTags
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L335)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L425)
 
 ## Description    
 
@@ -35,8 +35,6 @@ Votes with these tags or without.
 
 ## Related
 
-* [Election::addVote()](/Docs/api-reference/Election%20Class/Election--addVote().md)    
-* [Election::getVotesList()](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
 * [Election::removeVote()](/Docs/api-reference/Election%20Class/Election--removeVote().md)    
 
 ---------------------------------------

@@ -14,5 +14,4 @@ The timestamp corresponding of the creation of this candidate.
 
 ## Related
 
-* [Candidate::updatedAt](/Docs/api-reference/Candidate%20Class/Candidate--updatedAt.md)    
 * [Candidate::nameHistory](/Docs/api-reference/Candidate%20Class/Candidate--nameHistory.md)    

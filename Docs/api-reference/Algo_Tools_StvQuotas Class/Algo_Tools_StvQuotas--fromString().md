@@ -1,6 +1,6 @@
 # public static Algo\Tools\StvQuotas::fromString
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/StvQuotas.php#L33)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/StvQuotas.php#L36)
 
 ## Description    
 
@@ -8,7 +8,7 @@
 public static Algo\Tools\StvQuotas::fromString ( string $quota ): self
 ```
 
-Build the Enum Quotas option for STV methods
+Build the Enum Quotas option for STV methods.
 
 ## Parameter
 

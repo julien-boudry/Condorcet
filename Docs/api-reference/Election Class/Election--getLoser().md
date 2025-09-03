@@ -1,6 +1,6 @@
 # public Election::getLoser
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L145)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L172)
 
 ## Description    
 
@@ -29,8 +29,7 @@ Throw an exception on error.
 
 ## Related
 
-* [Election::getWinner()](/Docs/api-reference/Election%20Class/Election--getWinner().md)    
-* [Election::getResult()](/Docs/api-reference/Election%20Class/Election--getResult().md)    
+* [\CondorcetPHP\Condorcet\Election::getResult()]()    
 
 ---------------------------------------
 

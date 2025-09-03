@@ -1,6 +1,6 @@
 # public Vote::setRanking
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L454)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L509)
 
 ## Description    
 
@@ -29,8 +29,6 @@ Set your own timestamp metadata on Ranking. Your timestamp must be > than last r
 
 ## Related
 
-* [Vote::getRanking()](/Docs/api-reference/Vote%20Class/Vote--getRanking().md)    
-* [Vote::rankingHistory](/Docs/api-reference/Vote%20Class/Vote--rankingHistory.md)    
 * [Vote::__construct()](/Docs/api-reference/Vote%20Class/Vote--__construct().md)    
 
 ---------------------------------------

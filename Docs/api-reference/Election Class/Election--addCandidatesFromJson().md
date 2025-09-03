@@ -1,6 +1,6 @@
 # public Election::addCandidatesFromJson
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L240)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L292)
 
 ## Description    
 
@@ -30,9 +30,7 @@ JSON string.
 
 ## Related
 
-* [Election::addCandidate()](/Docs/api-reference/Election%20Class/Election--addCandidate().md)    
-* [Election::parseCandidates()](/Docs/api-reference/Election%20Class/Election--parseCandidates().md)    
-* [Election::addVotesFromJson()](/Docs/api-reference/Election%20Class/Election--addVotesFromJson().md)    
+* [\CondorcetPHP\Condorcet\Election::addVotesFromJson()]()    
 
 ---------------------------------------
 

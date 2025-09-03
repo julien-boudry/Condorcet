@@ -1,6 +1,6 @@
 # public Election::getVotesValidUnderConstraintGenerator
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L160)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L211)
 
 ## Description    
 
@@ -29,5 +29,4 @@ Get votes with these tags or without.
 
 ## Related
 
-* [Election::getVotesListGenerator()](/Docs/api-reference/Election%20Class/Election--getVotesListGenerator().md)    
 * [Election::getVotesList()](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    

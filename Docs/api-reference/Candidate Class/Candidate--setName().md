@@ -1,6 +1,6 @@
 # public Candidate::setName
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L110)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L120)
 
 ## Description    
 
@@ -9,7 +9,7 @@ public Candidate->setName ( string $name ): static
 ```
 
 Change the candidate name.
-*If this will not cause conflicts if the candidate is already participating in elections and would namesake. This situation will throw an exception.*
+*If this will not cause conflicts if the candidate is already participating in elections and would namesake. This situation will throw an exception.*.
 
 ## Parameter
 

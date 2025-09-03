@@ -8,4 +8,4 @@
 virtual public array Result->rankingAsArrayString 
 ```
 
-Get result as an array populated by string
+Get result as an array populated by string.

@@ -1,6 +1,6 @@
 # public Tools\Converters\CEF\CondorcetElectionFormat::__construct
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L148)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L155)
 
 ## Description    
 
@@ -8,7 +8,7 @@
 public Tools\Converters\CEF\CondorcetElectionFormat->__construct ( SplFileInfo|string $input )
 ```
 
-Read a Condorcet format file, usually using .cvotes file extension
+Read a Condorcet format file, usually using .cvotes file extension.
 
 ## Parameter
 

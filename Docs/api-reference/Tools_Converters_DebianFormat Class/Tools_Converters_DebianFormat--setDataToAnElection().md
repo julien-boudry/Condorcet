@@ -1,6 +1,6 @@
 # public Tools\Converters\DebianFormat::setDataToAnElection
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DebianFormat.php#L56)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DebianFormat.php#L65)
 
 ## Description    
 
@@ -8,7 +8,7 @@
 public Tools\Converters\DebianFormat->setDataToAnElection ( [?CondorcetPHP\Condorcet\Election $election = null] ): CondorcetPHP\Condorcet\Election
 ```
 
-Add the Debian data to an election object
+Add the Debian data to an election object.
 
 ## Parameter
 
@@ -25,5 +25,4 @@ Add an existing election, useful if you want to set up some parameters or add ex
 
 ## Related
 
-* [Tools\Converters\CEF\CondorcetElectionFormat::setDataToAnElection()](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--setDataToAnElection().md)    
-* [Tools\Converters\DavidHillFormat::setDataToAnElection()](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--setDataToAnElection().md)    
+* [\CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat::setDataToAnElection()]()    

@@ -1,6 +1,6 @@
 # public Tools\Converters\DavidHillFormat::__construct
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L33)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L36)
 
 ## Description    
 
@@ -8,7 +8,7 @@
 public Tools\Converters\DavidHillFormat->__construct ( string $filePath )
 ```
 
-Read a Tideman format file
+Read a Tideman format file.
 
 ## Parameter
 

@@ -8,7 +8,7 @@
 virtual public bool Result->isProportional 
 ```
 
-Does the result come from a proportional method
+Does the result come from a proportional method.
 
 ---------------------------------------
 

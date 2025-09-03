@@ -1,6 +1,6 @@
 # public Election::getExplicitFilteredPairwiseByTags
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L233)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L295)
 
 ## Description    
 
@@ -28,4 +28,4 @@ Minimum number of specified tags that votes must include, or 0 for only votes wi
 
 ## Related
 
-* [Election::getPairwise()](/Docs/api-reference/Election%20Class/Election--getPairwise().md)    
+* [\CondorcetPHP\Condorcet\Election::getPairwise()]()    

@@ -1,6 +1,6 @@
 # public Election::computeResult
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L291)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L364)
 
 ## Description    
 
@@ -19,6 +19,4 @@ Not requiered for use object default method. Set the string name of the algorith
 
 ## Related
 
-* [Election::getWinner()](/Docs/api-reference/Election%20Class/Election--getWinner().md)    
-* [Election::getResult()](/Docs/api-reference/Election%20Class/Election--getResult().md)    
 * [Condorcet::getDefaultMethod()](/Docs/api-reference/Condorcet%20Class/Condorcet--getDefaultMethod().md)    

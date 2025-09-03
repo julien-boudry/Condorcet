@@ -1,6 +1,6 @@
 # public Election::countValidVoteWithConstraints
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L65)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L85)
 
 ## Description    
 
@@ -28,6 +28,4 @@ Count Votes with this tag or without this tag.
 
 ## Related
 
-* [Election::countInvalidVoteWithConstraints()](/Docs/api-reference/Election%20Class/Election--countInvalidVoteWithConstraints().md)    
-* [Election::countVotes()](/Docs/api-reference/Election%20Class/Election--countVotes().md)    
 * [Election::sumValidVoteWeightsWithConstraints()](/Docs/api-reference/Election%20Class/Election--sumValidVoteWeightsWithConstraints().md)    
