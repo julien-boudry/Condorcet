@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Tools\Converters\Interface;
 
+/**
+ * @internal
+ */
 interface ConverterExport
 {
     # public static createFromElection(...): ?string

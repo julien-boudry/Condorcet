@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers;
 
+/**
+ * @api
+ */
 interface DataHandlerDriverInterface
 {
     // The Data Manager will set an object into this property. You should call for each Entity $dataContextObject->dataCallBack($EntityData) before returning stored data by the two select method.

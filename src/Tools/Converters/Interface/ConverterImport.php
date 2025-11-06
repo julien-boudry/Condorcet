@@ -11,6 +11,9 @@ namespace CondorcetPHP\Condorcet\Tools\Converters\Interface;
 
 use CondorcetPHP\Condorcet\Election;
 
+/**
+ * @internal
+ */
 interface ConverterImport
 {
     public function setDataToAnElection(
