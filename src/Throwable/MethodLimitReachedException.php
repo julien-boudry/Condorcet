@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when a voting method's computational limit is reached.
+ */
 class MethodLimitReachedException extends CondorcetPublicApiException
 {
     protected $message = 'Method limit reached';

@@ -12,6 +12,9 @@ namespace CondorcetPHP\Condorcet\Tools\Converters;
 use CondorcetPHP\Condorcet\{Candidate, Election};
 use CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport;
 
+/**
+ * Imports election data from David Hill format.
+ */
 class DavidHillFormat implements ConverterImport
 {
     protected array $lines;

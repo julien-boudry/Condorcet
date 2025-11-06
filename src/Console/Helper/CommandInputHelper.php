@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Console\Helper;
 
+/**
+ * Helper class for processing command input paths and arguments.
+ */
 abstract class CommandInputHelper
 {
     public static function getFilePath(string $path): ?string

@@ -47,6 +47,9 @@ Condorcet::addMethod(Algo\Methods\HighestAverages\SainteLague::class);
 // Set the default Condorcet Class algorithm
 Condorcet::setDefaultMethod(Algo\Methods\Schulze\SchulzeWinning::class);
 
+/**
+ * Main Condorcet class for managing voting methods and global configurations.
+ */
 abstract class Condorcet
 {
     /////////// CONSTANTS ///////////

@@ -15,6 +15,8 @@ use CondorcetPHP\Condorcet\Relations\Linkable;
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteEntryParser, VoteUtil};
 
 /**
+ * Represents a ranked vote in an election.
+ *
  * @implements \ArrayAccess<int,array<Candidate>>
  * @implements \Iterator<int,array<Candidate>>
  */

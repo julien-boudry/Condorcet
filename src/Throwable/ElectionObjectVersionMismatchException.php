@@ -11,6 +11,9 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 use CondorcetPHP\Condorcet\Condorcet;
 
+/**
+ * Exception thrown when an election object version doesn't match the library version.
+ */
 class ElectionObjectVersionMismatchException extends CondorcetPublicApiException
 {
     protected $message = 'Version mismatch';

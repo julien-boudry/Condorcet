@@ -11,7 +11,11 @@
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 
-/** @internal */
+/**
+ * Implements the First-Past-The-Post voting method.
+ *
+ * @internal
+ */
 class FirstPastThePost extends MajorityCore
 {
     // Method Name

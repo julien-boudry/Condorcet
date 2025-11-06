@@ -12,6 +12,9 @@ namespace CondorcetPHP\Condorcet\Relations;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException;
 
+/**
+ * Trait for managing links between objects and elections.
+ */
 trait Linkable
 {
     /** @var \WeakMap<Election,true> */

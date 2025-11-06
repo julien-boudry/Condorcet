@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when attempting changes after voting has started.
+ */
 class VotingHasStartedException extends CondorcetPublicApiException
 {
     protected $message = 'The voting has started';

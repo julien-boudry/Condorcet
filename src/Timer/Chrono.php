@@ -11,6 +11,9 @@ namespace CondorcetPHP\Condorcet\Timer;
 
 use CondorcetPHP\Condorcet\CondorcetVersion;
 
+/**
+ * Represents a chronometer for timing operations.
+ */
 class Chrono
 {
     use CondorcetVersion;

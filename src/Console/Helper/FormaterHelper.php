@@ -12,6 +12,9 @@ namespace CondorcetPHP\Condorcet\Console\Helper;
 use CondorcetPHP\Condorcet\Console\Style\CondorcetStyle;
 use CondorcetPHP\Condorcet\{Condorcet, Result};
 
+/**
+ * Helper class for formatting election results for console display.
+ */
 abstract class FormaterHelper
 {
     public static function formatResultTable(Result $result): array

@@ -17,7 +17,9 @@ use CondorcetPHP\Condorcet\{Candidate, Election};
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use CondorcetPHP\Condorcet\Relations\HasElection;
 
-// Generic for Algorithms
+/**
+ * Computes approval scores for candidate combinations from ranked votes.
+ */
 class VotesDeductedApprovals implements \Countable
 {
     use HasElection;

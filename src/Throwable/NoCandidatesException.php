@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when an election has no candidates defined.
+ */
 class NoCandidatesException extends CondorcetPublicApiException
 {
     protected $message = 'You need to specify one or more candidates before voting';

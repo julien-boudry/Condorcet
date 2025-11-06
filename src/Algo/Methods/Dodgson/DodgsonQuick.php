@@ -14,8 +14,11 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Dodgson;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 
-// DODGSON Quick is an approximation for Dodgson method | https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
-/** @internal */
+/**
+ * Implements the Dodgson Quick approximation method.
+ *
+ * @internal
+ */
 class DodgsonQuick extends Method implements MethodInterface
 {
     // Method Name

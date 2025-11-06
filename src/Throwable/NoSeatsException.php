@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when seats are not defined for a proportional method.
+ */
 class NoSeatsException extends CondorcetPublicApiException
 {
     protected $message = 'No seats defined';

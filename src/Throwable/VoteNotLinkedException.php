@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when a vote is not linked to any election.
+ */
 class VoteNotLinkedException extends CondorcetPublicApiException
 {
     protected $message = 'The vote is not linked to an election';

@@ -12,6 +12,9 @@ namespace CondorcetPHP\Condorcet\Utils;
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 use CondorcetPHP\Condorcet\{Candidate, Result, Vote};
 
+/**
+ * Utility class for Condorcet operations like JSON validation and parsing.
+ */
 abstract class CondorcetUtil
 {
     // Check JSON format

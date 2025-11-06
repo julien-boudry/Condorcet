@@ -13,7 +13,9 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 
-// Base Condorcet class
+/**
+ * Utility class for vote-related operations like tag conversion.
+ */
 abstract class VoteUtil
 {
     /**

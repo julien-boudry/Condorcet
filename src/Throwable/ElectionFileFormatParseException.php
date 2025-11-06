@@ -9,4 +9,7 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when parsing an election file format fails.
+ */
 class ElectionFileFormatParseException extends CondorcetPublicApiException {}

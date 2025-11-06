@@ -13,7 +13,9 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 
-// Base Condorcet class
+/**
+ * Parses vote entries from string format into structured data.
+ */
 class VoteEntryParser
 {
     public private(set) readonly ?string $comment;

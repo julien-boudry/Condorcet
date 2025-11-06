@@ -11,7 +11,11 @@
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\RankedPairs;
 
-/** @internal */
+/**
+ * Implements the Ranked Pairs Margin (Tideman) variant.
+ *
+ * @internal
+ */
 class RankedPairsMargin extends RankedPairsCore
 {
     // Method Name

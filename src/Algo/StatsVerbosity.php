@@ -9,7 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Algo;
 
-// Manage Candidates for Election class
+/**
+ * Defines verbosity levels for statistics output.
+ */
 enum StatsVerbosity: int
 {
     case NONE = 0; // No stats

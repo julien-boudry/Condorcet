@@ -12,6 +12,9 @@ namespace CondorcetPHP\Condorcet\Tools\Converters;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport;
 
+/**
+ * Exports election data to CIVS format.
+ */
 class CivsFormat implements ConverterExport
 {
     ////// # Static Export Method //////

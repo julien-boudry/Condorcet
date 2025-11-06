@@ -36,6 +36,9 @@ use Symfony\Component\Yaml\Yaml;
     hidden: false,
     aliases: ['condorcet']
 )]
+/**
+ * Command for processing elections via CLI.
+ */
 class ElectionCommand extends Command
 {
     protected ?Election $election;

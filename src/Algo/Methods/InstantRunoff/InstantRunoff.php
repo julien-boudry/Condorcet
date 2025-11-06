@@ -15,7 +15,11 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 
-/** @internal */
+/**
+ * Implements the Instant-Runoff Voting (IRV) method.
+ *
+ * @internal
+ */
 class InstantRunoff extends Method implements MethodInterface
 {
     // Method Name

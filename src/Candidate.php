@@ -13,6 +13,9 @@ use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException, CandidateInvalid
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Throws};
 use CondorcetPHP\Condorcet\Relations\Linkable;
 
+/**
+ * Represents a candidate in an election.
+ */
 class Candidate implements \Stringable
 {
     use Linkable;

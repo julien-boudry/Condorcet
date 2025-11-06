@@ -15,6 +15,9 @@ use CondorcetPHP\Condorcet\Throwable\Internal\NoGitShellException;
 use Symfony\Component\Console\Output\AnsiColorMode;
 use Symfony\Component\Console\{Application as SymfonyConsoleApplication, Terminal};
 
+/**
+ * Application class for Condorcet CLI commands.
+ */
 abstract class CondorcetApplication
 {
     public static SymfonyConsoleApplication $SymfonyConsoleApplication;

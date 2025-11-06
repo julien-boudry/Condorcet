@@ -14,6 +14,9 @@ use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 use CondorcetPHP\Condorcet\Tools\Converters\Interface\{ConverterExport, ConverterImport};
 use SplTempFileObject;
 
+/**
+ * Converts election data to and from Condorcet Election Format (CEF).
+ */
 class CondorcetElectionFormat implements ConverterExport, ConverterImport
 {
     ////// # Static Export Method //////

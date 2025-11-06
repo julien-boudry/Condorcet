@@ -11,7 +11,11 @@
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\RankedPairs;
 
-/** @internal */
+/**
+ * Defines variants for Ranked Pairs method computation.
+ *
+ * @internal
+ */
 enum RP_VARIANT
 {
     case UNDEFINED;

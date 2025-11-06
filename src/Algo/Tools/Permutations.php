@@ -14,8 +14,9 @@ use Brick\Math\Exception\IntegerOverflowException;
 use CondorcetPHP\Condorcet\Throwable\Internal\{CondorcetInternalException, IntegerOverflowException as CondorcetIntegerOverflowException};
 use SplFixedArray;
 
-// Thanks to Jorge Gomes @cyberkurumin
 /**
+ * Utility class for generating permutations of elements.
+ *
  * @internal
  */
 class Permutations

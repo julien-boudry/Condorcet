@@ -11,6 +11,9 @@ namespace CondorcetPHP\Condorcet\Relations;
 
 use CondorcetPHP\Condorcet\Election;
 
+/**
+ * Trait for objects that reference an election instance.
+ */
 trait HasElection
 {
     /** @var \WeakReference<Election> */

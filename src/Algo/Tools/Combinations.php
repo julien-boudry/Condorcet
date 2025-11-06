@@ -15,6 +15,8 @@ use CondorcetPHP\Condorcet\Throwable\Internal\{CondorcetInternalException, Integ
 use SplFixedArray;
 
 /**
+ * Utility class for generating combinations of elements.
+ *
  * @internal
  */
 class Combinations

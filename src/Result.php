@@ -16,6 +16,8 @@ use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteUtil};
 use CondorcetPHP\Condorcet\Throwable\ResultException;
 
 /**
+ * Contains election results for a specific voting method.
+ *
  * @implements \ArrayAccess<int,null|Candidate|array<int,Candidate>>
  * @implements \Iterator<int,null|Candidate|array<int,Candidate>>
  */

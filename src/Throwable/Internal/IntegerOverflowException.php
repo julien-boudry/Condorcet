@@ -9,5 +9,7 @@
 
 namespace CondorcetPHP\Condorcet\Throwable\Internal;
 
-// Custom Exeption
+/**
+ * Exception thrown when integer overflow occurs.
+ */
 class IntegerOverflowException extends CondorcetInternalException {}

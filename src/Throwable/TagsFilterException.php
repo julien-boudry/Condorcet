@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when tags filter is used incorrectly.
+ */
 class TagsFilterException extends CondorcetPublicApiException
 {
     protected $message = 'Incorrect tags filter usage';

@@ -10,6 +10,8 @@
 namespace CondorcetPHP\Condorcet\Algo\Stats;
 
 /**
+ * Interface for accessing statistics from voting method computations.
+ *
  * @extends \IteratorAggregate<string, mixed>
  * @extends \ArrayAccess<string, mixed>
  */

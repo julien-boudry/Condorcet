@@ -15,7 +15,11 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 use Random\Randomizer;
 
-/** @internal */
+/**
+ * Implements the Random Ballot lottery voting method.
+ *
+ * @internal
+ */
 class RandomBallot extends Method implements MethodInterface
 {
     // Method Name

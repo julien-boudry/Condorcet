@@ -11,6 +11,9 @@ namespace CondorcetPHP\Condorcet\Tools\Randomizers;
 
 use CondorcetPHP\Condorcet\Vote;
 
+/**
+ * Generates random votes with configurable ranking constraints.
+ */
 class VoteRandomizer extends ArrayRandomizer
 {
     /**

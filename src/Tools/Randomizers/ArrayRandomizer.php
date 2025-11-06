@@ -11,6 +11,9 @@ namespace CondorcetPHP\Condorcet\Tools\Randomizers;
 
 use Random\Randomizer;
 
+/**
+ * Generates randomized arrays with configurable ranking constraints.
+ */
 class ArrayRandomizer
 {
     protected Randomizer $randomizer;

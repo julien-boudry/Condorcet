@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when a requested statistics entry doesn't exist.
+ */
 class StatsEntryDoNotExistException extends CondorcetPublicApiException
 {
     public function __construct(public readonly string $entryName)

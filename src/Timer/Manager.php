@@ -13,6 +13,9 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\CondorcetVersion;
 use CondorcetPHP\Condorcet\Throwable\TimerException;
 
+/**
+ * Manages chronometers and tracks execution time.
+ */
 class Manager
 {
     use CondorcetVersion;

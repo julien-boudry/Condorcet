@@ -11,8 +11,9 @@ namespace CondorcetPHP\Condorcet\Algo;
 
 use CondorcetPHP\Condorcet\{Election, Result};
 
-// Interface with the aim of verifying the good modular implementation of algorithms.
 /**
+ * Interface for implementing voting method algorithms.
+ *
  * @internal
  */
 interface MethodInterface

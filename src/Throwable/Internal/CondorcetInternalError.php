@@ -11,7 +11,9 @@ namespace CondorcetPHP\Condorcet\Throwable\Internal;
 
 use CondorcetPHP\Condorcet\CondorcetVersion;
 
-// Custom Exeption
+/**
+ * Base error class for internal Condorcet library errors.
+ */
 class CondorcetInternalError extends \Error
 {
     use CondorcetVersion;

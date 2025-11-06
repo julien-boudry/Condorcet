@@ -9,7 +9,9 @@
 
 namespace CondorcetPHP\Condorcet;
 
-// Generic for many Condorcet Class
+/**
+ * Trait for tracking the Condorcet version used to build objects.
+ */
 trait CondorcetVersion
 {
     /**

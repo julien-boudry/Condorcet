@@ -9,5 +9,7 @@
 
 namespace CondorcetPHP\Condorcet\Throwable\Internal;
 
-// Custom Exeption
+/**
+ * Exception thrown when attempting to link an already linked object.
+ */
 class AlreadyLinkedException extends CondorcetInternalException {}

@@ -13,7 +13,11 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
 use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 
-/** @internal */
+/**
+ * Implements the Schulze Winning (Beatpath) variant of the Schulze method.
+ *
+ * @internal
+ */
 class SchulzeWinning extends SchulzeCore
 {
     // Method Name

@@ -10,6 +10,8 @@
 namespace CondorcetPHP\Condorcet;
 
 /**
+ * Interface for implementing custom vote validation constraints.
+ *
  * @api
  */
 interface VoteConstraintInterface

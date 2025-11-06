@@ -15,6 +15,8 @@ use CondorcetPHP\Condorcet\Relations\HasElection;
 use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException};
 
 /**
+ * Computes and stores pairwise comparison results between candidates.
+ *
  * @implements \ArrayAccess<int,array<string,array<int,int>>>
  * @implements \Iterator<int,array<string,array<int,int>>>
  */

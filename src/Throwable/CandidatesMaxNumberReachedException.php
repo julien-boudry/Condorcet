@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when maximum candidate limit is exceeded for a method.
+ */
 class CandidatesMaxNumberReachedException extends MethodLimitReachedException
 {
     protected $message = 'Maximum number of candidates reached';

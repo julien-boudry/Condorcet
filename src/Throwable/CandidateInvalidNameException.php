@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when a candidate name is invalid.
+ */
 class CandidateInvalidNameException extends CondorcetPublicApiException
 {
     protected $message = 'This name is not valid';

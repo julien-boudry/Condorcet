@@ -11,6 +11,9 @@ namespace CondorcetPHP\Condorcet\Constraints;
 
 use CondorcetPHP\Condorcet\{Election, Vote, VoteConstraintInterface};
 
+/**
+ * Vote constraint that rejects votes with tied rankings.
+ */
 class NoTie implements VoteConstraintInterface
 {
     public static function isVoteAllowed(Election $election, Vote $vote): bool

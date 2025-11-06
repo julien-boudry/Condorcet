@@ -11,6 +11,9 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 
 use CondorcetPHP\Condorcet\Vote;
 
+/**
+ * Utility class for creating virtual votes with modified candidate lists.
+ */
 abstract class VirtualVote
 {
     public static function removeCandidates(Vote $vote, array $candidatesList): Vote

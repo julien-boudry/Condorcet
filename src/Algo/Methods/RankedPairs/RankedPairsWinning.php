@@ -11,8 +11,11 @@
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\RankedPairs;
 
-// Ranked Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
-/** @internal */
+/**
+ * Implements the Ranked Pairs Winning (Tideman) variant.
+ *
+ * @internal
+ */
 class RankedPairsWinning extends RankedPairsCore
 {
     // Method Name

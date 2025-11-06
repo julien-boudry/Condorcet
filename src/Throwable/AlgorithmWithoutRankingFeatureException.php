@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when an algorithm cannot provide a full ranking.
+ */
 class AlgorithmWithoutRankingFeatureException extends CondorcetPublicApiException
 {
     protected $message = "This algortihm can't provide a full ranking (but only Winner and Loser)";

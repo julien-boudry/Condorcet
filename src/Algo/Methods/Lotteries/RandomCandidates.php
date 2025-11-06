@@ -17,7 +17,11 @@ use CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer;
 use CondorcetPHP\Condorcet\Utils\VoteUtil;
 use Random\Randomizer;
 
-/** @internal */
+/**
+ * Implements the Random Candidates lottery voting method.
+ *
+ * @internal
+ */
 class RandomCandidates extends Method implements MethodInterface
 {
     // Method Name

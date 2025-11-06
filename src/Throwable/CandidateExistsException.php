@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when attempting to add a duplicate candidate.
+ */
 class CandidateExistsException extends CondorcetPublicApiException
 {
     protected $message = 'This candidate already exists';

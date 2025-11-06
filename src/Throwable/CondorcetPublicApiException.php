@@ -11,7 +11,9 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 use CondorcetPHP\Condorcet\CondorcetVersion;
 
-// Custom Exception
+/**
+ * Base exception class for all Condorcet public API exceptions.
+ */
 abstract class CondorcetPublicApiException extends \Exception implements \Stringable
 {
     use CondorcetVersion;

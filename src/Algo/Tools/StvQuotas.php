@@ -16,7 +16,9 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\Book;
 use CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException;
 
-// Generic for Algorithms
+/**
+ * Defines quota formulas for Single Transferable Vote methods.
+ */
 enum StvQuotas: string
 {
     case DROOP = 'Droop Quota';

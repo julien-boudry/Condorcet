@@ -16,6 +16,9 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInter
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError;
 
+/**
+ * PDO-based data handler driver for persistent vote storage.
+ */
 class PdoHandlerDriver implements DataHandlerDriverInterface
 {
     use CondorcetVersion;

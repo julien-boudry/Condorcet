@@ -16,6 +16,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * Custom styling for Condorcet console output.
+ */
 class CondorcetStyle extends SymfonyStyle
 {
     public const string CONDORCET_MAIN_COLOR = '#f57255';

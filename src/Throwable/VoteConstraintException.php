@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when a vote constraint cannot be set up or validated.
+ */
 class VoteConstraintException extends CondorcetPublicApiException
 {
     protected $message = 'The vote constraint could not be set up';

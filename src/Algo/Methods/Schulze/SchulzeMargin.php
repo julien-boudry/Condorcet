@@ -13,7 +13,11 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
 use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 
-/** @internal */
+/**
+ * Implements the Schulze Margin variant of the Schulze method.
+ *
+ * @internal
+ */
 class SchulzeMargin extends SchulzeCore
 {
     // Method Name

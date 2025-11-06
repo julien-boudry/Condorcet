@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown for vote manager-related errors.
+ */
 class VoteManagerException extends CondorcetPublicApiException
 {
     protected $message = "Value must be an instance of CondorcetPHP\Vote";

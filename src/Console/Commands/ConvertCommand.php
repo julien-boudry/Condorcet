@@ -27,6 +27,9 @@ use Symfony\Component\Console\Output\OutputInterface;
     description: 'Convert an election format input to another format as output',
     hidden: false,
 )]
+/**
+ * Command for converting election file formats.
+ */
 class ConvertCommand extends Command
 {
     public static array $converters = [

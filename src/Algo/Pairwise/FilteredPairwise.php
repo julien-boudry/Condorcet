@@ -12,6 +12,9 @@ namespace CondorcetPHP\Condorcet\Algo\Pairwise;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Utils\VoteUtil;
 
+/**
+ * Pairwise comparison filtered by vote tags.
+ */
 class FilteredPairwise extends Pairwise
 {
     protected readonly array $candidates;

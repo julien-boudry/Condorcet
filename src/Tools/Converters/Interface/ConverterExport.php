@@ -10,6 +10,8 @@
 namespace CondorcetPHP\Condorcet\Tools\Converters\Interface;
 
 /**
+ * Interface for election data export converters.
+ *
  * @internal
  */
 interface ConverterExport

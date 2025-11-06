@@ -9,5 +9,7 @@
 
 namespace CondorcetPHP\Condorcet\Throwable\Internal;
 
-// Custom Exeption
+/**
+ * Base exception for internal Condorcet library errors.
+ */
 class CondorcetInternalException extends \Exception {}

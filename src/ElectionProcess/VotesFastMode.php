@@ -10,7 +10,7 @@
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 /**
- * Manage Candidates for Election class.
+ * Defines fast mode options for vote processing performance.
  */
 enum VotesFastMode
 {

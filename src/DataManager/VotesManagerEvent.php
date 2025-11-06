@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\DataManager;
 
+/**
+ * Defines events for vote manager operations.
+ */
 enum VotesManagerEvent
 {
     case NewVote;

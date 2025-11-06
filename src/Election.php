@@ -16,7 +16,9 @@ use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use CondorcetPHP\Condorcet\Timer\Manager as Timer_Manager;
 
-// Base Condorcet class
+/**
+ * Represents an election with candidates, votes, and result computation.
+ */
 class Election
 {
     /////////// CONSTRUCTOR ///////////

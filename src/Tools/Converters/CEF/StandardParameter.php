@@ -12,6 +12,9 @@ namespace CondorcetPHP\Condorcet\Tools\Converters\CEF;
 use CondorcetPHP\Condorcet\Candidate;
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 
+/**
+ * Defines standard parameters for Condorcet Election Format.
+ */
 enum StandardParameter: string
 {
     case CANDIDATES = 'candidates';

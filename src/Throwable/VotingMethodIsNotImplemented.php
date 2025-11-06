@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when a voting method is not implemented or available.
+ */
 class VotingMethodIsNotImplemented extends CondorcetPublicApiException
 {
     protected $message = 'The voting algorithm is not available'; // @phpstan-ignore missingType.property

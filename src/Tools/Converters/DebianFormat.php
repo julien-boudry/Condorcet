@@ -13,6 +13,9 @@ use CondorcetPHP\Condorcet\{Candidate, Election, Vote};
 use CondorcetPHP\Condorcet\Throwable\ElectionFileFormatParseException;
 use CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport;
 
+/**
+ * Imports election data from Debian voting format.
+ */
 class DebianFormat implements ConverterImport
 {
     protected array $lines;

@@ -16,6 +16,9 @@ use CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException;
 use CondorcetPHP\Condorcet\Throwable\{TagsFilterException, VoteException, VoteManagerException};
 use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 
+/**
+ * Manages vote storage with optional external data handler support.
+ */
 class VotesManager extends ArrayManager
 {
     /////////// Data CallBack for external drivers ///////////

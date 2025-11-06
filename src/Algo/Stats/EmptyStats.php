@@ -11,6 +11,9 @@ namespace CondorcetPHP\Condorcet\Algo\Stats;
 
 use CondorcetPHP\Condorcet\Throwable\StatsEntryDoNotExistException;
 
+/**
+ * Represents an empty statistics object with no data.
+ */
 final class EmptyStats implements StatsInterface
 {
     public array $asArray {

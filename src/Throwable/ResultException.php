@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when attempting to modify an immutable result.
+ */
 class ResultException extends CondorcetPublicApiException
 {
     protected $message = 'Result cannot be changed';

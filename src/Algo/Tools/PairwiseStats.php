@@ -15,7 +15,9 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 
 use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 
-// Generic for Algorithms
+/**
+ * Utility class for computing statistics from pairwise comparisons.
+ */
 abstract class PairwiseStats
 {
     public static function PairwiseComparison(Pairwise $pairwise): array

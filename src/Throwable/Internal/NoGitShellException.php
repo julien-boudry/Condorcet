@@ -9,4 +9,7 @@
 
 namespace CondorcetPHP\Condorcet\Throwable\Internal;
 
+/**
+ * Exception thrown when Git shell is not available.
+ */
 class NoGitShellException extends CondorcetInternalException {}

@@ -9,6 +9,9 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown when a requested STV quota is not implemented.
+ */
 class StvQuotaNotImplementedException extends CondorcetPublicApiException
 {
     protected $message = 'This STV quota is not implemented';

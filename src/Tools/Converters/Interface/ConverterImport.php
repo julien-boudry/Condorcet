@@ -12,6 +12,8 @@ namespace CondorcetPHP\Condorcet\Tools\Converters\Interface;
 use CondorcetPHP\Condorcet\Election;
 
 /**
+ * Interface for election data import converters.
+ *
  * @internal
  */
 interface ConverterImport

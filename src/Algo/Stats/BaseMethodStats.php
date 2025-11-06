@@ -13,6 +13,9 @@ use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError;
 use CondorcetPHP\Condorcet\Throwable\StatsEntryDoNotExistException;
 use Traversable;
 
+/**
+ * Base implementation for method statistics storage and access.
+ */
 class BaseMethodStats implements StatsInterface
 {
     public readonly string $buildByMethod;

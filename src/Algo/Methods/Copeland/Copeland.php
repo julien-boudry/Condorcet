@@ -13,8 +13,11 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Copeland;
 
 use CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core;
 
-// Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
-/** @internal */
+/**
+ * Implements the Copeland voting method.
+ *
+ * @internal
+ */
 class Copeland extends PairwiseStatsBased_Core
 {
     // Method Name

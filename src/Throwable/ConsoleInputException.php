@@ -9,4 +9,7 @@
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
+/**
+ * Exception thrown for console input errors.
+ */
 class ConsoleInputException extends CondorcetPublicApiException {}
