@@ -12,7 +12,7 @@
 namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAverages;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
-use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
 
 /**
  * Base class for highest averages proportional methods.

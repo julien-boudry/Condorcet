@@ -11,7 +11,7 @@ namespace CondorcetPHP\Condorcet\Algo;
 
 use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Result};
 use CondorcetPHP\Condorcet\Algo\Stats\{EmptyStats, StatsInterface};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\Throws;
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use CondorcetPHP\Condorcet\Relations\HasElection;
 use Random\Randomizer;

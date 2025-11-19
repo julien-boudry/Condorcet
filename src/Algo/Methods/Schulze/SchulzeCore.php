@@ -11,10 +11,10 @@
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
-use CondorcetPHP\Condorcet\{Result};
+use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
-use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
 
 /**
  * Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method.

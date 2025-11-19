@@ -12,7 +12,7 @@
 namespace CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
 use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 
 /**

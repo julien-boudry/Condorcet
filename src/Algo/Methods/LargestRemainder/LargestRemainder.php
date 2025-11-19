@@ -11,7 +11,7 @@
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\LargestRemainder;
 
-use CondorcetPHP\Condorcet\Algo\{MethodInterface};
+use CondorcetPHP\Condorcet\Algo\MethodInterface;
 use CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 

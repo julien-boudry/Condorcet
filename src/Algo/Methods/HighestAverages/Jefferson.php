@@ -11,7 +11,7 @@
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAverages;
 
-use CondorcetPHP\Condorcet\Algo\{MethodInterface};
+use CondorcetPHP\Condorcet\Algo\MethodInterface;
 
 /**
  * Implements the Jefferson (D'Hondt) proportional method.

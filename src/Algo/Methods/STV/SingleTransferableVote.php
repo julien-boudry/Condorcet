@@ -12,7 +12,7 @@
 namespace CondorcetPHP\Condorcet\Algo\Methods\STV;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
-use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Vote;
 

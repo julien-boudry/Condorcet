@@ -12,7 +12,7 @@
 namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
 
 /**
  * Base class for majority-based voting methods with multiple rounds.

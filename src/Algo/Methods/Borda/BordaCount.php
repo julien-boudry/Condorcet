@@ -12,7 +12,7 @@
 namespace CondorcetPHP\Condorcet\Algo\Methods\Borda;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
 use CondorcetPHP\Condorcet\Election;
 
 /** @internal */

@@ -12,7 +12,7 @@ namespace CondorcetPHP\Condorcet\Algo\Pairwise;
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetVersion, Election, Vote};
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 use CondorcetPHP\Condorcet\Relations\HasElection;
-use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException};
+use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 
 /**
  * Computes and stores pairwise comparison results between candidates.

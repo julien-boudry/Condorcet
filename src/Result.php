@@ -9,7 +9,7 @@
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Algo\{StatsVerbosity};
+use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Throws};
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteUtil};

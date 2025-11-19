@@ -9,8 +9,8 @@
 
 namespace CondorcetPHP\Condorcet\DataManager;
 
-use CondorcetPHP\Condorcet\{Vote};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Throws};
+use CondorcetPHP\Condorcet\Vote;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\Throws;
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException;
 use CondorcetPHP\Condorcet\Throwable\{TagsFilterException, VoteException, VoteManagerException};
