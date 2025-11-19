@@ -68,60 +68,50 @@ class SmithSet extends Method implements MethodInterface
     {
         $election = $this->getElection();
         $pairwise = $election->getPairwise();
-        $candidateList = array_keys($election->getCandidatesList());
+        $candidateKeys = array_keys($election->getCandidatesList());
 
-        // Create a directed graph representing the defeat relation
-        $graph = [];
-        foreach ($candidateList as $candidateKey) {
-            $graph[$candidateKey] = [];
-            foreach ($candidateList as $opponentKey) {
-                if ($candidateKey !== $opponentKey) {
-                    // candidateKey defeats opponentKey if it has more wins than losses
-                    if ($pairwise->candidateKeyWinVersus($candidateKey, $opponentKey)) {
-                        $graph[$candidateKey][] = $opponentKey;
+        // 1. Initialize Reachability Matrix
+        // $reach[i][j] = true if i beats or ties j
+        $reach = [];
+        foreach ($candidateKeys as $i) {
+            foreach ($candidateKeys as $j) {
+                if ($i === $j) {
+                    $reach[$i][$j] = true;
+                } else {
+                    // i beats or ties j if j does NOT beat i
+                    $reach[$i][$j] = !$pairwise->candidateKeyWinVersus($j, $i);
+                }
+            }
+        }
+
+        // 2. Floyd-Warshall Algorithm
+        foreach ($candidateKeys as $k) {
+            foreach ($candidateKeys as $i) {
+                foreach ($candidateKeys as $j) {
+                    if ($reach[$i][$k] && $reach[$k][$j]) {
+                        $reach[$i][$j] = true;
                     }
                 }
             }
         }
 
-        // Find the Smith Set using an iterative algorithm
-        $candidates = $candidateList;
+        // 3. Collect candidates who can reach all other candidates
+        $smithSet = [];
+        foreach ($candidateKeys as $i) {
+            $canReachAll = true;
+            foreach ($candidateKeys as $j) {
+                if (!$reach[$i][$j]) {
+                    $canReachAll = false;
 
-        do {
-            $modified = false;
-
-            foreach ($candidates as $i => $candidateId) {
-                // Check if this candidate is beaten by someone in the set
-                $beatenBy = [];
-                foreach ($candidates as $j => $opponentId) {
-                    if ($i !== $j && \in_array($candidateId, $graph[$opponentId], true)) {
-                        $beatenBy[] = $opponentId;
-                    }
-                }
-
-                if (empty($beatenBy)) {
-                    continue;
-                }
-
-                // Check if this candidate beats anyone in the set
-                $beats = [];
-                foreach ($candidates as $j => $opponentId) {
-                    if ($i !== $j && \in_array($opponentId, $graph[$candidateId], true)) {
-                        $beats[] = $opponentId;
-                    }
-                }
-
-                // If this candidate is beaten by someone in the set but doesn't beat anyone in the set,
-                // remove it from consideration
-                if (empty($beats)) {
-                    unset($candidates[$i]);
-                    $modified = true;
+                    break;
                 }
             }
+            if ($canReachAll) {
+                $smithSet[] = $i;
+            }
+        }
 
-        } while ($modified && \count($candidates) > 0);
-
-        return array_values($candidates);
+        return $smithSet;
     }
 
     #[\Override]

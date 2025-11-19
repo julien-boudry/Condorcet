@@ -41,8 +41,7 @@ test('example with 12 candidates from electowiki', function (): void {
 
     expect($election->getResult('Smith set')->rankingAsArrayString)->toBe(
         [
-            1 => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'],
-            2 => 'L',
+            1 => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'],
         ]
     );
 
