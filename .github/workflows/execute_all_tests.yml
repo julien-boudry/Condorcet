@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest, windows-latest, macos-14]
-        php-versions: ['8.4']
+        php-versions: ['8.4', '8.5']
         php-extensions:
           - ':xdebug, pdo, pdo_sqlite, mbstring, json'
           - ':xdebug, :pdo, mbstring, json, tokenizer' # without pdo (external handler)
