@@ -72,9 +72,14 @@ class SchwartzSet extends Method implements MethodInterface
         // Create a directed graph representing the defeat relation
         $graph = [];
         $reversedGraph = [];
+
+        // Initialize graphs
         foreach ($candidateList as $candidateKey) {
             $graph[$candidateKey] = [];
             $reversedGraph[$candidateKey] = [];
+        }
+
+        foreach ($candidateList as $candidateKey) {
             foreach ($candidateList as $opponentKey) {
                 if ($candidateKey !== $opponentKey) {
                     // candidateKey defeats opponentKey if it has more wins than losses
@@ -161,69 +166,6 @@ class SchwartzSet extends Method implements MethodInterface
                 $this->dfsReverse($reversedGraph, $node, $visited, $scc);
                 $sccs[] = $scc;
             }
-        }
-
-        // Vérifier si les SCCs peuvent être fusionnées
-        return $this->consolidateStrongComponents($graph, $sccs);
-    }
-
-    /**
-     * Consolidate strongly connected components by checking for cycles between them.
-     */
-    private function consolidateStrongComponents(array $graph, array $sccs): array
-    {
-        if (\count($sccs) <= 1) {
-            return $sccs;
-        }
-
-        // Construire un graphe des composantes
-        $sccGraph = [];
-        for ($i = 0; $i < \count($sccs); $i++) {
-            $sccGraph[$i] = [];
-            for ($j = 0; $j < \count($sccs); $j++) {
-                if ($i !== $j) {
-                    foreach ($sccs[$i] as $from) {
-                        foreach ($sccs[$j] as $to) {
-                            if (\in_array($to, $graph[$from], true)) {
-                                $sccGraph[$i][] = $j;
-
-                                break 2;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Détecter les cycles entre SCCs
-        $merged = false;
-        $newSccs = [];
-        $visited = array_fill(0, \count($sccs), false);
-
-        for ($i = 0; $i < \count($sccs); $i++) {
-            if ($visited[$i]) {
-                continue;
-            }
-
-            $component = $sccs[$i];
-            $visited[$i] = true;
-
-            // Trouver tous les autres composants qui forment un cycle avec celui-ci
-            for ($j = 0; $j < \count($sccs); $j++) {
-                if ($i !== $j && !$visited[$j]
-                    && \in_array($j, $sccGraph[$i], true) && \in_array($i, $sccGraph[$j], true)) {
-                    $component = array_merge($component, $sccs[$j]);
-                    $visited[$j] = true;
-                    $merged = true;
-                }
-            }
-
-            $newSccs[] = $component;
-        }
-
-        // Si des SCCs ont été fusionnées, vérifier à nouveau
-        if ($merged) {
-            return $this->consolidateStrongComponents($graph, $newSccs);
         }
 
         return $sccs;

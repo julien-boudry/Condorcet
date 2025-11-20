@@ -188,3 +188,47 @@ test('schwartz set equals smith set when no defeats between candidates', functio
     $schwartzSet = $this->election->getResult('Schwartz set')->stats->getEntry('schwartz_set');
     expect($schwartzSet)->toEqualCanonicalizing($smithSet);
 });
+
+test('schwartz set with simple tie', function (): void {
+    $this->election->parseCandidates('A;B');
+    $this->election->parseVotes('A=B');
+
+    expect($this->election->getResult('Schwartz set')->stats->getEntry('schwartz_set'))->toEqualCanonicalizing(['A', 'B']);
+});
+
+test('schwartz set with cycle and tie', function (): void {
+    // A > B, B > C, C = A
+    // Schwartz Set: {A} (A beats B, B beats C, C does not beat A)
+    // Smith Set: {A, B, C}
+    $this->election->parseCandidates('A;B;C');
+    $this->election->implicitRankingRule(false);
+    $this->election->parseVotes('
+        A > B > C
+        B > C > A
+        A > B
+        B > C
+        A = C
+    ');
+
+    expect($this->election->getResult('Schwartz set')->stats->getEntry('schwartz_set'))->toBe(['A']);
+});
+
+test('schwartz set with disjoint components', function (): void {
+    // C > A, A = B, B = C
+    // C beats A. A ties B. B ties C.
+    // Graph: C -> A.
+    // SCCs: {C}, {A}, {B}.
+    // Undominated: {C}, {B}.
+    // Schwartz Set: {B, C}.
+    $this->election->parseCandidates('A;B;C');
+    $this->election->implicitRankingRule(false);
+    $this->election->parseVotes('
+        C > A
+        A > B
+        B > A
+        B > C
+        C > B
+    ');
+
+    expect($this->election->getResult('Schwartz set')->stats->getEntry('schwartz_set'))->toEqualCanonicalizing(['B', 'C']);
+});
