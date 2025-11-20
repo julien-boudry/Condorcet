@@ -55,9 +55,9 @@ class Pairwise implements \ArrayAccess, \Iterator
         return $this->Pairwise[$this->key()];
     }
 
-    public function key(): ?int
+    public function key(): int
     {
-        return key($this->Pairwise);
+        return key($this->Pairwise); // @phpstan-ignore return.type
     }
 
     public function next(): void
@@ -96,7 +96,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected function getVotesManagerGenerator(): \Generator
     {
-        return $this->getElection()->getVotesManager()->getVotesValidUnderConstraintGenerator();
+        return $this->getElectionOrFail()->getVotesManager()->getVotesValidUnderConstraintGenerator();
     }
 
     public function __serialize(): array
@@ -113,10 +113,10 @@ class Pairwise implements \ArrayAccess, \Iterator
     public function addNewVote(int $key): void
     {
         if (Condorcet::$UseTimer) {
-            new Timer_Chrono($this->getElection()->getTimerManager(), 'Add Vote To Pairwise');
+            new Timer_Chrono($this->getElectionOrFail()->getTimerManager(), 'Add Vote To Pairwise');
         }
 
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $vote = $election->getVotesManager()[$key];
 
         if ($election->isVoteValidUnderConstraints($vote) === false) {
@@ -134,10 +134,10 @@ class Pairwise implements \ArrayAccess, \Iterator
     public function removeVote(int $key): void
     {
         if (Condorcet::$UseTimer) {
-            new Timer_Chrono($this->getElection()->getTimerManager(), 'Remove Vote To Pairwise');
+            new Timer_Chrono($this->getElectionOrFail()->getTimerManager(), 'Remove Vote To Pairwise');
         }
 
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $vote = $election->getVotesManager()[$key];
 
         if ($election->isVoteValidUnderConstraints($vote) === false) {
@@ -192,7 +192,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         Candidate|string $a,
         Candidate|string $b
     ): array {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         if (\is_string($a)) {
             $a = $election->getCandidateObjectFromName($a);
@@ -257,7 +257,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected function getCandidateNameFromKey(int $candidateKey): string
     {
-        return $this->getElection()->getCandidateObjectFromKey($candidateKey)->name;
+        return $this->getElectionOrFail()->getCandidateObjectFromKey($candidateKey)->name; // @phpstan-ignore property.nonObject
     }
 
     protected function clearExplicitPairwiseCache(): void
@@ -267,7 +267,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected function formatNewpairwise(): void
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $pairwiseModel = [];
 
         foreach ($election->getCandidatesList() as $candidate_key => $candidate_id) {
@@ -289,7 +289,7 @@ class Pairwise implements \ArrayAccess, \Iterator
     {
         // Chrono
         if (Condorcet::$UseTimer) {
-            new Timer_Chrono($this->getElection()->getTimerManager(), 'Do Pairwise');
+            new Timer_Chrono($this->getElectionOrFail()->getTimerManager(), 'Do Pairwise');
         }
 
         $this->clearExplicitPairwiseCache();
@@ -302,7 +302,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected function computeOneVote(array &$pairwise, Vote $oneVote): void
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         $vote_ranking = $oneVote->getContextualRankingWithoutSort($election);
         $voteWeight = $oneVote->getWeight($election);

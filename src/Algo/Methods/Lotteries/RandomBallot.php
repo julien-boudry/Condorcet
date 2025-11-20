@@ -37,7 +37,7 @@ class RandomBallot extends Method implements MethodInterface
 
     public function compute(): void
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         $this->totalElectionWeight = $election->sumValidVoteWeightsWithConstraints();
 

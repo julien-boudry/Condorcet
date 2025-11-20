@@ -36,7 +36,7 @@ class RandomCandidates extends Method implements MethodInterface
 
     public function compute(): void
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         $vr = new VoteRandomizer($election->getCandidatesList(), self::$optionRandomizer);
         $vr->tiesProbability = self::$optionTiesProbability;

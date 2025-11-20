@@ -14,6 +14,7 @@ use CondorcetPHP\Condorcet\Algo\Stats\{EmptyStats, StatsInterface};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\Throws;
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use CondorcetPHP\Condorcet\Relations\HasElection;
+use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError;
 use Random\Randomizer;
 
 /**
@@ -80,7 +81,7 @@ abstract class Method
 
         $this->compute();
 
-        return $this->Result;
+        return $this->Result ?? throw new CondorcetInternalError('The computation of the method did not return any result.');
     }
 
     protected function compute(): void {}
@@ -103,8 +104,8 @@ abstract class Method
             byClass: static::class,
             election: $this->getElection(),
             rawRanking: $result,
-            stats: $this->getElection()->statsVerbosity->value > StatsVerbosity::NONE->value ? $this->getStats() : new EmptyStats,
-            seats: (static::IS_PROPORTIONAL) ? $this->getElection()->seatsToElect : null,
+            stats: $this->getElectionOrFail()->statsVerbosity->value > StatsVerbosity::NONE->value ? $this->getStats() : new EmptyStats,
+            seats: (static::IS_PROPORTIONAL) ? $this->getElectionOrFail()->seatsToElect : null,
             methodOptions: $methodOptions
         );
     }

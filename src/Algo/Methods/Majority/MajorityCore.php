@@ -30,7 +30,7 @@ abstract class MajorityCore extends Method implements MethodInterface
 
     protected function getStats(): BaseMethodStats
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $stats = [];
 
         foreach ($this->Stats as $roundNumber => $roundScore) {
@@ -47,7 +47,7 @@ abstract class MajorityCore extends Method implements MethodInterface
 
     protected function compute(): void
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         $round = 1;
         $resolved = false;
@@ -122,7 +122,7 @@ abstract class MajorityCore extends Method implements MethodInterface
 
     protected function doOneRound(): array
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $roundScore = [];
 
         foreach ($election->getVotesValidUnderConstraintGenerator() as $oneVote) {

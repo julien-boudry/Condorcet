@@ -35,7 +35,7 @@ class FilteredPairwise extends Pairwise
     #[\Override]
     protected function getVotesManagerGenerator(): \Generator
     {
-        return $this->getElection()->getVotesManager()->getVotesValidUnderConstraintGenerator(tags: $this->tags, with: $this->withTags);
+        return $this->getElectionOrFail()->getVotesManager()->getVotesValidUnderConstraintGenerator(tags: $this->tags, with: $this->withTags);
     }
 
     #[\Override]

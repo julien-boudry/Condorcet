@@ -49,7 +49,7 @@ class SmithSet extends Method implements MethodInterface
 
         // All other candidates are ranked second (equally)
         $rank = 2;
-        foreach (array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
+        foreach (array_keys($this->getElectionOrFail()->getCandidatesList()) as $candidateKey) {
             if (!\in_array($candidateKey, $this->SmithSet, true)) {
                 $result[$rank][] = $candidateKey;
             }
@@ -66,7 +66,7 @@ class SmithSet extends Method implements MethodInterface
      */
     protected function computeSmithSet(): array
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $pairwise = $election->getPairwise();
         $candidateKeys = array_keys($election->getCandidatesList());
 
@@ -121,7 +121,7 @@ class SmithSet extends Method implements MethodInterface
 
         return $stats->setEntry(
             'smith_set',
-            array_map(fn(int $k): string => $this->getElection()->getCandidateObjectFromKey($k)->name, $this->SmithSet)
+            array_map(fn(int $k): string => $this->getElectionOrFail()->getCandidateObjectFromKey($k)->name, $this->SmithSet)
         )->close();
     }
 }

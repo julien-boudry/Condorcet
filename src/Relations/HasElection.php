@@ -10,6 +10,7 @@
 namespace CondorcetPHP\Condorcet\Relations;
 
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 
 /**
  * Trait for objects that reference an election instance.
@@ -25,6 +26,14 @@ trait HasElection
     public function getElection(): ?Election
     {
         return $this->selfElection->get(); // @phpstan-ignore-line
+    }
+
+    /**
+     * @internal
+     */
+    public function getElectionOrFail(): Election
+    {
+        return $this->getElection() ?? throw new CondorcetInternalException('No election');
     }
 
     /** @internal */

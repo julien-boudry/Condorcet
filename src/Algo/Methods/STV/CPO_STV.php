@@ -79,7 +79,7 @@ class CPO_STV extends SingleTransferableVote
         $this->outcomes = new SplFixedArray(0);
         $this->outcomeComparisonTable = new SplFixedArray(0);
 
-        $this->votesNeededToWin = round(self::$optionQuota->getQuota($this->getElection()->sumValidVoteWeightsWithConstraints(), $this->getElection()->seatsToElect), self::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero);
+        $this->votesNeededToWin = round(self::$optionQuota->getQuota($this->getElectionOrFail()->sumValidVoteWeightsWithConstraints(), $this->getElectionOrFail()->seatsToElect), self::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero);
 
         // Compute Initial Score
         $this->initialScoreTable = $this->makeScore();
@@ -91,8 +91,8 @@ class CPO_STV extends SingleTransferableVote
             }
         }
 
-        $numberOfCandidatesNeededToComplete = $this->getElection()->seatsToElect - \count($this->candidatesElectedFromFirstRound);
-        $this->candidatesEliminatedFromFirstRound = array_diff(array_keys($this->getElection()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
+        $numberOfCandidatesNeededToComplete = $this->getElectionOrFail()->seatsToElect - \count($this->candidatesElectedFromFirstRound);
+        $this->candidatesEliminatedFromFirstRound = array_diff(array_keys($this->getElectionOrFail()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
 
         if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete < \count($this->candidatesEliminatedFromFirstRound)) {
             try {
@@ -132,7 +132,7 @@ class CPO_STV extends SingleTransferableVote
             $this->sortResultBeforeCut($result);
 
             // Cut
-            $result = \array_slice($result, 0, $this->getElection()->seatsToElect);
+            $result = \array_slice($result, 0, $this->getElectionOrFail()->seatsToElect);
         }
 
         // Results: Format Ranks from 1
@@ -160,7 +160,7 @@ class CPO_STV extends SingleTransferableVote
 
     protected function compareOutcomes(): void
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $index = 0;
         $key_done = [];
 
@@ -239,7 +239,7 @@ class CPO_STV extends SingleTransferableVote
         $winnerOutcomeElection = new Election;
         $winnerOutcomeElection->implicitRankingRule(false);
         $winnerOutcomeElection->authorizeVoteWeight = true;
-        $winnerOutcomeElection->setStatsVerbosity($this->getElection()->statsVerbosity);
+        $winnerOutcomeElection->setStatsVerbosity($this->getElectionOrFail()->statsVerbosity);
 
         // Candidates
         foreach ($this->outcomes as $oneOutcomeKey => $outcomeValue) {
@@ -297,7 +297,7 @@ class CPO_STV extends SingleTransferableVote
             if ($tieBreakerFromInitialScore !== 0) {
                 return $tieBreakerFromInitialScore;
             } else {
-                $election = $this->getElection();
+                $election = $this->getElectionOrFail();
 
                 if (\count($tiebreaker = TieBreakersCollection::tieBreakerWithAnotherMethods($election, self::$optionTieBreakerMethods, [$a, $b])) === 1) {
                     $w = reset($tiebreaker);
@@ -315,7 +315,7 @@ class CPO_STV extends SingleTransferableVote
     #[\Override]
     protected function getStats(): BaseMethodStats
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         $stats = ['Votes Needed to Win' => $this->votesNeededToWin];
 

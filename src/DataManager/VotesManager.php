@@ -26,10 +26,13 @@ class VotesManager extends ArrayManager
     #[\Override]
     protected function decodeOneEntity(string $data): Vote
     {
+        $election = $this->getElectionOrFail();
+
         $vote = new Vote($data);
-        $vote->registerLink($this->getElection());
+
+        $vote->registerLink($election);
         $vote->notUpdate = true;
-        $this->getElection()->checkVoteCandidate($vote);
+        $election->checkVoteCandidate($vote);
         $vote->notUpdate = false;
 
         return $vote;
@@ -38,7 +41,9 @@ class VotesManager extends ArrayManager
     #[\Override]
     protected function encodeOneEntity(Vote $data): string
     {
-        if (($election = $this->getElection()) !== null) {
+        $election = $this->getElection();
+
+        if ($election !== null) {
             $data->destroyLink($election);
         }
 
@@ -48,7 +53,7 @@ class VotesManager extends ArrayManager
     #[\Override]
     protected function preDeletedTask(Vote $object): void
     {
-        $object->destroyLink($this->getElection());
+        $object->destroyLink($this->getElectionOrFail());
     }
 
     /////////// Array Access - Specials improvements ///////////
@@ -67,7 +72,7 @@ class VotesManager extends ArrayManager
     {
         if ($value instanceof Vote) {
             try {
-                $value->registerLink($this->getElection());
+                $value->registerLink($this->getElectionOrFail());
             } catch (AlreadyLinkedException) {
                 // Security : Check if vote object is not already registered and not present at offset
                 if (($this->Cache[$offset] ?? $this->Container[$offset] ?? false) !== $value) {
@@ -89,7 +94,7 @@ class VotesManager extends ArrayManager
     {
         if ($this->offsetExists($offset)) {
             $this->UpdateAndResetComputing(key: $offset, type: VotesManagerEvent::RemoveVote);
-            $this->offsetGet($offset)->destroyLink($this->getElection());
+            $this->offsetGet($offset)->destroyLink($this->getElectionOrFail());
             parent::offsetUnset($offset);
         }
     }
@@ -98,7 +103,7 @@ class VotesManager extends ArrayManager
 
     public function UpdateAndResetComputing(int $key, VotesManagerEvent $type): void
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         if ($election->state === ElectionState::VOTES_REGISTRATION) {
             match ($type) {
@@ -180,7 +185,7 @@ class VotesManager extends ArrayManager
 
     public function getVotesValidUnderConstraintGenerator(?array $tags = null, bool|int $with = true): \Generator
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         foreach ($this->getVotesListGenerator($tags, $with) as $voteKey => $oneVote) {
             if (!$election->isVoteValidUnderConstraints($oneVote)) {
@@ -193,7 +198,7 @@ class VotesManager extends ArrayManager
 
     public function getVotesListAsString(bool $withContext): string
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         $simpleList = '';
 
@@ -252,7 +257,7 @@ class VotesManager extends ArrayManager
 
     public function countValidVotesWithConstraints(?array $tags, bool|int $with): int
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $count = 0;
 
         foreach ($this->getVotesListGenerator($tags, $with) as $oneVote) {
@@ -266,7 +271,7 @@ class VotesManager extends ArrayManager
 
     public function countInvalidVoteWithConstraints(): int
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $count = 0;
 
         foreach ($this as $oneVote) {
@@ -290,7 +295,7 @@ class VotesManager extends ArrayManager
 
     protected function processsumVoteWeights(?array $tags, bool|int $with, bool $constraints): int
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $sum = 0;
 
         foreach ($this->getVotesListGenerator($tags, $with) as $oneVote) {

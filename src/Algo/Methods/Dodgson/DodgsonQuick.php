@@ -28,7 +28,7 @@ class DodgsonQuick extends Method implements MethodInterface
 
     protected function getStats(): BaseMethodStats
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $stats = new BaseMethodStats(closed: false);
 
         foreach ($this->Stats as $candidateKey => $dodgsonQuickValue) {
@@ -45,7 +45,7 @@ class DodgsonQuick extends Method implements MethodInterface
 
     protected function compute(): void
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $candidates = array_keys($election->candidates);
 
         $pairwise = $election->getPairwise();

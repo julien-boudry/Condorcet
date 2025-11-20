@@ -11,7 +11,6 @@
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung;
 
-use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
 use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
@@ -46,28 +45,9 @@ class KemenyYoung extends Method implements MethodInterface
 
     /////////// PUBLIC ///////////
 
-    // Get the Kemeny ranking
-    #[\Override]
-    public function getResult(): Result
-    {
-        // Cache
-        if ($this->Result === null) {
-            $this->countElectionCandidates = $this->getElection()->countCandidates();
-            $this->candidatesKey = array_keys($this->getElection()->getCandidatesList());
-            $this->countPossibleRanking = Permutations::getPossibleCountOfPermutations($this->countElectionCandidates);
-
-            $this->computeMaxAndConflicts();
-            $this->makeRanking();
-            $this->conflictInfos();
-        }
-
-        // Return
-        return $this->Result;
-    }
-
     protected function getStats(): BaseMethodStats
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $stats = new BaseMethodStats(closed: false);
 
         $stats['Best Score'] = $this->MaxScore;
@@ -105,6 +85,17 @@ class KemenyYoung extends Method implements MethodInterface
 
     /////////// COMPUTE ///////////
 
+    protected function compute(): void
+    {
+        $this->countElectionCandidates = $this->getElectionOrFail()->countCandidates();
+        $this->candidatesKey = array_keys($this->getElectionOrFail()->getCandidatesList());
+        $this->countPossibleRanking = Permutations::getPossibleCountOfPermutations($this->countElectionCandidates);
+
+        $this->computeMaxAndConflicts();
+        $this->makeRanking();
+        $this->conflictInfos();
+    }
+
 
     //:: Kemeny-Young ALGORITHM. :://
 
@@ -120,7 +111,7 @@ class KemenyYoung extends Method implements MethodInterface
 
     protected function computeMaxAndConflicts(): void
     {
-        $pairwise = $this->getElection()->getPairwise();
+        $pairwise = $this->getElectionOrFail()->getPairwise();
 
         foreach ($this->getPossibleRankingIterator() as $keyScore => $onePossibleRanking) {
             $rankingScore = $this->computeOneScore($onePossibleRanking, $pairwise);

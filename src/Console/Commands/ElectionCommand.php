@@ -202,7 +202,7 @@ class ElectionCommand extends Command
 
         // Parameters
         $this->setUpParameters($input);
-        $this->iniMemoryLimit = (string) (self::$forceIniMemoryLimitTo === null) ? \ini_get('memory_limit') : self::$forceIniMemoryLimitTo;
+        $this->iniMemoryLimit = (string) ((self::$forceIniMemoryLimitTo === null) ? \ini_get('memory_limit') : self::$forceIniMemoryLimitTo);
 
         // Non-interactive candidates
         $this->candidates = $input->getOption('candidates') ?? null;

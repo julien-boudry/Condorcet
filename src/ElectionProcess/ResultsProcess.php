@@ -13,6 +13,7 @@ use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\{MethodInterface, StatsVerbosity};
 use CondorcetPHP\Condorcet\Algo\Pairwise\{FilteredPairwise, Pairwise};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Throws};
+use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError;
 use CondorcetPHP\Condorcet\Throwable\VotingMethodIsNotImplemented;
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 use Random\Randomizer;
@@ -97,10 +98,10 @@ trait ResultsProcess
 
         if ($method === null) {
             $this->initResult(Condorcet::getDefaultMethod());
-            $result = $this->MethodsComputation[Condorcet::getDefaultMethod()]->getResult();
+            $result = $this->MethodsComputation[Condorcet::getDefaultMethod()]->getResult(); // @phpstan-ignore offsetAccess.notFound
         } elseif ($wanted_method = Condorcet::getMethodClass($method)) {
             $this->initResult($wanted_method);
-            $result = $this->MethodsComputation[$wanted_method]->getResult();
+            $result = $this->MethodsComputation[$wanted_method]->getResult(); // @phpstan-ignore offsetAccess.notFound
         } else {
             throw new VotingMethodIsNotImplemented($method);
         }
@@ -143,7 +144,7 @@ trait ResultsProcess
                 new Timer_Chrono($this->timer, 'GetWinner for CondorcetBasic');
             }
             $this->initResult($algo);
-            $result = $this->MethodsComputation[$algo]->getWinner(); // @phpstan-ignore method.notFound
+            $result = $this->MethodsComputation[$algo]->getWinner(); // @phpstan-ignore offsetAccess.notFound,method.notFound
 
             return ($result === null) ? null : $this->getCandidateObjectFromKey($result);
         } else {
@@ -181,7 +182,7 @@ trait ResultsProcess
                 new Timer_Chrono($this->timer, 'GetLoser for CondorcetBasic');
             }
             $this->initResult($algo);
-            $result = $this->MethodsComputation[$algo]->getLoser(); // @phpstan-ignore method.notFound
+            $result = $this->MethodsComputation[$algo]->getLoser(); // @phpstan-ignore offsetAccess.notFound,method.notFound
 
             return ($result === null) ? null : $this->getCandidateObjectFromKey($result);
         } else {
@@ -243,7 +244,7 @@ trait ResultsProcess
             $this->preparePairwiseAndCleanCompute();
         }
 
-        return $this->Pairwise;
+        return $this->Pairwise ?? throw new CondorcetInternalError('Pairwise should be initialized here.');
     }
 
     /**

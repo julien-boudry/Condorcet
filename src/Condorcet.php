@@ -272,7 +272,9 @@ abstract class Condorcet
     public static function setDefaultMethod(
         string $method
     ): bool {
-        if (($method = self::getMethodClass($method)) && $method !== self::CONDORCET_BASIC_CLASS) {
+        $method = self::getMethodClass($method);
+
+        if ($method !== null && $method !== self::CONDORCET_BASIC_CLASS) {
             self::$defaultMethod = $method;
 
             return true;

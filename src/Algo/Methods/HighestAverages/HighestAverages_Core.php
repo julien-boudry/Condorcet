@@ -35,7 +35,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
         $this->countVotesPerCandidates();
 
         if (array_sum($this->candidatesVotes) > 0) {
-            foreach (array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
+            foreach (array_keys($this->getElectionOrFail()->getCandidatesList()) as $candidateKey) {
                 $this->candidatesSeats[$candidateKey] = 0;
             }
 
@@ -48,7 +48,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
 
     protected function countVotesPerCandidates(): void
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         foreach (array_keys($election->getCandidatesList()) as $candidateKey) {
             $this->candidatesVotes[$candidateKey] = 0;
@@ -71,7 +71,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
 
     protected function makeRounds(): array
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $results = [];
 
         while (array_sum($this->candidatesSeats) < $election->seatsToElect) {
@@ -102,7 +102,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
 
     protected function getStats(): BaseMethodStats
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         $stats = [];
 

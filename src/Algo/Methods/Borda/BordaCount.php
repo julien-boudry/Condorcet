@@ -33,7 +33,7 @@ class BordaCount extends Method implements MethodInterface
      */
     protected function getStats(): BaseMethodStats
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $stats = new BaseMethodStats(closed: false);
 
         foreach ($this->Stats as $candidateKey => $oneScore) {
@@ -50,7 +50,7 @@ class BordaCount extends Method implements MethodInterface
 
     protected function compute(): void
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $score = [];
 
         foreach (array_keys($election->getCandidatesList()) as $oneCandidateKey) {

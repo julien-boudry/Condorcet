@@ -12,4 +12,3 @@ parameters:
         - '#Access to an uninitialized readonly property#'
         - '#Variable \$.* might not be defined.#'
         - '#Readonly property .* is assigned outside of the constructor.#'
-        - '#Exception::\$message has no type specified.#'

@@ -31,7 +31,7 @@ class InstantRunoff extends Method implements MethodInterface
 
     protected function getStats(): BaseMethodStats
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $stats = ['majority' => $this->majority];
 
         foreach ($this->Stats as $oneIterationKey => $oneIterationData) {
@@ -54,7 +54,7 @@ class InstantRunoff extends Method implements MethodInterface
 
     protected function compute(): void
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         $candidateCount = $election->countCandidates();
         $this->majority = $election->sumValidVoteWeightsWithConstraints() / 2;
@@ -112,7 +112,7 @@ class InstantRunoff extends Method implements MethodInterface
 
     protected function makeScore(array $candidateDone): array
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $score = [];
 
         foreach ($election->getCandidatesList() as $candidateKey => $oneCandidate) {

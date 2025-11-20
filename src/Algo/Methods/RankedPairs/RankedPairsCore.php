@@ -64,7 +64,7 @@ abstract class RankedPairsCore extends Method implements MethodInterface
     // Get the Ranked Pair ranking
     protected function getStats(): BaseMethodStats
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         if (!$this->StatsDone) {
             foreach ($this->Stats['tally'] as &$Roundvalue) {
@@ -99,7 +99,7 @@ abstract class RankedPairsCore extends Method implements MethodInterface
 
     protected function makeResult(): array
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         $result = [];
         $alreadyDone = [];
@@ -127,7 +127,7 @@ abstract class RankedPairsCore extends Method implements MethodInterface
     {
         $winners = [];
 
-        foreach (array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
+        foreach (array_keys($this->getElectionOrFail()->getCandidatesList()) as $candidateKey) {
             if (!\in_array(needle: $candidateKey, haystack: $alreadyDone, strict: true)) {
                 $win = true;
                 foreach ($this->Arcs as $ArcValue) {
@@ -174,7 +174,7 @@ abstract class RankedPairsCore extends Method implements MethodInterface
     {
         $cycles = [];
 
-        foreach (array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
+        foreach (array_keys($this->getElectionOrFail()->getCandidatesList()) as $candidateKey) {
             array_push($cycles, ...$this->followCycle(
                 startCandidateKey: $candidateKey,
                 searchCandidateKey: $candidateKey,
@@ -216,7 +216,9 @@ abstract class RankedPairsCore extends Method implements MethodInterface
 
     protected function pairwiseSort(): array
     {
-        $pairwise = $this->getElection()->getPairwise();
+        $pairwise = $this->getElectionOrFail()->getPairwise();
+
+        /** @var array<int, array<string, int>> */
         $pairs = [];
 
         $i = 0;

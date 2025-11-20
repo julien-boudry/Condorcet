@@ -53,8 +53,8 @@ class CondorcetBasic extends Method implements MethodInterface
         // -------
 
         // Basic Condorcet calculation
-        $candidates = array_keys($this->getElection()->candidates);
-        $pairwise = $this->getElection()->getPairwise();
+        $candidates = array_keys($this->getElectionOrFail()->candidates);
+        $pairwise = $this->getElectionOrFail()->getPairwise();
 
         foreach ($candidates as $candidateKey) {
             $winner = true;
@@ -93,8 +93,8 @@ class CondorcetBasic extends Method implements MethodInterface
 
         // Basic Condorcet calculation
         // Basic Condorcet calculation
-        $candidates = array_keys($this->getElection()->candidates);
-        $pairwise = $this->getElection()->getPairwise();
+        $candidates = array_keys($this->getElectionOrFail()->candidates);
+        $pairwise = $this->getElectionOrFail()->getPairwise();
 
         foreach ($candidates as $candidateKey) {
             $loser = true;

@@ -30,7 +30,7 @@ class LargestRemainder extends HighestAverages_Core implements MethodInterface
     #[\Override]
     protected function makeRounds(): array
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $results = [];
         $rescueCandidatesKeys = array_keys($election->getCandidatesList());
         reset($rescueCandidatesKeys);

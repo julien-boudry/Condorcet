@@ -55,7 +55,7 @@ class VotesDeductedApprovals implements \Countable
     {
         $this->setElection($election);
 
-        $candidatesList = $this->getElection()->getCandidatesList();
+        $candidatesList = $this->getElectionOrFail()->getCandidatesList();
         $candidatesKey = array_keys($candidatesList);
         rsort($candidatesKey, \SORT_NUMERIC);
 
@@ -63,8 +63,8 @@ class VotesDeductedApprovals implements \Countable
             $this->combinationsScore[self::getCombinationsScoreKey($oneCombination)] = 0;
         }
 
-        foreach ($this->getElection()->getVotesValidUnderConstraintGenerator() as $oneVote) {
-            $voteCandidates = $oneVote->getAllCandidates($this->getElection());
+        foreach ($this->getElectionOrFail()->getVotesValidUnderConstraintGenerator() as $oneVote) {
+            $voteCandidates = $oneVote->getAllCandidates($this->getElectionOrFail());
             $voteCandidates = array_map(static fn(Candidate $c): ?int => $election->getCandidateKey($c), $voteCandidates);
             $voteCandidates = array_filter($voteCandidates, static fn(?int $c): bool => $c !== null);
 

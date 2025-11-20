@@ -39,7 +39,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
     protected function compute(): void
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         Vote::initCache(); // Performances
 
         $result = [];
@@ -100,7 +100,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
     protected function makeScore(array $surplus = [], array $candidateElected = [], array $candidateEliminated = []): array
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
         $scoreTable = [];
 
         $candidateDone = array_merge($candidateElected, $candidateEliminated);
@@ -162,7 +162,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
     protected function getStats(): BaseMethodStats
     {
-        $election = $this->getElection();
+        $election = $this->getElectionOrFail();
 
         $stats = ['Votes Needed to Win' => $this->votesNeededToWin];
 
