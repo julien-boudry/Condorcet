@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" bootstrap="vendor/autoload.php" executionOrder="default" resolveDependencies="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd" cacheDirectory=".phpunit.cache" requireCoverageMetadata="false">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" bootstrap="vendor/autoload.php" executionOrder="default" resolveDependencies="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd" cacheDirectory=".phpunit.cache" requireCoverageMetadata="false" failOnWarning="true" failOnDeprecation="true" failOnNotice="true">
   <testsuites>
     <testsuite name="PHPUnit tests">
       <directory>./tests</directory>
