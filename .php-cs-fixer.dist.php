@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use PhpCsFixer\Config;
+
 $finder = new PhpCsFixer\Finder()
     ->in(__DIR__)
     ->exclude("Examples")
@@ -18,4 +20,5 @@ return new PhpCsFixer\Config()
     ->setFinder($finder)
     ->setRiskyAllowed(true)
     ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
+    ->setUnsupportedPhpVersionAllowed(true)
 ;
