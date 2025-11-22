@@ -872,7 +872,6 @@ $election->getResult('Largest Remainder') ;
 
 ## Smith Set
 
-> **_EXPERIMENTAL_**
 > **Family:** Condorcet  
 > **Variant used:** *None*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/Smith_set  
@@ -907,7 +906,6 @@ $election->getResult('Smith set')->getStats()['smith_set'] ;
 
 ## Schwartz Set
 
-> **_EXPERIMENTAL_**
 > **Family:** Condorcet  
 > **Variant used:** *None*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/Schwartz_set  
@@ -915,11 +913,11 @@ $election->getResult('Smith set')->getStats()['smith_set'] ;
 > **Methods alias available (for function call)**: "Schwartz set",  "Schwartz"
 
 ### Implementation Comments
-The Schwartz Set is the smallest non-empty set of candidates such that every candidate in the set defeats every candidate outside the set in a pairwise comparison.
+The Schwartz Set is the union of minimal undominated sets. A set is undominated if no candidate outside the set defeats any candidate in the set.
 
 Key properties:
 - If there is a Condorcet winner, the Schwartz set contains only that candidate
-- In cases with voting cycles, the Schwartz set will contain all candidates in that cycle
+- The Schwartz set is always a subset of the Smith set
 - The Schwartz set is always non-empty
 
 In this implementation:

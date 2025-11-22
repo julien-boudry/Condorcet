@@ -2,6 +2,38 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v5.0.1] - 2025-11-22
+### Description
+Maintenance release with bug fixes, PHP 8.5 support, and documentation improvements.
+
+### Added
+- Support for PHP 8.5.
+- PHPDoc descriptions to all classes for better IDE support.
+- API and internal annotations to interfaces for better documentation.
+
+### Changed
+- **Schwartz Set method**: Improved and fixed algorithm implementation regarding ties and cycles. No longer marked as experimental.
+- **Smith Set method**: Fixed algorithm implementation regarding ties and cycles. No longer marked as experimental.
+- Improved console completion implementation.
+
+### Fixed
+- Fixed PHP 8.5 deprecations related to null offset access.
+- Fixed PHPDoc references to include full namespaces for better IDE support across multiple classes.
+- Enabled `failOnWarning`, `failOnDeprecation`, and `failOnNotice` in PHPUnit configuration for stricter testing.
+- Added `skipOnWindows` to PHP preset to address Pest compatibility issues on Windows.
+
+### Internal changes
+- Updated candidate name increment logic to use native `str_increment()` function.
+- Use first-class callable syntax where applicable.
+
+### Dev
+- Migrated from Laravel Pint to the original PHP CS Fixer for code style management.
+- Updated dependencies in composer.json for compatibility and improvements.
+- Updated PHPStan, Rector, PHP CS Fixer, and Pest versions.
+- Updated macOS version in GitHub workflow to latest stable release.
+- Updated PHP version to 8.5 in workflow files.
+- Various linter improvements and fixes.
+
 ## [v5.0.0] - 2025-05-01
 ### Description
 Major release with many breaking changes, a modernized API, removal of deprecated features, and significant optimizations.
