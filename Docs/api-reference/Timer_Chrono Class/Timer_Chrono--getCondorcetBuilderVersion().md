@@ -1,6 +1,6 @@
 # public Timer\Chrono::getCondorcetBuilderVersion
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/CondorcetVersion.php#L33)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/CondorcetVersion.php#L35)
 
 ## Description    
 

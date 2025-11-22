@@ -1,6 +1,6 @@
 # public static Tools\Converters\CivsFormat::createFromElection
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CivsFormat.php#L28)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CivsFormat.php#L31)
 
 ## Description    
 

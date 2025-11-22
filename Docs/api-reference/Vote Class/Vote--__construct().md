@@ -1,6 +1,6 @@
 # public Vote::__construct
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L186)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L188)
 
 ## Description    
 

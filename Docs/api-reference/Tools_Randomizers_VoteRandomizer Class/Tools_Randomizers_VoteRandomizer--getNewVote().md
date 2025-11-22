@@ -1,6 +1,6 @@
 # public Tools\Randomizers\VoteRandomizer::getNewVote
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VoteRandomizer.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VoteRandomizer.php#L26)
 
 ## Description    
 

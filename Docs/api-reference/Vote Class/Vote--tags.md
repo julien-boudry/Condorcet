@@ -1,11 +1,11 @@
-# final public Vote::tags
+# final public private(set) Vote::tags
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L23)
 
 ## Description    
 
 ```php
-final public array Vote->tags 
+final public private(set) array Vote->tags 
 ```
 
 Get the registered tags for this Vote.

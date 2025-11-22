@@ -1,11 +1,11 @@
-# public readonly Result::stats
+# public protected(set) readonly Result::stats
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L24)
 
 ## Description    
 
 ```php
-public readonly CondorcetPHP\Condorcet\Algo\Stats\StatsInterface Result->stats 
+public protected(set) readonly CondorcetPHP\Condorcet\Algo\Stats\StatsInterface Result->stats 
 ```
 
 Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.

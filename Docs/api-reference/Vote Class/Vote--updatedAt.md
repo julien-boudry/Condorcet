@@ -1,11 +1,11 @@
-# final public Vote::updatedAt
+# final public private(set) Vote::updatedAt
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L23)
 
 ## Description    
 
 ```php
-final public float Vote->updatedAt 
+final public private(set) float Vote->updatedAt 
 ```
 
 Get the timestamp corresponding of the last vote change.

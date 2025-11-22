@@ -1,6 +1,6 @@
 # public Election::setSeatsToElect
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L489)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L491)
 
 ## Description    
 

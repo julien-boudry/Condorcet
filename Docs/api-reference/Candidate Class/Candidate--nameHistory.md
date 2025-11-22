@@ -1,11 +1,11 @@
-# public Candidate::nameHistory
+# public protected(set) Candidate::nameHistory
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L16)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L19)
 
 ## Description    
 
 ```php
-public array Candidate->nameHistory 
+public protected(set) array Candidate->nameHistory 
 ```
 
 Return an history of each naming change, with timestamp.

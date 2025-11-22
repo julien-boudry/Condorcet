@@ -1,6 +1,6 @@
 # public Election::setExternalDataHandler
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L511)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L513)
 
 ## Description    
 

@@ -1,11 +1,11 @@
-# public readonly Result::originalRankingAsArrayString
+# public protected(set) readonly Result::originalRankingAsArrayString
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L24)
 
 ## Description    
 
 ```php
-public readonly array Result->originalRankingAsArrayString 
+public protected(set) readonly array Result->originalRankingAsArrayString 
 ```
 
 Get immutable result as an array
