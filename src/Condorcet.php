@@ -66,7 +66,7 @@ abstract class Condorcet
      */
     final public const CONDORCET_BASIC_CLASS = Algo\Methods\CondorcetBasic::class;
 
-    protected static ?string $defaultMethod = null;
+    public protected(set) static ?string $defaultMethod = null;
     protected static array $authMethods = [self::CONDORCET_BASIC_CLASS => (Algo\Methods\CondorcetBasic::class)::METHOD_NAME];
 
     /**
