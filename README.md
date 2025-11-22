@@ -67,7 +67,8 @@ Both approaches can handle massive numbers of votes (hundreds of millions) on mo
 
 | Version | PHP Requirements | State | Support
 | --- | --- | --- | --- |
-| 5.0 | 8.4 | Stable | ✔ _support provided_
+| 5.1 | 8.5 | Stable | ✔ _support provided_
+| 5.0 | 8.4 | Old Stable | ✔ _support provided_
 | 4.7 | 8.3 | Old Stable | ✔ _support provided_
 | 4.6 | 8.2 | Old Stable | ❌ _not any support_
 | 3.x | 8.1 | Old Stable | ❌ _not any support_
