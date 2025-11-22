@@ -1648,7 +1648,7 @@ _Including above methods from public API_
 * protected SplFixedArray $outcomeComparisonTable
 * readonly protected array $initialScoreTable
 * protected array $candidatesElectedFromFirstRound
-* readonly protected array $candidatesEliminatedFromFirstRound
+* readonly protected array $candidatesRemainingAfterFirstRound
 * readonly protected int $condorcetWinnerOutcome
 * readonly protected array $completionMethodPairwise
 * readonly protected CondorcetPHP\Condorcet\Result $completionMethodResult
@@ -1676,7 +1676,7 @@ _Including above methods from public API_
 * protected Result ()  
 * protected Stats ()  
 * protected candidatesElectedFromFirstRound ()  
-* protected candidatesEliminatedFromFirstRound ()  
+* protected candidatesRemainingAfterFirstRound ()  
 * protected compareOutcomes (): void  
 * protected completionMethodPairwise ()  
 * protected completionMethodResult ()  

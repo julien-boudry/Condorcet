@@ -14,12 +14,15 @@ Maintenance release with bug fixes, PHP 8.5 support, and documentation improveme
 ### Changed
 - **Schwartz Set method**: Improved and fixed algorithm implementation regarding ties and cycles. No longer marked as experimental.
 - **Smith Set method**: Fixed algorithm implementation regarding ties and cycles. No longer marked as experimental.
+- **CPO-STV method**: Renamed stats key `Candidates eliminated from first round` to `Candidates remaining after first round` for clarity.
 - Improved console completion implementation.
 - Symfony components 7.3 minimum are now required as it is the only version supported by Symfony.
 
 ### Fixed
 - Fixed PHP 8.5 deprecations related to null offset access.
 - Fixed PHPDoc references to include full namespaces for better IDE support across multiple classes.
+- Fixed CPO-STV method: Corrected a bug in the tie-breaker comparison for the final ranking.
+- Fixed CPO-STV method: Corrected the coefficient calculation for vote weights in the internal pairwise comparison.
 - Enabled `failOnWarning`, `failOnDeprecation`, and `failOnNotice` in PHPUnit configuration for stricter testing.
 - Added `skipOnWindows` to PHP preset to address Pest compatibility issues on Windows.
 

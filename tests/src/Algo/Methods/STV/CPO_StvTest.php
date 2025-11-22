@@ -65,7 +65,7 @@ test('cpo1', function (): void {
     ]);
 
     expect($stats['Candidates elected from first round'])->toBe(['Andrea', 'Carter']);
-    expect($stats['Candidates eliminated from first round'])->toBe(['Brad', 'Delilah', 'Scott']);
+    expect($stats['Candidates remaining after first round'])->toBe(['Brad', 'Delilah', 'Scott']);
 
     expect($stats['Outcomes'])->toBe([
         ['Andrea', 'Carter', 'Scott'],

@@ -63,7 +63,7 @@ class CPO_STV extends SingleTransferableVote
 
     protected readonly array $initialScoreTable;
     protected array $candidatesElectedFromFirstRound = [];
-    protected readonly array $candidatesEliminatedFromFirstRound;
+    protected readonly array $candidatesRemainingAfterFirstRound;
 
     protected readonly int $condorcetWinnerOutcome;
     protected readonly array $completionMethodPairwise;
@@ -92,13 +92,13 @@ class CPO_STV extends SingleTransferableVote
         }
 
         $numberOfCandidatesNeededToComplete = $this->getElectionOrFail()->seatsToElect - \count($this->candidatesElectedFromFirstRound);
-        $this->candidatesEliminatedFromFirstRound = array_diff(array_keys($this->getElectionOrFail()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
+        $this->candidatesRemainingAfterFirstRound = array_diff(array_keys($this->getElectionOrFail()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
 
-        if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete < \count($this->candidatesEliminatedFromFirstRound)) {
+        if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete < \count($this->candidatesRemainingAfterFirstRound)) {
             try {
                 $numberOfComparisons =  Combinations::getPossibleCountOfCombinations(
                     count: Combinations::getPossibleCountOfCombinations(
-                        count: \count($this->candidatesEliminatedFromFirstRound),
+                        count: \count($this->candidatesRemainingAfterFirstRound),
                         length: $numberOfCandidatesNeededToComplete
                     ),
                     length: 2
@@ -113,7 +113,7 @@ class CPO_STV extends SingleTransferableVote
 
 
             // Compute all possible Ranking
-            $this->outcomes = Combinations::compute($this->candidatesEliminatedFromFirstRound, $numberOfCandidatesNeededToComplete, $this->candidatesElectedFromFirstRound);
+            $this->outcomes = Combinations::compute($this->candidatesRemainingAfterFirstRound, $numberOfCandidatesNeededToComplete, $this->candidatesElectedFromFirstRound);
 
             // Compare it
             $this->outcomeComparisonTable->setSize($numberOfComparisons);
@@ -247,7 +247,7 @@ class CPO_STV extends SingleTransferableVote
         }
 
         // Votes
-        $coef = Method::DECIMAL_PRECISION ** 10; # Actually, vote weight does not support float
+        $coef = 10 ** Method::DECIMAL_PRECISION; # Actually, vote weight does not support float
         foreach ($this->outcomeComparisonTable as $comparison) {
             ($vote1 = new Vote([
                 (string) $key = array_key_first($comparison['outcomes_scores']),
@@ -304,7 +304,7 @@ class CPO_STV extends SingleTransferableVote
 
                     return ($w === $a) ? -1 : 1;
                 } else {
-                    return mb_strtolower($election->getCandidateObjectFromKey($b)->name, 'UTF-8') <=> mb_strtolower($election->getCandidateObjectFromKey($b)->name, 'UTF-8');
+                    return mb_strtolower($election->getCandidateObjectFromKey($a)->name, 'UTF-8') <=> mb_strtolower($election->getCandidateObjectFromKey($b)->name, 'UTF-8');
                 }
             }
         });
@@ -349,8 +349,8 @@ class CPO_STV extends SingleTransferableVote
             // Candidates Elected from first round
             $stats['Candidates elected from first round'] = $changeValueToCandidateAndSortByName($this->candidatesElectedFromFirstRound, $election);
 
-            // Candidates Eliminated from first round
-            $stats['Candidates eliminated from first round'] = $changeValueToCandidateAndSortByName($this->candidatesEliminatedFromFirstRound, $election);
+            // Candidates Remaining After First Round
+            $stats['Candidates remaining after first round'] = $changeValueToCandidateAndSortByName($this->candidatesRemainingAfterFirstRound, $election);
 
             // Completion Method
             if (isset($this->completionMethodResult)) {
