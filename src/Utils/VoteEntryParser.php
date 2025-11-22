@@ -98,7 +98,7 @@ class VoteEntryParser
         $offset = mb_strpos($voteString, '#');
 
         if (\is_int($offset)) {
-            $comment = mb_trim(mb_substr($voteString, $offset + 1));
+            $comment = mb_substr($voteString, $offset + 1) |> mb_trim(...);
 
             if ($cut) {
                 $voteString = mb_substr($voteString, 0, $offset);
