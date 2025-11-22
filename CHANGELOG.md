@@ -2,7 +2,7 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v5.0.1] - 2025-11-22
+## [v5.0.1] - 2025-11-23
 ### Description
 Maintenance release with bug fixes, PHP 8.5 support, and documentation improvements.
 
@@ -15,6 +15,7 @@ Maintenance release with bug fixes, PHP 8.5 support, and documentation improveme
 - **Schwartz Set method**: Improved and fixed algorithm implementation regarding ties and cycles. No longer marked as experimental.
 - **Smith Set method**: Fixed algorithm implementation regarding ties and cycles. No longer marked as experimental.
 - Improved console completion implementation.
+- Symfony components 7.3 minimum are now required as it is the only version supported by Symfony.
 
 ### Fixed
 - Fixed PHP 8.5 deprecations related to null offset access.
