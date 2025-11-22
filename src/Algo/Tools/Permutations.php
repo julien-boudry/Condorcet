@@ -93,7 +93,7 @@ class Permutations
     protected function permutationGenerator(array $elements): \Generator
     {
         if (\count($elements) <= 1) {
-            yield [1 => reset($elements)]; // Set the only key to index 1
+            yield [1 => array_first($elements)]; // Set the only key to index 1
         } else {
             foreach ($this->permutationGenerator(\array_slice($elements, 1)) as $permutation) {
                 foreach (range(0, \count($elements) - 1) as $i) {

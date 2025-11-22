@@ -47,7 +47,7 @@ class DavidHillFormat implements ConverterImport
             throw new \RuntimeException("Unable to read the file: {$filePath}");
         }
 
-        (end($this->lines) === '') ? array_pop($this->lines) : null; # Remove bad format from most popular source for this format (elections A01 and A04)
+        (array_last($this->lines) === '') ? array_pop($this->lines) : null; # Remove bad format from most popular source for this format (elections A01 and A04)
 
         $this->parseSeatsToElect();
         $this->readCandidatesNames();
@@ -90,14 +90,14 @@ class DavidHillFormat implements ConverterImport
     // Internal
     protected function parseSeatsToElect(): void
     {
-        $first_line = reset($this->lines);
+        $first_line = array_first($this->lines);
 
         $this->seatsToElect = (int) explode(' ', $first_line)[1];
     }
 
     protected function readCandidatesNames(): void
     {
-        $last_line = end($this->lines);
+        $last_line = array_last($this->lines);
         $last_line = mb_ltrim($last_line, '"');
         $last_line = explode('" "', $last_line);
 

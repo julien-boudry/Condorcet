@@ -67,7 +67,7 @@ abstract class MajorityCore extends Method implements MethodInterface
                 }
             }
 
-            if ($round === $this->maxRound || reset($roundScore) > (array_sum($roundScore) / 2)) {
+            if ($round === $this->maxRound || array_first($roundScore) > (array_sum($roundScore) / 2)) {
                 $resolved = true;
 
                 if (isset($score[$round - 1]) && $score[$round] === $score[$round - 1]) {
@@ -143,7 +143,7 @@ abstract class MajorityCore extends Method implements MethodInterface
                     }
                 }
 
-                if (($newFirstRank = reset($oneRanking)) !== false) {
+                if (($newFirstRank = array_first($oneRanking)) !== false) {
                     $oneRanking = [1 => $newFirstRank];
                 } else {
                     continue;

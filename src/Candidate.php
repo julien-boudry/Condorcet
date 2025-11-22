@@ -27,7 +27,7 @@ class Candidate implements \Stringable
      * @api
      */
     public string $name {
-        get => end($this->nameHistory)['name']; // @phpstan-ignore offsetAccess.nonOffsetAccessible
+        get => array_last($this->nameHistory)['name'];
         set {
             $name = mb_trim($value);
 
@@ -157,7 +157,7 @@ class Candidate implements \Stringable
      * @see Candidate::nameHistory
      */
     public float $updatedAt {
-        get => end($this->nameHistory)['timestamp']; // @phpstan-ignore offsetAccess.nonOffsetAccessible
+        get => array_last($this->nameHistory)['timestamp'];
     }
 
     // -------

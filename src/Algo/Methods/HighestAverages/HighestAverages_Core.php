@@ -65,7 +65,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
                 continue;
             } // This method support only one winner per vote. Ignore bad votes.
 
-            $this->candidatesVotes[reset($voteWinnerRank)] += $oneVote->getWeight($election);
+            $this->candidatesVotes[array_first($voteWinnerRank)] += $oneVote->getWeight($election);
         }
     }
 
