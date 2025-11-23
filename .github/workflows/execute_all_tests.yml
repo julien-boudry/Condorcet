@@ -12,12 +12,20 @@ jobs:
           - ':xdebug, pdo, pdo_sqlite, mbstring, json'
           - ':xdebug, :pdo, mbstring, json, tokenizer' # without pdo (external handler)
         php-jit:
-          - "opcache.enable_cli=1, opcache.jit=off, opcache.jit_buffer_size=128M"
-          - "opcache.enable_cli=1, opcache.jit=tracing, opcache.jit_buffer_size=128M"
-          # - "opcache.enable_cli=1, opcache.jit=function, opcache.jit_buffer_size=128M"
+          - "opcache.enable_cli=1, opcache.jit=off"
+          - "opcache.enable_cli=1, opcache.jit=tracing, opcache.jit_buffer_size=256M"
+          # - "opcache.enable_cli=1, opcache.jit=function, opcache.jit_buffer_size=256M"
+        composer-stability:
+          - "--prefer-stable"
+          - "--prefer-lowest --prefer-stable"
+        exclude:
+          - operating-system: windows-latest
+            composer-stability: "--prefer-lowest --prefer-stable"
+          - operating-system: macos-latest
+            composer-stability: "--prefer-lowest --prefer-stable"
       fail-fast: false
 
-    name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }} with ${{ matrix.php-extensions }} and JIT ${{ matrix.php-jit }} - Execute All Tests Without coverage
+    name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }} with ${{ matrix.php-extensions }} and JIT ${{ matrix.php-jit }} and ${{ matrix.composer-stability }} - Execute All Tests Without coverage
 
     steps:
     - name: Checkout
@@ -40,7 +48,7 @@ jobs:
       run: composer validate
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --ignore-platform-reqs
+      run: composer update ${{ matrix.composer-stability }} --prefer-dist --no-progress --ignore-platform-reqs
 
     - name: Run test suite
-      run: composer run-script test
+      run: ${{ contains(matrix.composer-stability, 'prefer-lowest') && 'vendor/bin/pest --do-not-fail-on-deprecation' || 'composer run-script test' }}

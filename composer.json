@@ -37,11 +37,11 @@
         "phpbench/phpbench": "^1.4",
         "haydenpierce/class-finder": ">= 0.5.3",
         "phpstan/phpstan": "^2.1",
-        "pestphp/pest": "^4.1",
+        "pestphp/pest": "^4.1, >=4.1.4",
         "phpstan/phpdoc-parser": "^2.3",
         "rector/rector": "^2.2",
         "laravel/prompts": "^0.3",
-        "friendsofphp/php-cs-fixer": "^3.89"
+        "friendsofphp/php-cs-fixer": "^3.90"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
