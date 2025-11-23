@@ -36,6 +36,7 @@ Maintenance release with bug fixes, PHP 8.5 support, and documentation improveme
 - Updated PHPStan, Rector, PHP CS Fixer, and Pest versions.
 - Updated macOS version in GitHub workflow to latest stable release.
 - Updated PHP version to 8.5 in workflow files.
+- Added `--prefer-lowest` stability testing to CI matrix (Ubuntu only) to ensure compatibility with minimum supported dependency versions.
 - Various linter improvements and fixes.
 
 ## [v5.0.0] - 2025-05-01
