@@ -2,6 +2,13 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v5.0.2] - 2025-11-24
+### Description
+Maintenance release with dependency updates and CI improvements.
+
+### Changed
+- Reverted brick/math dependency to stable version ^0.14.1 for better compatibility.
+
 ## [v5.0.1] - 2025-11-23
 ### Description
 Maintenance release with bug fixes, PHP 8.5 support, and documentation improvements.
@@ -36,6 +43,7 @@ Maintenance release with bug fixes, PHP 8.5 support, and documentation improveme
 - Updated PHPStan, Rector, PHP CS Fixer, and Pest versions.
 - Updated macOS version in GitHub workflow to latest stable release.
 - Updated PHP version to 8.5 in workflow files.
+- Added `--prefer-lowest` stability testing to CI matrix (Ubuntu only) to ensure compatibility with minimum supported dependency versions.
 - Various linter improvements and fixes.
 
 ## [v5.0.0] - 2025-05-01
