@@ -39,8 +39,8 @@ abstract class CondorcetApplication
 
         // Election command
         $defaultCommand = new ElectionCommand;
-        self::$SymfonyConsoleApplication->add($defaultCommand);
-        self::$SymfonyConsoleApplication->add(new ConvertCommand);
+        self::$SymfonyConsoleApplication->addCommand($defaultCommand);
+        self::$SymfonyConsoleApplication->addCommand(new ConvertCommand);
 
         self::$SymfonyConsoleApplication->setDefaultCommand($defaultCommand->getName(), false);
 

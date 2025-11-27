@@ -27,8 +27,8 @@
         "php": "^8.4",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "symfony/console": "^7.3",
-        "symfony/yaml": "^7.3",
+        "symfony/console": "^7.4|^8.0",
+        "symfony/yaml": "^7.4|^8.0",
         "brick/math": "^0.14.1"
     },
     "require-dev": {
