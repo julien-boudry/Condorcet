@@ -57,7 +57,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function key(): int
     {
-        return key($this->Pairwise); // @phpstan-ignore return.type
+        return key($this->Pairwise);
     }
 
     public function next(): void
@@ -257,7 +257,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected function getCandidateNameFromKey(int $candidateKey): string
     {
-        return $this->getElectionOrFail()->getCandidateObjectFromKey($candidateKey)->name; // @phpstan-ignore property.nonObject
+        return $this->getElectionOrFail()->getCandidateObjectFromKey($candidateKey)->name;
     }
 
     protected function clearExplicitPairwiseCache(): void
