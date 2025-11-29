@@ -5,8 +5,14 @@ on:
 
 jobs:
   generate:
-    name: Create release-artifacts
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['8.5']
+
+    name: PHP ${{ matrix.php-version }} - Create release-artifacts
+
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v6
@@ -14,7 +20,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.5
+          php-version: ${{ matrix.php-version }}
           extensions: mbstring, json, dom, pdo, pdo_sqlite
 
       - name: Check PHP Version
@@ -22,6 +28,15 @@ jobs:
 
       - name: Validate composer.json and composer.lock
         run: composer validate
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php-version }}-
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-dev
