@@ -2,6 +2,17 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v5.0.3] - 2025-11-29
+### Description
+Maintenance release with Symfony 8 support and dependency updates.
+
+### Changed
+- Added support for Symfony 8.0 components, now requiring Symfony 7.4 minimum.
+- Updated friendsofphp/php-cs-fixer dependency to ^3.91.
+
+### Internal changes
+- Removed unnecessary PHPStan ignore comments in Pairwise class.
+
 ## [v5.0.2] - 2025-11-24
 ### Description
 Maintenance release with dependency updates and CI improvements.
