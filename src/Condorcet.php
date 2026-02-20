@@ -59,7 +59,7 @@ abstract class Condorcet
     /**
      * @api
      */
-    final public const VERSION = '5.0.3';
+    final public const VERSION = '5.0.4';
 
     /**
      * @api

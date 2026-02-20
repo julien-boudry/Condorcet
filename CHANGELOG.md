@@ -2,6 +2,32 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v5.0.4] - 2026-02-20
+### Description
+Bug fix release for the timer subsystem.
+
+### Fixed
+- **Timer — silent tracking gaps**: `Timer\Chrono` instances created without being
+  assigned to a variable were immediately destroyed (PHP destructor fires at
+  end-of-statement), recording ~0 ms instead of the actual operation time. Affected
+  operations: `Pairwise::doPairwise()`, `Pairwise::addNewVote()`,
+  `Pairwise::removeVote()`, and the `CondorcetBasic` branch of `getWinner()` /
+  `getLoser()`. As a result, `getGlobalTimer()` was underreporting total computation
+  time and `getTimerManager()->getHistory()` was missing entries.
+
+### Changed
+- **Timer\Manager — wall-clock model**: `addTime()` now always records every chrono
+  in history regardless of nesting. `globalTimer` is recalculated as
+  `last_end − startDeclare` (wall-clock of the full computation window) instead of
+  being a running sum, eliminating double-counting when chronos are nested (e.g.
+  `GetResult` wrapping `GetWinner`/`GetLoser` triggered by `Result::__construct`).
+
+### Internal changes
+- `Timer\Manager::$history` and `getHistory()` are now fully typed with a PHPDoc
+  array shape: `list<array{role: ?string, process_in: float, timer_start: float,
+  timer_end: float}>`.
+- Added comprehensive tests for `Timer\Manager::getHistory()`.
+
 ## [v5.0.3] - 2025-11-29
 ### Description
 Maintenance release with Symfony 8 support and dependency updates.
