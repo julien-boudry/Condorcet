@@ -24,6 +24,7 @@ class Manager
     protected ?float $lastTimer = null;
     protected ?float $lastChronoTimestamp = null;
     protected ?float $startDeclare = null;
+    /** @var list<array{role: ?string, process_in: float, timer_start: float, timer_end: float}> */
     protected array $history = [];
 
     /**
@@ -38,18 +39,17 @@ class Manager
 
             $m = microtime(true);
 
-            if ($this->lastChronoTimestamp > $chrono->getStart()) {
-                $c = $this->lastChronoTimestamp;
-            } else {
-                $c = $chrono->getStart();
-                $this->history[] = ['role' => $chrono->getRole(),
-                    'process_in' => ($m - $c),
-                    'timer_start' => $c,
-                    'timer_end' => $m,
-                ];
-            }
+            $this->history[] = [
+                'role'        => $chrono->getRole(),
+                'process_in'  => ($m - $chrono->getStart()),
+                'timer_start' => $chrono->getStart(),
+                'timer_end'   => $m,
+            ];
 
-            $this->globalTimer += ($m - $c);
+            // Total wall-clock elapsed since the first chrono was declared.
+            // Using a wall-clock model allows nested chronos to all appear in history
+            // without double-counting: globalTimer measures the outer bracket, not a sum.
+            $this->globalTimer = $m - $this->startDeclare;
 
             $this->lastTimer = ($m - $chrono->getStart());
             $this->lastChronoTimestamp = $m;
@@ -69,11 +69,22 @@ class Manager
     }
 
     /**
-     * Returns benchmarked actions history.
+     * Returns the chronological history of all timed operations for this election.
+     * Entries are recorded in completion order (inner/nested operations appear before
+     * their outer container). Nested chronos will naturally overlap in time-range.
      *
      * @api
      *
-     * @return array An array containing detailed benchmark history.
+     * @return list<array{
+     *     role: ?string,
+     *     process_in: float,
+     *     timer_start: float,
+     *     timer_end: float
+     * }> Each entry describes one timed operation:
+     *   - `role`        — human-readable label of the operation, or null if unnamed
+     *   - `process_in`  — duration in seconds (float) of this specific operation
+     *   - `timer_start` — Unix timestamp (microtime) when the operation started
+     *   - `timer_end`   — Unix timestamp (microtime) when the operation ended
      */
     public function getHistory(): array
     {

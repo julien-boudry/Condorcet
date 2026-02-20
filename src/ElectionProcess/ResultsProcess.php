@@ -140,9 +140,7 @@ trait ResultsProcess
         // -------
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) {
-            if (Condorcet::$UseTimer) {
-                new Timer_Chrono($this->timer, 'GetWinner for CondorcetBasic');
-            }
+            $chrono = Condorcet::$UseTimer ? new Timer_Chrono($this->timer, 'GetWinner for CondorcetBasic') : null;
             $this->initResult($algo);
             $result = $this->MethodsComputation[$algo]->getWinner(); // @phpstan-ignore offsetAccess.notFound,method.notFound
 
@@ -178,9 +176,7 @@ trait ResultsProcess
         // -------
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) {
-            if (Condorcet::$UseTimer) {
-                new Timer_Chrono($this->timer, 'GetLoser for CondorcetBasic');
-            }
+            $chrono = Condorcet::$UseTimer ? new Timer_Chrono($this->timer, 'GetLoser for CondorcetBasic') : null;
             $this->initResult($algo);
             $result = $this->MethodsComputation[$algo]->getLoser(); // @phpstan-ignore offsetAccess.notFound,method.notFound
 
