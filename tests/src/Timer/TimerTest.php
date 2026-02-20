@@ -80,18 +80,24 @@ test('history entries have valid structure', function (): void {
     }
 });
 
-test('globalTimer is the wall-clock of the full computation (nested entries sum to more)', function (): void {
+test('globalTimer equals the span from first chrono start to last chrono end', function (): void {
     $this->election->parseVotes('A>B>C');
     $this->election->getResult('Schulze');
 
     $history = $this->election->getTimerManager()->getHistory();
-    $sumProcessIn = (float) array_sum(array_column($history, 'process_in'));
 
     expect($this->election->getGlobalTimer())->toBeGreaterThan(0.0);
 
-    // Nested chronos overlap in time: their individual durations add up to MORE than
-    // the outer wall-clock. globalTimer = last_end - first_start (no double-counting).
-    expect($sumProcessIn)->toBeGreaterThanOrEqual($this->election->getGlobalTimer());
+    // globalTimer = last_end - startDeclare.
+    // startDeclare is the start of the very first chrono (history[0].timer_start).
+    // The last chrono to destruct is always the outermost one (history last entry).
+    $expectedGlobalTimer = end($history)['timer_end'] - $history[0]['timer_start'];
+    expect($this->election->getGlobalTimer())->toEqualWithDelta($expectedGlobalTimer, 1e-9);
+
+    // Each individual process_in fits within the global span (no entry can be longer than total).
+    foreach ($history as $entry) {
+        expect($entry['process_in'])->toBeLessThanOrEqual($this->election->getGlobalTimer() + 1e-9);
+    }
 });
 
 test('history contains Do Pairwise entry on first vote', function (): void {
