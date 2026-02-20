@@ -26,7 +26,7 @@ trait CondorcetVersion
      *
      * @api
      *
-     * @see \CondorcetPHP\Condorcet\Condorcet::getVersion()
+     * @see Condorcet::getVersion()
      *
      * @param $major true will return 2.0 and false will return 2.0.0.
      *
