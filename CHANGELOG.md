@@ -2,6 +2,15 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v5.0.5] - 2026-02-21
+### Description
+Maintenance release with dependency updates.
+
+### Changed
+- Updated `brick/math` dependency to `^0.15`.
+- Updated `pestphp/pest` dev dependency to `^4.4`.
+- Updated `friendsofphp/php-cs-fixer` dev dependency to `^3.94`.
+
 ## [v5.0.4] - 2026-02-20
 ### Description
 Bug fix release for the timer subsystem.
