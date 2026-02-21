@@ -29,7 +29,7 @@
         "ext-mbstring": "*",
         "symfony/console": "^7.4|^8.0",
         "symfony/yaml": "^7.4|^8.0",
-        "brick/math": "^0.14.1"
+        "brick/math": "^0.15"
     },
     "require-dev": {
         "ext-pdo": "*",
@@ -37,11 +37,11 @@
         "phpbench/phpbench": "^1.4",
         "haydenpierce/class-finder": ">= 0.5.3",
         "phpstan/phpstan": "^2.1",
-        "pestphp/pest": "^4.1, >=4.1.4",
+        "pestphp/pest": "^4.4",
         "phpstan/phpdoc-parser": "^2.3",
         "rector/rector": "^2.2",
         "laravel/prompts": "^0.3",
-        "friendsofphp/php-cs-fixer": "^3.91"
+        "friendsofphp/php-cs-fixer": "^3.94"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
