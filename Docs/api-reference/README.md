@@ -2279,9 +2279,7 @@ _Including above methods from public API_
 * protected ?SplFileObject $output
 
 * public static converters ()  
-* public static getDefaultDescription (): ?string  
-* public static getDefaultName (): ?string  
-* public __construct (?string $name = null)  
+* public __construct (?string $name = null, ?callable $code = null)  
 * public addArgument (string $name, ?int $mode = null, string $description = , mixed $default = null, Closure|array $suggestedValues = []): static  
 * public addOption (string $name, array|string|null $shortcut = null, ?int $mode = null, string $description = , mixed $default = null, Closure|array $suggestedValues = []): static  
 * public addUsage (string $usage): static  
@@ -2289,6 +2287,7 @@ _Including above methods from public API_
 * public execute (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): int  
 * public getAliases (): array  
 * public getApplication (): ?Symfony\Component\Console\Application  
+* public getCode (): ?callable  
 * public getDefinition (): Symfony\Component\Console\Input\InputDefinition  
 * public getDescription (): string  
 * public getHelp (): string  
@@ -2321,7 +2320,7 @@ _Including above methods from public API_
 * protected election ()  
 * protected fromConverter ()  
 * protected input ()  
-* protected interact (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output)  
+* protected interact (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
 * protected output ()  
 * protected toConverter ()  
 ```
@@ -2355,16 +2354,15 @@ _Including above methods from public API_
 
 * public static VotesPerMB ()  
 * public static forceIniMemoryLimitTo ()  
-* public static getDefaultDescription (): ?string  
-* public static getDefaultName (): ?string  
 * public SQLitePath ()  
-* public __construct (?string $name = null)  
+* public __construct (?string $name = null, ?callable $code = null)  
 * public addArgument (string $name, ?int $mode = null, string $description = , mixed $default = null, Closure|array $suggestedValues = []): static  
 * public addOption (string $name, array|string|null $shortcut = null, ?int $mode = null, string $description = , mixed $default = null, Closure|array $suggestedValues = []): static  
 * public addUsage (string $usage): static  
 * public complete (Symfony\Component\Console\Completion\CompletionInput $input, Symfony\Component\Console\Completion\CompletionSuggestions $suggestions): void  
 * public getAliases (): array  
 * public getApplication (): ?Symfony\Component\Console\Application  
+* public getCode (): ?callable  
 * public getDefinition (): Symfony\Component\Console\Input\InputDefinition  
 * public getDescription (): string  
 * public getHelp (): string  

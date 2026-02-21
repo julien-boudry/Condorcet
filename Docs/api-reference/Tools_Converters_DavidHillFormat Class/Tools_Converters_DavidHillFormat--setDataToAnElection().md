@@ -25,4 +25,4 @@ Add an existing election, useful if you want to set up some parameters or add ex
 
 ## Related
 
-* [\CondorcetPHP\Condorcet\Tools\Converters\DebianFormat::setDataToAnElection()]()    
+* [DebianFormat::setDataToAnElection()]()    

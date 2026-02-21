@@ -1,6 +1,6 @@
 # public Algo\Pairwise\Pairwise::compareCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L224)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L220)
 
 ## Description    
 
