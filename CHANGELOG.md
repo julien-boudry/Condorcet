@@ -2,6 +2,18 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v5.0.6] - 2026-02-24
+### Description
+Maintenance release focused on static-analysis quality and method metadata consistency.
+
+### Added
+- Added explicit `IS_INFORMATIONAL` metadata support to better expose informational-only algorithms.
+
+### Changed
+- Marked `Smith set` and `Schwartz set` as informational methods (`IS_INFORMATIONAL = true`).
+- Extended test coverage to assert `IS_INFORMATIONAL` across the full authorized method list, ensuring only `Smith set` and `Schwartz set` are informational.
+- Updated PHPDoc type annotations (including return types) to improve PHPStan and static analysis quality.
+
 ## [v5.0.5] - 2026-02-21
 ### Description
 Maintenance release with dependency updates.
