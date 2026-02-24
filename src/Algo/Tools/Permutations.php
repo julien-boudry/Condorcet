@@ -26,7 +26,7 @@ class Permutations
      */
     public static bool $useBigIntegerIfAvailable = true;
 
-    /** @var array<int,mixed> */
+    /** @var list<mixed> */
     public protected(set) readonly array $candidates;
 
     public static function getPossibleCountOfPermutations(int $candidatesNumber): int

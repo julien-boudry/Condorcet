@@ -116,7 +116,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Return an history of each vote change, with timestamp.
      *
-     * @var array<int,array>
+     * @var list<array>
      *
      * @api
      */

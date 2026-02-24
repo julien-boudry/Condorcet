@@ -50,7 +50,7 @@ class Candidate implements \Stringable
     /**
      * Return an history of each naming change, with timestamp.
      *
-     * @var array<int,array>
+     * @var list<array{name: string, timestamp: float}>
      *
      * @api
      *
