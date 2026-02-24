@@ -24,7 +24,9 @@ trait CandidatesProcess
     /////////// CONSTRUCTOR ///////////
 
     // Data and global options
+    /** @var array<int, Candidate>  */
     public protected(set) array $candidates = []; // Candidate list
+
     public protected(set) string $nextAutomaticCandidateName = 'A';
 
 
@@ -50,7 +52,7 @@ trait CandidatesProcess
      *
      * @api
      *
-     * @return array List of candidates in an array.
+     * @return array<int, Candidate> List of candidates in an array.
      *
      * @see \CondorcetPHP\Condorcet\Election::countCandidates()
      */
@@ -65,7 +67,7 @@ trait CandidatesProcess
      *
      * @api
      *
-     * @return array List of candidates in an array populated with strings instead of Candidate objects.
+     * @return array<int, string> List of candidates in an array populated with strings instead of Candidate objects.
      *
      * @see \CondorcetPHP\Condorcet\Election::countCandidates()
      */
@@ -235,7 +237,7 @@ trait CandidatesProcess
      * @throws CandidateDoesNotExistException
      * @throws VotingHasStartedException
      *
-     * @return array List of removed candidate objects.
+     * @return array<int, Candidate> List of removed candidate objects.
      */
     public function removeCandidates(
         array|Candidate|string $candidates_input
@@ -287,7 +289,7 @@ trait CandidatesProcess
      *
      * @throws CandidateExistsException
      *
-     * @return array List of newly registered candidate objects.
+     * @return array<int, Candidate> List of newly registered candidate objects.
      */
     public function addCandidatesFromJson(
         string $input
@@ -332,7 +334,7 @@ trait CandidatesProcess
      * @throws CandidateExistsException
      * @throws VoteMaxNumberReachedException
      *
-     * @return array List of newly registered candidate objects. Count to check if all candidates were correctly registered.
+     * @return array<int, Candidate> List of newly registered candidate objects. Count to check if all candidates were correctly registered.
      */
     public function parseCandidates(
         string $input,

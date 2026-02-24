@@ -160,7 +160,7 @@ class Pairwise implements \ArrayAccess, \Iterator
      *
      * @api
      *
-     * @return array Pairwise as an explicit array .
+     * @return array<string,array<string,array<string,int>>> Pairwise as an explicit array .
      *
      * @see Election::getPairwise()
      * @see Election::getResult()

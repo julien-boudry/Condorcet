@@ -113,7 +113,7 @@ abstract class Condorcet
      * @param $basic Include or not the natural Condorcet base algorithm.
      * @param $withNonDeterministicMethods Include or not non deterministic methods.
      *
-     * @return array Populated by method string name. You can use it on getResult ... and others methods.
+     * @return array<int, string> Populated by method string name. You can use it on getResult ... and others methods.
      */
     public static function getAuthMethods(
         bool $basic = false,

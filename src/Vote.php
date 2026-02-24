@@ -129,7 +129,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      *
      * @api
      *
-     * @return array List of registered tag.
+     * @return array<int, string> List of registered tag.
      *
      * @see Vote::getTagsAsString()
      * @see Vote::addTags()
@@ -269,7 +269,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @param $context An election already linked to the Vote.
      * @param $sortCandidatesInRank Sort Candidate in a Rank by name. Useful for performant internal calls from methods.
      *
-     * @return array Multidimenssionnal array populated by Candidate object.
+     * @return array<int, array<int, Candidate>> Multidimenssionnal array populated by Candidate object.
      */
     public function getRanking(
         ?Election $context = null,
@@ -324,7 +324,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      *
      * @param $context An election already linked to the Vote.
      *
-     * @return array Candidates list.
+     * @return array<int, Candidate> Candidates list.
      */
     public function getAllCandidates(
         ?Election $context = null
@@ -454,7 +454,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      *
      * @param $context An election already linked to the Vote.
      *
-     * @return array Contextual full ranking, with string instead Candidate object.
+     * @return array<int, string> Contextual full ranking, with string instead Candidate object.
      */
     public function getRankingAsArrayString(
         ?Election $context = null
@@ -700,7 +700,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      *
      * @param $tags They can be added by string separated by commas or an array.
      *
-     * @return array List of deleted tags.
+     * @return array<int, string> List of deleted tags.
      */
     public function removeTags(
         array|string $tags

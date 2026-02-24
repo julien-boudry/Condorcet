@@ -96,7 +96,7 @@ class ArrayRandomizer
      *
      * @api
      *
-     * @return array Return the new vote.
+     * @return array<int, mixed> Return the new vote.
      */
     public function shuffle(): array
     {

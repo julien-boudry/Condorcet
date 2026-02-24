@@ -62,7 +62,7 @@ class SmithSet extends Method implements MethodInterface
     /**
      * Compute the Smith Set.
      *
-     * @return array Array of candidate IDs in the Smith Set
+     * @return array<int, int> Array of candidate IDs in the Smith Set
      */
     protected function computeSmithSet(): array
     {

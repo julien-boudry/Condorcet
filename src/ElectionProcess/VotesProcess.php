@@ -141,7 +141,7 @@ trait VotesProcess
      * @param $tags Tags list as a string separated by commas or array.
      * @param $with Get votes with these tags or without.
      *
-     * @return array Populated by each Vote object.
+     * @return array<int, Vote> Populated by each Vote object.
      */
     public function getVotesList(
         array|string|null $tags = null,
@@ -324,7 +324,7 @@ trait VotesProcess
             foreach ($choice as &$candidate) {
                 if (!$this->hasCandidate($candidate, true)) {
                     if ($candidate->provisionalState && $this->hasCandidate(candidate: $candidate, strictMode: false)) {
-                        $candidate = $this->candidates[$this->getCandidateKey((string) $candidate)];
+                        $candidate = $this->candidates[$this->getCandidateKey((string) $candidate)]; // @phpstan-ignore offsetAccess.notFound
                         $change = true;
                     }
                 }
@@ -420,7 +420,7 @@ trait VotesProcess
      * @param $tags Tags as string separated by commas or array.
      * @param $with Votes with these tags or without.
      *
-     * @return array List of removed CondorcetPHP\Condorcet\Vote object.
+     * @return array<int, Vote> List of removed CondorcetPHP\Condorcet\Vote object.
      */
     public function removeVotesByTags(
         array|string $tags,

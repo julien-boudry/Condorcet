@@ -414,7 +414,7 @@ class Election
      *
      * @api
      *
-     * @return array Array with class name of each active constraint. Empty array if there is not.
+     * @return array<int, string> Array with class name of each active constraint. Empty array if there is not.
      *
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
      *

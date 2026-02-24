@@ -363,7 +363,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      *
      * @param $type Filter on a specific warning type code.
      *
-     * @return array Warnings provided by the by the method that generated the warning. Empty array if there is not.
+     * @return array<int, string> Warnings provided by the by the method that generated the warning. Empty array if there is not.
      */
     public function getWarning(
         ?int $type = null

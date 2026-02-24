@@ -61,7 +61,7 @@ class SchwartzSet extends Method implements MethodInterface
     /**
      * Compute the Schwartz Set.
      *
-     * @return array Array of candidate IDs in the Schwartz Set
+     * @return array<int, int> Array of candidate IDs in the Schwartz Set
      */
     protected function computeSchwartzSet(): array
     {

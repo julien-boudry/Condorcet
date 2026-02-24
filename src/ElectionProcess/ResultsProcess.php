@@ -267,7 +267,7 @@ trait ResultsProcess
      *
      * @api
      *
-     * @return array Pairwise as an explicit array .
+     * @return array<string,array<string,array<string,int>>> Pairwise as an explicit array .
      *
      * @see \CondorcetPHP\Condorcet\Election::getPairwise()
      * @see \CondorcetPHP\Condorcet\Election::getResult()
@@ -287,7 +287,7 @@ trait ResultsProcess
      * @param $tags Tags as string separated by commas or array.
      * @param $with Minimum number of specified tags that votes must include, or 0 for only votes without any specified tags.
      *
-     * @return array Return a Pairwise filtered by tags
+     * @return  array<string,array<string,array<string,int>>> Return a Pairwise filtered by tags
      */
     public function getExplicitFilteredPairwiseByTags(
         array|string $tags,

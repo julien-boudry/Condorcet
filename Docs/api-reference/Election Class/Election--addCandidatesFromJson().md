@@ -1,6 +1,6 @@
 # public Election::addCandidatesFromJson
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L292)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L294)
 
 ## Description    
 
