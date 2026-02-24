@@ -1,6 +1,6 @@
 # public Algo\Pairwise\Pairwise::candidateWinVersus
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L237)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L242)
 
 ## Description    
 
