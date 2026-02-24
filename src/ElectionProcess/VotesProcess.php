@@ -432,8 +432,8 @@ trait VotesProcess
         $tags = VoteUtil::tagsConvert($tags);
 
         // Deleting
-        foreach ($this->getVotesList($tags, $with) as $oneVote) {
-            $rem[] = $oneVote;
+        foreach ($this->getVotesList($tags, $with) as $voteKey => $oneVote) {
+            $rem[$voteKey] = $oneVote;
 
             $this->removeVote($oneVote);
         }

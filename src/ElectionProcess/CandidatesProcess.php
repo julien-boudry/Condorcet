@@ -265,7 +265,7 @@ trait CandidatesProcess
         foreach ($candidates_input as $candidate_key) {
             $this->candidates[$candidate_key]->destroyLink($this);
 
-            $rem[] = $this->candidates[$candidate_key];
+            $rem[$candidate_key] = $this->candidates[$candidate_key];
 
             unset($this->candidates[$candidate_key]);
         }

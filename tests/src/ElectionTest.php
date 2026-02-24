@@ -50,7 +50,7 @@ test('remove votes by tags', function (): void {
 
     expect($r = $this->election1->removeVotesByTags(['tag1', 'tag5']))->toHaveCount(3);
 
-    expect($r)->toBe([$this->vote1, $this->vote3, $this->vote4]);
+    expect($r)->toBe([0 => $this->vote1, 2 => $this->vote3, 3 => $this->vote4]);
 
     expect($this->election1->getVotesList())->toBe([1 => $this->vote2]);
 
@@ -63,7 +63,7 @@ test('remove votes by tags', function (): void {
 
     expect($r = $this->election1->removeVotesByTags('tag1,tag5', false))->toHaveCount(1);
 
-    expect($r)->toBe([$this->vote2]);
+    expect($r)->toBe([1 => $this->vote2]);
 
     expect($this->election1->getVotesList())->toBe([0 => $this->vote1, 2 => $this->vote3, 3 => $this->vote4]);
 });
