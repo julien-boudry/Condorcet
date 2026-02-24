@@ -35,6 +35,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function offsetUnset(mixed $offset): void {}
 
+    /** @return array<string,array<int,int>>|null */
     public function offsetGet(mixed $offset): ?array
     {
         return $this->Pairwise[$offset] ?? null;
@@ -50,6 +51,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->valid = true;
     }
 
+    /** @return array<string,array<int,int>> */
     public function current(): array
     {
         return $this->Pairwise[$this->key()];
@@ -80,6 +82,7 @@ class Pairwise implements \ArrayAccess, \Iterator
     /** @var array<int,array<string,array<int,int>>> */
     protected array $Pairwise;
 
+    /** @var array<string,array<string,array<string,int>>>|null */
     protected ?array $explicitPairwise = null;
 
     /**
@@ -94,6 +97,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->doPairwise();
     }
 
+    /** @return \Generator<int,Vote,mixed,void> */
     protected function getVotesManagerGenerator(): \Generator
     {
         return $this->getElectionOrFail()->getVotesManager()->getVotesValidUnderConstraintGenerator();
@@ -184,6 +188,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         return $this->explicitPairwise;
     }
 
+    /** @return array{0:int,1:int} */
     protected function prepareComparaison(
         Candidate|string $a,
         Candidate|string $b

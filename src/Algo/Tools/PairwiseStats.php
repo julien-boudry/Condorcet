@@ -20,6 +20,9 @@ use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
  */
 abstract class PairwiseStats
 {
+    /**
+     * @return array<int, array{win: int, null: int, lose: int, balance: int, sum_defeat_margin: int|float, worst_pairwise_defeat_winning: int|float, worst_pairwise_defeat_margin: int|float|null, worst_pairwise_opposition: int|float}>
+     */
     public static function PairwiseComparison(Pairwise $pairwise): array
     {
         $comparison = [];
