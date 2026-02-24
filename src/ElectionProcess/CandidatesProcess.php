@@ -24,7 +24,7 @@ trait CandidatesProcess
     /////////// CONSTRUCTOR ///////////
 
     // Data and global options
-    /** @var array<int, Candidate>  */
+    /** @var array<int, Candidate> */
     public protected(set) array $candidates = []; // Candidate list
 
     public protected(set) string $nextAutomaticCandidateName = 'A';

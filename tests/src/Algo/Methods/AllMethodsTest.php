@@ -63,6 +63,6 @@ test('IS_INFORMATIONAL is true only for Smith and Schwartz sets', function (): v
         $className = Condorcet::getMethodClass($method);
 
         expect($className::IS_INFORMATIONAL)
-            ->toBe(in_array($method, $informationalMethods, true));
+            ->toBe(\in_array($method, $informationalMethods, true));
     }
 });
