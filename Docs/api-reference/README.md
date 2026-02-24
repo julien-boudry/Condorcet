@@ -639,6 +639,7 @@ _Including above methods from public API_
 ```php
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * public static ?int $MaxCandidates
@@ -670,6 +671,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * public static int $optionStarting
@@ -706,6 +708,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * public static int $optionStarting
@@ -742,6 +745,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * protected ?int $CondorcetWinner
@@ -780,6 +784,7 @@ _Including above methods from public API_
 * protected const string COUNT_TYPE
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * readonly protected array $Comparison
@@ -815,6 +820,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * readonly protected array $Stats
@@ -849,6 +855,7 @@ _Including above methods from public API_
 * protected const string COUNT_TYPE
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * readonly protected array $Comparison
@@ -883,6 +890,7 @@ _Including above methods from public API_
 ```php
 * final public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 * public const array METHOD_NAME
 
@@ -924,6 +932,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * final public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * protected array $candidatesVotes
@@ -964,6 +973,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * final public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * public static int|float $optionFirstDivisor
@@ -1006,6 +1016,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * readonly protected array $Stats
@@ -1043,6 +1054,7 @@ _Including above methods from public API_
 * final public const int CONFLICT_WARNING_CODE
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * public static ?int $MaxCandidates
@@ -1093,6 +1105,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * final public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * public static CondorcetPHP\Condorcet\Algo\Tools\StvQuotas $optionQuota
@@ -1135,6 +1148,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * public const bool IS_DETERMINISTIC
 * public const bool IS_PROPORTIONAL
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * public static ?Random\Randomizer $optionRandomizer
@@ -1174,6 +1188,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * public const bool IS_DETERMINISTIC
 * public const bool IS_PROPORTIONAL
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * public static ?Random\Randomizer $optionRandomizer
@@ -1209,6 +1224,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * protected int $maxRound
@@ -1250,6 +1266,7 @@ _Including above methods from public API_
 ```php
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 * public const array METHOD_NAME
 
@@ -1293,6 +1310,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * protected static int $optionMAX_ROUND
@@ -1342,6 +1360,7 @@ _Including above methods from public API_
 * protected const string COUNT_TYPE
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * readonly protected array $Comparison
@@ -1378,6 +1397,7 @@ _Including above methods from public API_
 * protected const string COUNT_TYPE
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * readonly protected array $Comparison
@@ -1414,6 +1434,7 @@ _Including above methods from public API_
 * protected const string COUNT_TYPE
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * readonly protected array $Comparison
@@ -1449,6 +1470,7 @@ _Including above methods from public API_
 * protected const string COUNT_TYPE
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 * public const array METHOD_NAME
 
@@ -1499,6 +1521,7 @@ _Including above methods from public API_
 * protected const CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RP_VARIANT VARIANT
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 * public const array METHOD_NAME
 
@@ -1546,6 +1569,7 @@ _Including above methods from public API_
 * protected const CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RP_VARIANT VARIANT
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * public static ?int $MaxCandidates
@@ -1592,6 +1616,7 @@ _Including above methods from public API_
 * protected const CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RP_VARIANT VARIANT
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * public static ?int $MaxCandidates
@@ -1638,6 +1663,7 @@ _Including above methods from public API_
 * public const array DEFAULT_METHODS_CHAINING
 * final public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * public static ?int $MaxOutcomeComparisons
@@ -1702,6 +1728,7 @@ _Including above methods from public API_
 * final public const bool IS_PROPORTIONAL
 * public const array METHOD_NAME
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * public static CondorcetPHP\Condorcet\Algo\Tools\StvQuotas $optionQuota
@@ -1739,6 +1766,7 @@ _Including above methods from public API_
 ```php
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 * public const array METHOD_NAME
 
@@ -1777,6 +1805,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * protected array $StrongestPaths
@@ -1814,6 +1843,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * protected array $StrongestPaths
@@ -1851,6 +1881,7 @@ _Including above methods from public API_
 * public const array METHOD_NAME
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
+* public const bool IS_INFORMATIONAL
 * public const int DECIMAL_PRECISION
 
 * protected array $StrongestPaths
@@ -1886,6 +1917,7 @@ _Including above methods from public API_
 
 ```php
 * public const array METHOD_NAME
+* public const bool IS_INFORMATIONAL
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
 * public const int DECIMAL_PRECISION
@@ -1923,6 +1955,7 @@ _Including above methods from public API_
 
 ```php
 * public const array METHOD_NAME
+* public const bool IS_INFORMATIONAL
 * public const bool IS_PROPORTIONAL
 * public const bool IS_DETERMINISTIC
 * public const int DECIMAL_PRECISION

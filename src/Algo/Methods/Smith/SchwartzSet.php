@@ -25,6 +25,9 @@ class SchwartzSet extends Method implements MethodInterface
 {
     public const array METHOD_NAME = ['Schwartz set', 'Schwartz'];
 
+    public const bool IS_INFORMATIONAL = true;
+
+    /** @var array<int, int> Array of candidate IDs in the Schwartz Set */
     protected readonly array $SchwartzSet;
 
     #[\Override]

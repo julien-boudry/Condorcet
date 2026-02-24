@@ -55,3 +55,14 @@ test('example with 12 candidates from electowiki', function (): void {
 
     // expect($election->getWinner('Schulze'))->toBe('B');;
 });
+
+test('IS_INFORMATIONAL is true only for Smith and Schwartz sets', function (): void {
+    $informationalMethods = ['Smith set', 'Schwartz set'];
+
+    foreach (Condorcet::getAuthMethods() as $method) {
+        $className = Condorcet::getMethodClass($method);
+
+        expect($className::IS_INFORMATIONAL)
+            ->toBe(in_array($method, $informationalMethods, true));
+    }
+});

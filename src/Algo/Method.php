@@ -29,6 +29,7 @@ abstract class Method
 
     public const bool IS_PROPORTIONAL = false;
     public const bool IS_DETERMINISTIC = true;
+    public const bool IS_INFORMATIONAL = false;
 
     public static ?int $MaxCandidates = null;
 

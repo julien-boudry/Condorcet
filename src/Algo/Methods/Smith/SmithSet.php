@@ -25,7 +25,9 @@ class SmithSet extends Method implements MethodInterface
 {
     public const array METHOD_NAME = ['Smith set', 'Smith'];
 
+    public const bool IS_INFORMATIONAL = true;
 
+    /** @var array<int, int> Array of candidate IDs in the Smith Set */
     protected readonly array $SmithSet;
 
     #[\Override]
