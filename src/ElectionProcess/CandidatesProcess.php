@@ -334,7 +334,7 @@ trait CandidatesProcess
      * @throws CandidateExistsException
      * @throws VoteMaxNumberReachedException
      *
-     * @return array<int, Candidate> List of newly registered candidate objects. Count to check if all candidates were correctly registered.
+     * @return list<string> List of newly registered candidate objects. Count to check if all candidates were correctly registered.
      */
     public function parseCandidates(
         string $input,

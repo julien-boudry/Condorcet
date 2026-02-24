@@ -33,6 +33,9 @@ abstract class CondorcetUtil
     }
 
     // Generic action before parsing data from string input
+    /**
+     * @return array<int,string>
+     */
     public static function prepareParse(string $input, bool $isFile): array
     {
         // Is string or is file ?
