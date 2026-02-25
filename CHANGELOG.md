@@ -2,6 +2,13 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v5.0.7] - 2026-02-25
+### Description
+Bug fix and maintenance release with type annotation improvements.
+
+### Fixed
+- Restored `brick/math` version constraint to allow both `^0.14` and `^0.15` (regression introduced in v5.0.5).
+
 ## [v5.0.6] - 2026-02-24
 ### Description
 Maintenance release focused on static-analysis quality and method metadata consistency.
@@ -13,6 +20,7 @@ Maintenance release focused on static-analysis quality and method metadata consi
 - Marked `Smith set` and `Schwartz set` as informational methods (`IS_INFORMATIONAL = true`).
 - Extended test coverage to assert `IS_INFORMATIONAL` across the full authorized method list, ensuring only `Smith set` and `Schwartz set` are informational.
 - Updated PHPDoc type annotations (including return types) to improve PHPStan and static analysis quality.
+- Vote and candidate removal methods now maintain original array keys in the returned array.
 
 ## [v5.0.5] - 2026-02-21
 ### Description
