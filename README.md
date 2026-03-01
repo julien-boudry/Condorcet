@@ -22,6 +22,7 @@
 > Donation: **₿ [bc1q3jllk3qd9fjvvuqy07tawkv7t6h7qjf55fc2gh](https://blockchair.com/bitcoin/address/bc1q3jllk3qd9fjvvuqy07tawkv7t6h7qjf55fc2gh)** or **[GitHub Sponsor Page](https://github.com/sponsors/julien-boudry)**  
 > _You can also offer me a bottle of good wine._  
 
+> :ballot_box: **Also discover [Condorcet Desktop](https://github.com/julien-boudry/Condorcet.Desktop)** — a graphical app to run elections without any code, also available online at [desktop.condorcet.vote](https://desktop.condorcet.vote)
 
 Condorcet PHP<!-- {docsify-ignore-all} -->
 ===========================
