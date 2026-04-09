@@ -271,11 +271,11 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
                 if (!isset($this->candidates) && $parameter === StandardParameter::CANDIDATES) {
                     $this->addCandidates($parameterValue);
                 } elseif (!isset($this->seatsToElect) && $parameter === StandardParameter::SEATS) {
-                    $this->seatsToElect = $parameterValue; // @phpstan-ignore assign.readOnlyProperty
+                    $this->seatsToElect = $parameterValue;
                 } elseif (!isset($this->implicitRanking) && $parameter === StandardParameter::IMPLICIT) {
-                    $this->implicitRanking = $parameterValue; // @phpstan-ignore assign.readOnlyProperty
+                    $this->implicitRanking = $parameterValue;
                 } elseif (!isset($this->voteWeight) && $parameter === StandardParameter::WEIGHT) {
-                    $this->voteWeight = $parameterValue; // @phpstan-ignore assign.readOnlyProperty
+                    $this->voteWeight = $parameterValue;
                 }
             }
         }
