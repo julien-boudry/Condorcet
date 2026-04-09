@@ -245,7 +245,8 @@ test('bad table schema1', function (): void {
 });
 
 test('bad table schema2', function (): void {
-    $this->expectException(Exception::class);
+    $this->expectException(DataHandlerException::class);
+    $this->expectExceptionMessage('Problem with data handler: invalid structure template for PdoHandler');
 
     $pdo = getPDO();
     new PdoHandlerDriver($pdo, true, ['tableName' => 'B@adName', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);

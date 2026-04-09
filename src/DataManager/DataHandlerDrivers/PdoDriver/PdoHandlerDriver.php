@@ -71,6 +71,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     {
         if (!empty($struct['tableName']) && !empty($struct['primaryColumnName']) && !empty($struct['dataColumnName'])
                 && \is_string($struct['tableName']) && \is_string($struct['primaryColumnName']) && \is_string($struct['dataColumnName'])
+                && self::isValidIdentifier($struct['tableName']) && self::isValidIdentifier($struct['primaryColumnName']) && self::isValidIdentifier($struct['dataColumnName'])
         ) {
             return true;
         } else {
@@ -78,12 +79,29 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         }
     }
 
+    protected static function isValidIdentifier(string $identifier): bool
+    {
+        return preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $identifier) === 1;
+    }
+
+    protected function quoteIdentifier(string $identifier): string
+    {
+        return match ($this->handler->getAttribute(\PDO::ATTR_DRIVER_NAME)) {
+            'mysql' => '`' . str_replace('`', '``', $identifier) . '`',
+            default => '"' . str_replace('"', '""', $identifier) . '"',
+        };
+    }
+
     public function createTable(): void
     {
         $dataType = (self::$preferBlobInsteadVarchar) ? 'BLOB' : 'VARCHAR';
 
+        $table = $this->quoteIdentifier($this->struct['tableName']);
+        $primary = $this->quoteIdentifier($this->struct['primaryColumnName']);
+        $data = $this->quoteIdentifier($this->struct['dataColumnName']);
+
         $tableCreationQuery = match ($this->handler->getAttribute(\PDO::ATTR_DRIVER_NAME)) {
-            default => 'CREATE TABLE IF NOT EXISTS ' . $this->struct['tableName'] . ' (' . $this->struct['primaryColumnName'] . ' INT AUTO_INCREMENT PRIMARY KEY NOT NULL , ' . $this->struct['dataColumnName'] . ' ' . $dataType . ' NOT NULL );'
+            default => 'CREATE TABLE IF NOT EXISTS ' . $table . ' (' . $primary . ' INT AUTO_INCREMENT PRIMARY KEY NOT NULL , ' . $data . ' ' . $dataType . ' NOT NULL );'
         };
 
         $this->handler->exec($tableCreationQuery);
@@ -91,17 +109,21 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
     protected function initPrepareQuery(): void
     {
+        $table = $this->quoteIdentifier($this->struct['tableName']);
+        $primary = $this->quoteIdentifier($this->struct['primaryColumnName']);
+        $data = $this->quoteIdentifier($this->struct['dataColumnName']);
+
         $template = [];
 
         // Base - Small query ends
         $template['end_template'] = ';';
-        $template['insert_template'] = 'INSERT INTO ' . $this->struct['tableName'] . ' (' . $this->struct['primaryColumnName'] . ', ' . $this->struct['dataColumnName'] . ') VALUES ';
-        $template['delete_template'] = 'DELETE FROM ' . $this->struct['tableName'] . ' WHERE ' . $this->struct['primaryColumnName'];
-        $template['select_template'] = 'SELECT ' . $this->struct['primaryColumnName'] . ',' . $this->struct['dataColumnName'] . ' FROM ' . $this->struct['tableName'] . ' WHERE ' . $this->struct['primaryColumnName'];
+        $template['insert_template'] = 'INSERT INTO ' . $table . ' (' . $primary . ', ' . $data . ') VALUES ';
+        $template['delete_template'] = 'DELETE FROM ' . $table . ' WHERE ' . $primary;
+        $template['select_template'] = 'SELECT ' . $primary . ',' . $data . ' FROM ' . $table . ' WHERE ' . $primary;
 
         // Select the max / min key value. Usefull if array cursor is lost on DataManager.
-        $this->prepare['selectMaxKey'] = $this->handler->prepare('SELECT max(' . $this->struct['primaryColumnName'] . ') FROM ' . $this->struct['tableName'] . $template['end_template']);
-        $this->prepare['selectMinKey'] = $this->handler->prepare('SELECT min(' . $this->struct['primaryColumnName'] . ') FROM ' . $this->struct['tableName'] . $template['end_template']);
+        $this->prepare['selectMaxKey'] = $this->handler->prepare('SELECT max(' . $primary . ') FROM ' . $table . $template['end_template']);
+        $this->prepare['selectMinKey'] = $this->handler->prepare('SELECT min(' . $primary . ') FROM ' . $table . $template['end_template']);
 
         // Insert many Entities
         $makeMany = static function (int $how) use (&$template): string {
@@ -129,10 +151,10 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         $this->prepare['selectOneEntity'] = $this->handler->prepare($template['select_template'] . ' = ?' . $template['end_template']);
 
         // Get a range of Entity
-        $this->prepare['selectRangeEntities'] = $this->handler->prepare($template['select_template'] . ' >= :startKey order by ' . $this->struct['primaryColumnName'] . ' asc LIMIT :limit' . $template['end_template']);
+        $this->prepare['selectRangeEntities'] = $this->handler->prepare($template['select_template'] . ' >= :startKey order by ' . $primary . ' asc LIMIT :limit' . $template['end_template']);
 
         // Count Entities
-        $this->prepare['countEntities'] = $this->handler->prepare('SELECT count(' . $this->struct['primaryColumnName'] . ') FROM ' . $this->struct['tableName'] . $template['end_template']);
+        $this->prepare['countEntities'] = $this->handler->prepare('SELECT count(' . $primary . ') FROM ' . $table . $template['end_template']);
     }
 
     protected function initTransaction(): void
