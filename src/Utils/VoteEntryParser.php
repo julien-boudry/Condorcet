@@ -30,7 +30,7 @@ class VoteEntryParser
 
         // Disallow < and "
         if (preg_match('/<|"/mi', $entry) === 1) {
-            throw new VoteInvalidFormatException("found '<' or '|' in " . $entry);
+            throw new VoteInvalidFormatException("found '<' or '\"' in " . $entry);
         }
 
         $this->comment = self::getComment($entry, true);
