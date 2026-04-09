@@ -30,3 +30,4 @@ test.php
 # Sys
 .DS_Store
 completion.sh
+.claude/settings.local.json
