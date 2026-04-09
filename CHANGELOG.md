@@ -2,6 +2,17 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v5.0.8] - 2026-04-09
+### Description
+Security hardening release.
+
+### Fixed
+- **SQL identifier quoting in PdoHandlerDriver** (low severity — the `$struct` parameter is not intended to receive user input): Table and column names were interpolated directly into SQL queries without escaping. Added identifier quoting (`quoteIdentifier()`) and strict validation (`^[a-zA-Z_][a-zA-Z0-9_]*$`) to reject unsafe identifiers.
+- **Misleading error message in VoteEntryParser**: The exception message incorrectly reported `'|'` instead of `'"'` as the filtered character.
+
+### Changed
+- Added a security warning on `Election::__unserialize()` advising against using PHP native `unserialize()` on untrusted data and recommending Condorcet Election Format (CEF) for untrusted imports.
+
 ## [v5.0.7] - 2026-02-25
 ### Description
 Bug fix and maintenance release with type annotation improvements.
