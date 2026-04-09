@@ -188,6 +188,13 @@ class Election
         return $include;
     }
 
+    /**
+     * WARNING: PHP native unserialize() is not safe with untrusted data.
+     * Never call unserialize() on data from an untrusted source, as it may allow object injection attacks.
+     * For importing election data from an untrusted source, use a safe format like Condorcet Election Format (CEF).
+     *
+     * @see \CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat
+     */
     public function __unserialize(array $data): void
     {
         // Only compare major and minor version numbers, not patch level
