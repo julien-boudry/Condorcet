@@ -1,6 +1,6 @@
 {
 	"name": "Dev Codespace - PHP Current Stable",
-	"image": "mcr.microsoft.com/devcontainers/php:8.4-bookworm",
+	"image": "mcr.microsoft.com/devcontainers/php:8.5-trixie",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},

@@ -1,4 +1,4 @@
-FROM php:8.4-cli-bookworm
+FROM php:8.5-cli-trixie
 
 COPY . /usr/src/condorcetapp
 WORKDIR /usr/src/condorcetapp
