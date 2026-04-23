@@ -86,7 +86,21 @@ class Combinations
     public static function computeGenerator(array $values, int $length, array $append_before = []): \Generator
     {
         $count = \count($values);
-        $size = 2 ** $count;
+
+        if (self::$useBigIntegerIfAvailable && class_exists(BigInteger::class)) {
+            try {
+                $size = BigInteger::of(2)->power($count)->toInt();
+            } catch (IntegerOverflowException $e) {
+                throw new CondorcetIntegerOverflowException($e->getMessage());
+            }
+        } else {
+            $size = 2 ** $count;
+
+            if (\is_float($size)) { // @phpstan-ignore-line
+                throw new CondorcetIntegerOverflowException;
+            }
+        }
+
         $keys = array_keys($values);
 
         for ($i = 0; $i < $size; $i++) {

@@ -80,6 +80,8 @@ Both approaches can handle massive numbers of votes (hundreds of millions) on mo
 
 _All versions require Json and Mbstring extensions (or polyfill). Pdo-Sqlite is recommended for elections with hundreds of thousands of votes or more._
 
+_Condorcet targets 64-bit PHP builds. 32-bit runtimes are not part of the test matrix: combinatorial code paths (permutations, combinations) throw `IntegerOverflowException` earlier on 32-bit, and large pairwise vote aggregations can overflow `PHP_INT_MAX` (≈ 2.1×10⁹)._
+
 ## Supported Voting Methods
 Condorcet supports both "single-winner" methods _(with full ranking extrapolation)_ and proportional representation systems.
 

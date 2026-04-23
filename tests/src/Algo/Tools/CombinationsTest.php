@@ -65,3 +65,22 @@ test('integer overflow', function (): void {
 
     Combinations::getPossibleCountOfCombinations(\PHP_INT_MAX - 1, 2);
 });
+
+test('computeGenerator integer overflow with big int', function (): void {
+    $this->expectException(IntegerOverflowException::class);
+
+    // 2 ** 64 overflows PHP_INT_MAX on any architecture (and 2 ** 31 on 32-bit).
+    $values = range(1, 64);
+
+    Combinations::computeGenerator($values, 1)->current();
+});
+
+test('computeGenerator integer overflow without big int', function (): void {
+    Combinations::$useBigIntegerIfAvailable = false;
+
+    $this->expectException(IntegerOverflowException::class);
+
+    $values = range(1, 64);
+
+    Combinations::computeGenerator($values, 1)->current();
+});
