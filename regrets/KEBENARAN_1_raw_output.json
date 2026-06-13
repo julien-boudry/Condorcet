@@ -1,0 +1,210 @@
+{
+    "schulze-winning": [
+        {
+            "1": "A",
+            "2": "B",
+            "3": "C"
+        },
+        {
+            "1": "Alice",
+            "2": "Bob",
+            "3": "Charlie",
+            "4": "Dave"
+        },
+        {
+            "1": "X",
+            "2": "Y"
+        }
+    ],
+    "borda-count": [
+        {
+            "1": "A",
+            "2": "B",
+            "3": "C"
+        },
+        {
+            "1": "Green",
+            "2": "Blue",
+            "3": "Red",
+            "4": "Yellow"
+        },
+        {
+            "1": [
+                "X",
+                "Y"
+            ]
+        }
+    ],
+    "copeland": [
+        {
+            "1": "A",
+            "2": "B",
+            "3": "C"
+        },
+        {
+            "1": [
+                "Q",
+                "R"
+            ],
+            "2": [
+                "P",
+                "S"
+            ]
+        }
+    ],
+    "ranked-pairs-winning": [
+        {
+            "1": "A",
+            "2": "B",
+            "3": "C"
+        },
+        {
+            "1": [
+                "Chattanooga",
+                "Nashville"
+            ],
+            "2": "Knoxville",
+            "3": "Memphis"
+        }
+    ],
+    "instant-runoff": [
+        {
+            "1": "A",
+            "2": "B",
+            "3": "C"
+        },
+        {
+            "1": "Center",
+            "2": "Left",
+            "3": "Right"
+        }
+    ],
+    "minimax-winning": [
+        {
+            "1": "A",
+            "2": [
+                "B",
+                "C"
+            ]
+        },
+        {
+            "1": [
+                "Alpha",
+                "Beta",
+                "Gamma"
+            ]
+        }
+    ],
+    "kemeny-young": [
+        {
+            "1": "A",
+            "2": "B",
+            "3": "C"
+        },
+        {
+            "1": "Dog",
+            "2": "Cat",
+            "3": "Bird"
+        }
+    ],
+    "smith-set": [
+        {
+            "1": "A",
+            "2": [
+                "B",
+                "C"
+            ]
+        },
+        {
+            "1": [
+                "W",
+                "X",
+                "Y",
+                "Z"
+            ]
+        }
+    ],
+    "pairwise-comparison": [
+        {
+            "A": {
+                "B": {
+                    "win": 2,
+                    "null": 0,
+                    "lose": 1
+                },
+                "C": {
+                    "win": 2,
+                    "null": 0,
+                    "lose": 1
+                }
+            },
+            "B": {
+                "A": {
+                    "win": 1,
+                    "null": 0,
+                    "lose": 2
+                },
+                "C": {
+                    "win": 2,
+                    "null": 0,
+                    "lose": 1
+                }
+            },
+            "C": {
+                "A": {
+                    "win": 1,
+                    "null": 0,
+                    "lose": 2
+                },
+                "B": {
+                    "win": 1,
+                    "null": 0,
+                    "lose": 2
+                }
+            }
+        },
+        {
+            "Blue": {
+                "Green": {
+                    "win": 2,
+                    "null": 0,
+                    "lose": 1
+                },
+                "Red": {
+                    "win": 1,
+                    "null": 0,
+                    "lose": 2
+                }
+            },
+            "Green": {
+                "Blue": {
+                    "win": 1,
+                    "null": 0,
+                    "lose": 2
+                },
+                "Red": {
+                    "win": 2,
+                    "null": 0,
+                    "lose": 1
+                }
+            },
+            "Red": {
+                "Blue": {
+                    "win": 2,
+                    "null": 0,
+                    "lose": 1
+                },
+                "Green": {
+                    "win": 1,
+                    "null": 0,
+                    "lose": 2
+                }
+            }
+        }
+    ],
+    "combinations-count": [
+        10,
+        120,
+        4
+    ]
+}
