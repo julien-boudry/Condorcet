@@ -1,0 +1,62 @@
+{
+    "schulze-winning": {
+        "fingerprint": "38ohmir",
+        "entry": "runSchulzeWinning",
+        "stack": "php",
+        "fingerprintLevel": "entry"
+    },
+    "borda-count": {
+        "fingerprint": "38ohmir",
+        "entry": "runBordaCount",
+        "stack": "php",
+        "fingerprintLevel": "entry"
+    },
+    "copeland": {
+        "fingerprint": "38ohmir",
+        "entry": "runCopeland",
+        "stack": "php",
+        "fingerprintLevel": "entry"
+    },
+    "ranked-pairs-winning": {
+        "fingerprint": "38ohmir",
+        "entry": "runRankedPairsWinning",
+        "stack": "php",
+        "fingerprintLevel": "entry"
+    },
+    "instant-runoff": {
+        "fingerprint": "38ohmir",
+        "entry": "runInstantRunoff",
+        "stack": "php",
+        "fingerprintLevel": "entry"
+    },
+    "minimax-winning": {
+        "fingerprint": "69cmbz2",
+        "entry": "runMinimaxWinning",
+        "stack": "php",
+        "fingerprintLevel": "entry"
+    },
+    "kemeny-young": {
+        "fingerprint": "38ohmir",
+        "entry": "runKemenyYoung",
+        "stack": "php",
+        "fingerprintLevel": "entry"
+    },
+    "smith-set": {
+        "fingerprint": "69cmbz2",
+        "entry": "runSmithSet",
+        "stack": "php",
+        "fingerprintLevel": "entry"
+    },
+    "pairwise-comparison": {
+        "fingerprint": "1hao03o",
+        "entry": "runPairwiseComparison",
+        "stack": "php",
+        "fingerprintLevel": "entry"
+    },
+    "combinations-count": {
+        "fingerprint": "ed3si17",
+        "entry": "runCombinationsCount",
+        "stack": "php",
+        "fingerprintLevel": "entry"
+    }
+}

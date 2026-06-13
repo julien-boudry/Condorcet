@@ -1,0 +1,137 @@
+{
+  "clusters": [
+    {
+      "id": "schulze-winning",
+      "entry": "runSchulzeWinning",
+      "watches": ["runSchulzeWinning"],
+      "file": "regrets/wrappers/election_test.php",
+      "stack": "php",
+      "fingerprintLevel": "entry",
+      "description": "Schulze Winning Condorcet method — determines election ranking via strongest paths",
+      "inputs": [
+        {"candidates": ["A", "B", "C"], "votes": ["A > B > C", "A > C > B", "B > C > A"]},
+        {"candidates": ["Alice", "Bob", "Charlie", "Dave"], "votes": ["Alice > Bob > Charlie > Dave", "Bob > Charlie > Alice > Dave", "Charlie > Alice > Bob > Dave", "Dave > Alice > Bob > Charlie"]},
+        {"candidates": ["X", "Y"], "votes": ["X > Y", "X > Y", "Y > X"]}
+      ]
+    },
+    {
+      "id": "borda-count",
+      "entry": "runBordaCount",
+      "watches": ["runBordaCount"],
+      "file": "regrets/wrappers/election_test.php",
+      "stack": "php",
+      "fingerprintLevel": "entry",
+      "description": "Borda Count method — ranks candidates by point accumulation across all ballots",
+      "inputs": [
+        {"candidates": ["A", "B", "C"], "votes": ["A > B > C", "A > C > B", "B > C > A"]},
+        {"candidates": ["Red", "Blue", "Green", "Yellow"], "votes": ["Red > Blue > Green > Yellow", "Blue > Green > Yellow > Red", "Green > Yellow > Red > Blue"]},
+        {"candidates": ["X", "Y"], "votes": ["X > Y", "Y > X"]}
+      ]
+    },
+    {
+      "id": "copeland",
+      "entry": "runCopeland",
+      "watches": ["runCopeland"],
+      "file": "regrets/wrappers/election_test.php",
+      "stack": "php",
+      "fingerprintLevel": "entry",
+      "description": "Copeland method — counts pairwise wins and losses for each candidate",
+      "inputs": [
+        {"candidates": ["A", "B", "C"], "votes": ["A > B > C", "A > C > B", "B > C > A"]},
+        {"candidates": ["P", "Q", "R", "S"], "votes": ["P > Q > R > S", "Q > R > S > P", "R > S > P > Q"]}
+      ]
+    },
+    {
+      "id": "ranked-pairs-winning",
+      "entry": "runRankedPairsWinning",
+      "watches": ["runRankedPairsWinning"],
+      "file": "regrets/wrappers/election_test.php",
+      "stack": "php",
+      "fingerprintLevel": "entry",
+      "description": "Ranked Pairs Winning variant — locks strongest pairwise victories in order",
+      "inputs": [
+        {"candidates": ["A", "B", "C"], "votes": ["A > B > C", "A > C > B", "B > C > A"]},
+        {"candidates": ["Memphis", "Nashville", "Chattanooga", "Knoxville"], "votes": ["Memphis > Nashville > Chattanooga > Knoxville", "Nashville > Chattanooga > Knoxville > Memphis", "Chattanooga > Knoxville > Nashville > Memphis", "Knoxville > Chattanooga > Nashville > Memphis"]}
+      ]
+    },
+    {
+      "id": "instant-runoff",
+      "entry": "runInstantRunoff",
+      "watches": ["runInstantRunoff"],
+      "file": "regrets/wrappers/election_test.php",
+      "stack": "php",
+      "fingerprintLevel": "entry",
+      "description": "Instant Runoff Voting — eliminates lowest-ranked candidate each round",
+      "inputs": [
+        {"candidates": ["A", "B", "C"], "votes": ["A > B > C", "A > C > B", "B > C > A"]},
+        {"candidates": ["Left", "Center", "Right"], "votes": ["Left > Center > Right", "Left > Center > Right", "Center > Right > Left", "Right > Center > Left"]}
+      ]
+    },
+    {
+      "id": "minimax-winning",
+      "entry": "runMinimaxWinning",
+      "watches": ["runMinimaxWinning"],
+      "file": "regrets/wrappers/election_test.php",
+      "stack": "php",
+      "fingerprintLevel": "entry",
+      "description": "Minimax Winning variant — candidate with smallest worst pairwise defeat",
+      "inputs": [
+        {"candidates": ["A", "B", "C"], "votes": ["A > B > C", "A > C > B", "B > C > A"]},
+        {"candidates": ["Alpha", "Beta", "Gamma"], "votes": ["Alpha > Beta > Gamma", "Beta > Gamma > Alpha", "Gamma > Alpha > Beta"]}
+      ]
+    },
+    {
+      "id": "kemeny-young",
+      "entry": "runKemenyYoung",
+      "watches": ["runKemenyYoung"],
+      "file": "regrets/wrappers/election_test.php",
+      "stack": "php",
+      "fingerprintLevel": "entry",
+      "description": "Kemeny-Young method — finds ranking that maximizes pairwise agreement",
+      "inputs": [
+        {"candidates": ["A", "B", "C"], "votes": ["A > B > C", "A > C > B", "B > C > A"]},
+        {"candidates": ["Dog", "Cat", "Bird"], "votes": ["Dog > Cat > Bird", "Cat > Bird > Dog", "Bird > Dog > Cat"]}
+      ]
+    },
+    {
+      "id": "smith-set",
+      "entry": "runSmithSet",
+      "watches": ["runSmithSet"],
+      "file": "regrets/wrappers/election_test.php",
+      "stack": "php",
+      "fingerprintLevel": "entry",
+      "description": "Smith Set — smallest set of candidates who defeat all others pairwise",
+      "inputs": [
+        {"candidates": ["A", "B", "C"], "votes": ["A > B > C", "A > C > B", "B > C > A"]},
+        {"candidates": ["W", "X", "Y", "Z"], "votes": ["W > X > Y > Z", "X > Y > Z > W", "Y > Z > W > X", "Z > W > X > Y"]}
+      ]
+    },
+    {
+      "id": "pairwise-comparison",
+      "entry": "runPairwiseComparison",
+      "watches": ["runPairwiseComparison"],
+      "file": "regrets/wrappers/election_test.php",
+      "stack": "php",
+      "fingerprintLevel": "entry",
+      "description": "Pairwise comparison matrix — win/lose/null counts for each candidate pair",
+      "inputs": [
+        {"candidates": ["A", "B", "C"], "votes": ["A > B > C", "A > C > B", "B > C > A"]},
+        {"candidates": ["Red", "Blue", "Green"], "votes": ["Red > Blue > Green", "Blue > Green > Red", "Green > Red > Blue"]}
+      ]
+    },
+    {
+      "id": "combinations-count",
+      "entry": "runCombinationsCount",
+      "watches": ["runCombinationsCount"],
+      "file": "regrets/wrappers/election_test.php",
+      "stack": "php",
+      "fingerprintLevel": "entry",
+      "description": "Combinations utility — calculates number of possible combinations C(n,k)",
+      "inputs": [
+        {"count": 5, "length": 2},
+        {"count": 10, "length": 3},
+        {"count": 4, "length": 1}
+      ]
+    }
+  ]
+}
