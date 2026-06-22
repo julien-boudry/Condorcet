@@ -25,6 +25,6 @@ class CompleteRanking implements VoteConstraintInterface
 {
     public static function isVoteAllowed(Election $election, Vote $vote): bool
     {
-        return \count($vote->getAllCandidates()) === $election->countCandidates();
+        return $vote->countCandidates === $election->countCandidates();
     }
 }
