@@ -2,6 +2,18 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v5.0.9] - 2026-06-22
+### Description
+New built-in vote constraints and a correctness fix for large combination sets.
+
+### Added
+- **`CompleteRanking` constraint** (`CondorcetPHP\Condorcet\Constraints\CompleteRanking`): rejects votes that do not explicitly rank every candidate. The check is performed on the raw ballot (not on the implicit-ranking completion), so partial rankings are rejected even when implicit ranking is enabled. Ties are allowed; only completeness is enforced.
+- **`NoBlankVote` constraint** (`CondorcetPHP\Condorcet\Constraints\NoBlankVote`): rejects blank ballots (a vote that ranks no candidate at all). Like `CompleteRanking`, the check ignores implicit ranking and operates on the raw ballot.
+
+### Fixed
+- **Integer overflow in `Combinations::computeGenerator()`**: computing `2 ** $count` for large candidate sets silently returned a float on 32-bit builds or very large inputs, producing wrong iteration bounds. The method now uses `brick/math` (`BigInteger::of(2)->power($count)->toInt()`) when available, and falls back to a native float-check guard otherwise. Both paths throw `CondorcetIntegerOverflowException` when the value exceeds `PHP_INT_MAX`.
+- Updated `brick/math` version constraint to also accept `^0.18`.
+
 ## [v5.0.8] - 2026-04-09
 ### Description
 Security hardening release.
