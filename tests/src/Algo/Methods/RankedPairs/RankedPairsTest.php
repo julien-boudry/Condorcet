@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 
 beforeEach(function (): void {
@@ -315,15 +316,83 @@ test('result 11', function (): void {
         ->not()->toEqual($this->election->getResult('Ranked Pairs Winning')->rankingAsArrayString);
 });
 
+test('stats with high verbosity', function (): void {
+    # From https://en.wikipedia.org/wiki/Ranked_pairs
+    $this->election->addCandidate('Memphis');
+    $this->election->addCandidate('Nashville');
+    $this->election->addCandidate('Knoxville');
+    $this->election->addCandidate('Chattanooga');
+
+    $this->election->parseVotes('
+            Memphis > Nashville > Chattanooga * 42
+            Nashville > Chattanooga > Knoxville * 26
+            Chattanooga > Knoxville > Nashville * 15
+            Knoxville > Chattanooga > Nashville * 17
+        ');
+
+    $this->election->setStatsVerbosity(StatsVerbosity::HIGH);
+
+    $stats = $this->election->getResult('Ranked Pairs Winning')->stats;
+
+    expect($stats['rounds'])->toBe(3);
+    expect($stats['lockedPairsCount'])->toBe(6);
+    expect($stats['rejectedPairsCount'])->toBe(0);
+
+    expect($stats['pairs'])->toBe([
+        1 => [
+            ['winner' => 'Chattanooga', 'loser' => 'Knoxville', 'strength' => 83, 'locked' => true],
+        ],
+        2 => [
+            ['winner' => 'Nashville', 'loser' => 'Knoxville', 'strength' => 68, 'locked' => true],
+            ['winner' => 'Nashville', 'loser' => 'Chattanooga', 'strength' => 68, 'locked' => true],
+        ],
+        3 => [
+            ['winner' => 'Nashville', 'loser' => 'Memphis', 'strength' => 58, 'locked' => true],
+            ['winner' => 'Knoxville', 'loser' => 'Memphis', 'strength' => 58, 'locked' => true],
+            ['winner' => 'Chattanooga', 'loser' => 'Memphis', 'strength' => 58, 'locked' => true],
+        ],
+    ]);
+});
+
+test('stats rejected pairs', function (): void {
+    # Condorcet paradox: C > A is rejected because it would create a cycle
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
+    $this->election->addCandidate('C');
+
+    $this->election->parseVotes('
+            A > B > C * 40
+            B > C > A * 35
+            C > A > B * 25
+        ');
+
+    $stats = $this->election->getResult('Ranked Pairs Winning')->stats;
+
+    expect($stats['rounds'])->toBe(3);
+    expect($stats['lockedPairsCount'])->toBe(2);
+    expect($stats['rejectedPairsCount'])->toBe(1);
+
+    // Full pairs detail is only available from StatsVerbosity::HIGH
+    expect(isset($stats['pairs']))->toBeFalse();
+
+    $this->election->setStatsVerbosity(StatsVerbosity::HIGH);
+
+    expect($this->election->getResult('Ranked Pairs Winning')->stats['pairs'])->toBe([
+        1 => [['winner' => 'B', 'loser' => 'C', 'strength' => 75, 'locked' => true]],
+        2 => [['winner' => 'A', 'loser' => 'B', 'strength' => 65, 'locked' => true]],
+        3 => [['winner' => 'C', 'loser' => 'A', 'strength' => 60, 'locked' => false]],
+    ]);
+});
+
 test('max candidates', function (): void {
-    for ($i = 0; $i < 61; $i++) {
+    for ($i = 0; $i < 501; $i++) {
         $this->election->addCandidate();
     }
 
     $this->election->parseVotes('A');
 
     $this->expectException(CandidatesMaxNumberReachedException::class);
-    $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Ranked Pairs Winning' is configured to accept only 60 candidates");
+    $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Ranked Pairs Winning' is configured to accept only 500 candidates");
 
     $this->election->getWinner('Ranked Pairs Winning');
 });
